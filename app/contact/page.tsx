@@ -1,9 +1,11 @@
-import Hero from "../components/ui/Karachi-flames";
+import Contact from "@/components/ui/contact";
+
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Contact />
 
     </>
   );

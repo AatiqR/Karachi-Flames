@@ -1,9 +1,11 @@
-import Hero from "../components/ui/Karachi-flames";
+import Gallery from "@/components/ui/Gallery";
+
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Gallery />
 
     </>
   );

@@ -1,9 +1,11 @@
-import Hero from "../components/ui/Karachi-flames";
+import Menu from "@/components/ui/Menu";
+
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Menu />
 
     </>
   );

@@ -1,9 +1,10 @@
-import Hero from "../components/ui/Karachi-flames";
+import About from "@/components/ui/About";
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <About />
 
     </>
   );

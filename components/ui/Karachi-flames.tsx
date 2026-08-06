@@ -55,19 +55,19 @@ export interface KarachiFlamesHeroProps {
 // ---------------------------------------------------------------------------
 
 const DEFAULT_NAV: NavLink[] = [
-  { label: "Menu", href: "#menu" },
-  { label: "Locations", href: "#locations" },
-  { label: "Catering", href: "#catering" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
+  { label: "Menu", href: "/menu" },
+  { label: "Locations", href: "/location" },
+  { label: "Catering", href: "/catering" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const DEFAULT_SOCIALS: SocialLink[] = [
-  { platform: "instagram", href: "https://instagram.com" },
-  { platform: "facebook", href: "https://facebook.com" },
-  { platform: "tiktok", href: "https://tiktok.com" },
-  { platform: "youtube", href: "https://youtube.com" },
-  { platform: "twitter", href: "https://twitter.com" },
+  { platform: "instagram", href: "https://instagram.com/karachiflamesdmv" },
+  { platform: "facebook", href: "https://facebook.com/karachiflamesdmv" },
+  { platform: "tiktok", href: "https://tiktok.com/karachiflamesdmv" },
+ 
 ];
 
 /** Fixed ember layout — position %, size px, timing, drift, opacity, colour */
@@ -429,7 +429,7 @@ export default function KarachiFlamesHero({
       <div className="relative z-10 mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-6 text-center">
         {/* Eyebrow */}
         <p
-          className="kf-fade-up mb-4 inline-flex items-center gap-2.5 rounded-full border border-white/[0.12] bg-black/30 px-4 py-1.5 font-sans text-[9px] uppercase tracking-[0.32em] text-[#F5F1E8]/75 backdrop-blur-md sm:text-[10px]"
+          className="kf-fade-up mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/[0.12] bg-black/30 px-4 py-1.5 font-sans text-[9px] uppercase tracking-[0.32em] text-[#F5F1E8]/75 backdrop-blur-md sm:text-[10px]"
           style={{ animationDelay: "0.05s" }}
         >
           <span aria-hidden="true" className="kf-glow-dot inline-block h-1.5 w-1.5 rounded-full bg-[#E08A2B]" />
