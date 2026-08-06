@@ -721,7 +721,7 @@ export default function GalleryPage() {
               ["Menu", "/menu"],
               ["Gallery", "/gallery"],
               ["Catering", "/catering"],
-              ["Locations", "/locations"],
+              ["Locations", "/location"],
             ].map(([label, href]) => (
               <Link
                 key={label}
@@ -765,7 +765,7 @@ export default function GalleryPage() {
               ["Menu", "/menu"],
               ["Gallery", "/gallery"],
               ["Catering", "/catering"],
-              ["Locations", "/locations"],
+              ["Locations", "/location"],
             ].map(([label, href]) => (
               <Link
                 key={label}
@@ -1113,7 +1113,7 @@ export default function GalleryPage() {
                   </Link>
                 </div>
                 <Link
-                  href="/locations"
+                  href="/location"
                   className="group mt-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#F5F1E8]/55 transition-colors hover:text-[#D66A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D66A2B]"
                 >
                   Find a Karachi Flames location <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -1158,7 +1158,7 @@ export default function GalleryPage() {
                 ["Menu", "/menu"],
                 ["Gallery", "/gallery"],
                 ["Catering", "/catering"],
-                ["Locations", "/locations"],
+                ["Locations", "/location"],
               ].map(([label, href]) => (
                 <Link
                   key={label}

@@ -289,7 +289,7 @@ export default function ContactPage() {
             <p className="kf-eyebrow"><span />MEET US HERE</p>
             <h2 id="find-heading">{content.locationTitle}</h2>
             <p>{content.locationDescription}</p>
-            <Link className="kf-button" href="/locations"><span>FIND A LOCATION</span><b>→</b></Link>
+            <Link className="kf-button" href="/location"><span>FIND A LOCATION</span><b>→</b></Link>
           </div>
         </div>
       </section>
