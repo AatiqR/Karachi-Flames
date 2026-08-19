@@ -29,7 +29,7 @@ const navigation: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
-  { label: "Catering & Private Events", href: "/catering" },
+  { label: "Catering", href: "/catering" },
   { label: "About Us", href: "/about" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact Us", href: "/contact" },
