@@ -22,7 +22,7 @@ const imagePaths = {
 };
 
 const navigation = [
-  { label: "Home", href: "/" },
+
   { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
   { label: "Catering", href: "/catering" },
@@ -187,14 +187,14 @@ function Arrow({ className = "" }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className={className}
       viewBox="0 0 24 24"
       fill="none"
+      className={className}
     >
       <path
         d="M5 12h13M13 6l6 6-6 6"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.7"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -257,32 +257,34 @@ function TikTokIcon({ className = "" }: { className?: string }) {
   );
 }
 
-function MenuIcon({
-  open,
-  className = "",
-}: {
-  open: boolean;
-  className?: string;
-}) {
+function MenuIcon({ open }: { open: boolean }) {
   return (
     <span
-      className={`relative block h-6 w-7 ${className}`}
+      className="relative block h-7 w-8"
       aria-hidden="true"
     >
       <span
-        className={`absolute left-0 top-1 block h-[2px] w-7 rounded-full bg-current transition-all duration-500 ease-[cubic-bezier(.77,0,.18,1)] ${
-          open ? "top-3 rotate-45" : ""
-        }`}
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 rotate-45" : "top-1",
+        ].join(" ")}
       />
+
       <span
-        className={`absolute left-0 top-3 block h-[2px] w-7 rounded-full bg-current transition-all duration-300 ${
-          open ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100"
-        }`}
+        className={[
+          "absolute left-0 top-3 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-300 ease-out",
+          open ? "scale-0 opacity-0" : "scale-100 opacity-100",
+        ].join(" ")}
       />
+
       <span
-        className={`absolute left-0 top-5 block h-[2px] w-7 rounded-full bg-current transition-all duration-500 ease-[cubic-bezier(.77,0,.18,1)] ${
-          open ? "top-3 -rotate-45" : ""
-        }`}
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 -rotate-45" : "top-5",
+        ].join(" ")}
       />
     </span>
   );
@@ -293,7 +295,7 @@ function Field({
   name,
   type = "text",
   placeholder,
-  required,
+  required = false,
   min,
 }: {
   label: string;
@@ -307,7 +309,7 @@ function Field({
     <label className="block">
       <span className="mb-2 block text-xs font-bold uppercase tracking-[0.14em]">
         {label}
-        {required ? <span className="text-[#c75a24]"> *</span> : null}
+        {required && <span className="text-[#c75a24]"> *</span>}
       </span>
 
       <input
@@ -316,7 +318,7 @@ function Field({
         placeholder={placeholder}
         required={required}
         min={min}
-        className="min-h-14 w-full border border-black/20 bg-transparent px-4 text-base outline-none transition placeholder:text-black/35 focus:border-[#c75a24] focus:ring-1 focus:ring-[#c75a24]"
+        className="min-h-14 w-full border border-black/20 bg-transparent px-4 text-base outline-none transition focus:border-[#c75a24] focus:ring-1 focus:ring-[#c75a24]"
       />
     </label>
   );
@@ -326,7 +328,7 @@ function SelectField({
   label,
   name,
   options,
-  required,
+  required = false,
 }: {
   label: string;
   name: string;
@@ -337,14 +339,14 @@ function SelectField({
     <label className="block">
       <span className="mb-2 block text-xs font-bold uppercase tracking-[0.14em]">
         {label}
-        {required ? <span className="text-[#c75a24]"> *</span> : null}
+        {required && <span className="text-[#c75a24]"> *</span>}
       </span>
 
       <select
         name={name}
         required={required}
         defaultValue=""
-        className="min-h-14 w-full border border-black/20 bg-transparent px-4 text-base outline-none transition focus:border-[#c75a24] focus:ring-1 focus:ring-[#c75a24]"
+        className="min-h-14 w-full border border-black/20 bg-[#f5f1e8] px-4 text-base outline-none transition focus:border-[#c75a24] focus:ring-1 focus:ring-[#c75a24]"
       >
         <option value="" disabled>
           Select an option
@@ -391,116 +393,150 @@ export default function CateringPrivateEventsPage() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#0b0b0b] text-[#f5f1e8] selection:bg-[#c75a24] selection:text-white">
-      {/* =========================================================
-          NAVBAR
-      ========================================================= */}
-      <header className="absolute inset-x-0 top-0 z-[100]">
+
+      {/* ========================= NAVBAR ========================= */}
+
+      <header className="absolute left-0 right-0 top-0 z-[100]">
         <nav
           aria-label="Main navigation"
-          className="mx-auto flex h-[88px] w-full max-w-[1700px] items-center justify-between px-5 sm:h-[96px] sm:px-8 lg:h-[108px] lg:px-12"
+          className="mx-auto flex h-[82px] w-full max-w-[1800px] items-center justify-between px-4 sm:h-[92px] sm:px-7 lg:h-[105px] lg:px-10 xl:px-14"
         >
-          {/* BIGGER LOGO */}
+
+          {/* LOGO */}
           <Link
             href="/"
             aria-label="Karachi Flames home"
             onClick={closeMenu}
-            className="relative z-[120] block h-[58px] w-[190px] shrink-0 sm:h-[68px] sm:w-[220px] lg:h-[78px] lg:w-[250px]"
+            className="relative z-[130] block h-[68px] w-[205px] shrink-0 overflow-visible sm:h-[78px] sm:w-[235px] lg:h-[88px] lg:w-[285px] xl:h-[94px] xl:w-[315px]"
           >
             <Image
               src={imagePaths.logo}
               alt="Karachi Flames"
               fill
               priority
-              sizes="(min-width: 1024px) 250px, 220px"
+              sizes="(min-width: 1280px) 315px, (min-width: 1024px) 285px, 235px"
               className="object-contain object-left"
             />
           </Link>
 
-          {/* DESKTOP NAVIGATION */}
+          {/* DESKTOP NAV */}
           <div className="hidden flex-1 items-center justify-center lg:flex">
-            <div className="flex items-center justify-center gap-7 xl:gap-9">
-              {navigation.slice(1).map((item) => {
+            <div className="flex items-center justify-center gap-5 xl:gap-7 2xl:gap-9">
+
+              {navigation.map((item) => {
                 const active = item.href === "/catering";
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`relative whitespace-nowrap py-3 text-[15px] font-bold tracking-[0.01em] transition-all duration-300 xl:text-[16px] ${
+                    className={[
+                      "group relative whitespace-nowrap px-1 py-3",
+                      "text-[14px] font-extrabold uppercase tracking-[0.02em]",
+                      "transition-all duration-300 xl:text-[15px]",
                       active
                         ? "text-[#e87636]"
-                        : "text-white/95 hover:text-[#e87636]"
-                    }`}
+                        : "text-white hover:text-[#e87636]",
+                    ].join(" ")}
                   >
                     {item.label}
 
                     <span
-                      className={`absolute bottom-0 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-[#d76a2c] transition-all duration-300 ${
-                        active ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
+                      className={[
+                        "absolute bottom-0 left-0 h-[2px] rounded-full bg-[#d76a2c]",
+                        "transition-all duration-300",
+                        active ? "w-full" : "w-0 group-hover:w-full",
+                      ].join(" ")}
                     />
                   </Link>
                 );
               })}
+
             </div>
           </div>
 
-          {/* DESKTOP ORDER BUTTON */}
+          {/* ORDER BUTTON */}
           <div className="hidden shrink-0 lg:block">
             <Link
               href="/menu"
-              className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#df7441] hover:shadow-[0_12px_35px_rgba(199,90,36,.28)] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#111]"
+              className="group inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#df7441] hover:shadow-[0_14px_40px_rgba(199,90,36,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
             >
               Order Now
-              <Arrow className="ml-2 h-4 w-4" />
+
+              <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+          {/* MOBILE BUTTON */}
           <button
             type="button"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              menuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             onClick={() => setMenuOpen((value) => !value)}
-            className="relative z-[120] flex h-14 w-14 items-center justify-center rounded-full border border-white/25 bg-black/25 text-white backdrop-blur-md transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] focus:outline-none focus:ring-2 focus:ring-[#d76a2c] lg:hidden"
+            className={[
+              "relative z-[140] flex h-14 w-14 shrink-0 items-center justify-center",
+              "rounded-full border border-white/25",
+              "bg-black/40 text-white backdrop-blur-xl",
+              "shadow-[0_8px_30px_rgba(0,0,0,0.35)]",
+              "transition-all duration-300",
+              "hover:border-[#d76a2c] hover:bg-[#c75a24]",
+              "active:scale-90",
+              "focus:outline-none focus:ring-2 focus:ring-[#d76a2c]",
+              "lg:hidden",
+            ].join(" ")}
           >
             <MenuIcon open={menuOpen} />
           </button>
         </nav>
 
-        {/* =========================================================
-            MOBILE FULL-SCREEN NAVIGATION
-        ========================================================= */}
+        {/* ================= MOBILE MENU ================= */}
+
         <div
           id="mobile-navigation"
-          className={`fixed inset-0 z-[110] h-[100dvh] w-full overflow-hidden bg-[#080808] transition-all duration-500 ease-[cubic-bezier(.77,0,.18,1)] lg:hidden ${
+          aria-hidden={!menuOpen}
+          className={[
+            "fixed inset-0 z-[120] h-[100dvh] w-full lg:hidden",
+            "bg-[#080808]",
+            "transition-all duration-500 ease-out",
             menuOpen
               ? "visible translate-y-0 opacity-100"
-              : "invisible -translate-y-full opacity-0"
-          }`}
-          aria-hidden={!menuOpen}
+              : "invisible -translate-y-full opacity-0",
+          ].join(" ")}
         >
-          {/* Background effects */}
+
+          {/* BACKGROUND GLOW */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute -right-32 top-20 h-80 w-80 rounded-full bg-[#c75a24]/10 blur-3xl" />
-            <div className="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-[#c75a24]/10 blur-3xl" />
+            <div className="absolute -right-40 top-20 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
+            <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
           </div>
 
-          <div className="relative flex h-full min-h-0 flex-col px-6 pb-8 pt-[115px] sm:px-10">
-            <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#d76a2c]">
+          {/* MOBILE CONTENT */}
+          <div className="relative flex h-full min-h-0 flex-col px-5 pb-5 pt-[96px] sm:px-8 sm:pt-[105px]">
+
+            {/* TOP INFO */}
+            <div className="flex shrink-0 items-center justify-between border-b border-white/10 pb-4">
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#d76a2c] sm:text-[10px]">
                 Explore Karachi Flames
               </p>
 
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 sm:text-[10px]">
                 Karachi
               </span>
             </div>
 
-            {/* Mobile navigation takes available height without page scrolling */}
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-              <ul className="border-t border-white/10">
+            {/* NAVIGATION
+                IMPORTANT:
+                No overflow-y-auto.
+                All seven items are fitted into the viewport.
+            */}
+            <div className="flex min-h-0 flex-1 flex-col justify-center">
+              <ul className="w-full border-t border-white/10">
+
                 {navigation.map((item, index) => {
                   const active = item.href === "/catering";
 
@@ -508,109 +544,115 @@ export default function CateringPrivateEventsPage() {
                     <li
                       key={item.href}
                       className="border-b border-white/10"
-                      style={{
-                        transitionDelay: menuOpen
-                          ? `${index * 45}ms`
-                          : "0ms",
-                      }}
                     >
                       <Link
                         href={item.href}
                         onClick={closeMenu}
-                        className={`group flex min-h-[62px] w-full items-center justify-between py-4 text-center text-[25px] font-black uppercase tracking-[-0.04em] transition-all duration-300 sm:min-h-[72px] sm:text-[32px] ${
+                        className={[
+                          "group flex w-full items-center justify-between",
+                          "py-[11px] sm:py-[13px]",
+                          "text-[20px] font-black uppercase",
+                          "tracking-[-0.035em]",
+                          "transition-all duration-300",
                           active
                             ? "text-[#e87636]"
-                            : "text-white hover:text-[#e87636]"
-                        }`}
+                            : "text-white hover:text-[#e87636]",
+                        ].join(" ")}
+                        style={{
+                          transitionDelay: menuOpen
+                            ? `${index * 35}ms`
+                            : "0ms",
+                        }}
                       >
-                        <span className="w-full text-center">{item.label}</span>
+                        <span>{item.label}</span>
 
-                        <Arrow className="h-5 w-5 shrink-0 opacity-50 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:border-[#d76a2c] group-hover:bg-[#c75a24]">
+                          <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </span>
                       </Link>
                     </li>
                   );
                 })}
+
               </ul>
             </div>
 
-            {/* Mobile CTA */}
-            <div className="mt-5 shrink-0">
+            {/* MOBILE BOTTOM */}
+            <div className="shrink-0 pt-4">
+
               <Link
                 href="/menu"
                 onClick={closeMenu}
-                className="flex min-h-14 w-full items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_35px_rgba(199,90,36,.25)] transition-all duration-300 hover:bg-[#df7441]"
+                className="group flex min-h-12 w-full items-center justify-center rounded-md bg-[#c75a24] px-5 text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(199,90,36,0.25)] transition-all duration-300 hover:bg-[#df7441] active:scale-[0.98]"
               >
                 Order Now
-                <Arrow className="ml-3 h-5 w-5" />
+
+                <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
 
-              {/* Mobile social icons */}
-              <div className="mt-5 flex items-center justify-center gap-3">
+              <div className="mt-3 flex items-center justify-center gap-2">
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Karachi Flames Instagram"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                  aria-label="Instagram"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
                 >
-                  <InstagramIcon className="h-5 w-5" />
+                  <InstagramIcon className="h-4 w-4" />
                 </a>
 
                 <a
                   href={socialLinks.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Karachi Flames Facebook"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                  aria-label="Facebook"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
                 >
-                  <FacebookIcon className="h-5 w-5" />
+                  <FacebookIcon className="h-4 w-4" />
                 </a>
 
                 <a
                   href={socialLinks.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Karachi Flames TikTok"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                  aria-label="TikTok"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
                 >
-                  <TikTokIcon className="h-5 w-5" />
+                  <TikTokIcon className="h-4 w-4" />
                 </a>
               </div>
+
             </div>
           </div>
         </div>
       </header>
 
-      {/* =========================================================
-          HERO
-      ========================================================= */}
-      <section
-        aria-labelledby="catering-title"
-        className="relative isolate min-h-[760px] overflow-hidden sm:min-h-[820px]"
-      >
+      {/* ========================= HERO ========================= */}
+
+      <section className="relative isolate min-h-[760px] overflow-hidden sm:min-h-[820px]">
+
         <Image
           src={imagePaths.hero}
-          alt="Karachi Flames barbecue prepared for a catered event"
+          alt="Karachi Flames barbecue"
           fill
           priority
           sizes="100vw"
-          className="-z-20 object-cover object-center motion-safe:animate-[hero-in_900ms_ease-out_both]"
+          className="-z-20 object-cover object-center"
         />
 
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,4,4,.94)_0%,rgba(4,4,4,.65)_48%,rgba(4,4,4,.25)_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/[0.94] via-black/[0.65] to-black/[0.2]" />
 
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_72%_25%,rgba(199,90,36,.28),transparent_27%),linear-gradient(0deg,rgba(4,4,4,.72),transparent_55%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_75%_25%,rgba(199,90,36,0.3),transparent_30%)]" />
 
         <div className="mx-auto flex min-h-[760px] max-w-[1600px] items-end px-5 pb-12 pt-36 sm:min-h-[820px] sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+
           <div className="max-w-3xl">
+
             <p className="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-[#e88651]">
               Catering &amp; Private Events
             </p>
 
-            <h1
-              id="catering-title"
-              className="max-w-2xl text-[clamp(3.35rem,8.8vw,8.5rem)] font-black uppercase leading-[0.83] tracking-[-0.075em] text-white"
-            >
+            <h1 className="max-w-2xl text-[clamp(3.2rem,8vw,8.5rem)] font-black uppercase leading-[0.84] tracking-[-0.075em] text-white">
               Bring the flame to your event.
             </h1>
 
@@ -621,6 +663,7 @@ export default function CateringPrivateEventsPage() {
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+
               <a
                 href="#inquiry"
                 className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#c75a24] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#df7441] focus:outline-none focus:ring-2 focus:ring-white"
@@ -631,13 +674,15 @@ export default function CateringPrivateEventsPage() {
 
               <a
                 href="#packages"
-                className="inline-flex min-h-14 items-center justify-center rounded-md border border-white/50 bg-black/20 px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:border-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-white"
+                className="inline-flex min-h-14 items-center justify-center rounded-md border border-white/50 bg-black/20 px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:border-white hover:bg-white hover:text-black"
               >
                 View catering menu
               </a>
+
             </div>
 
             <div className="mt-10 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
+
               <span className="relative h-8 w-10">
                 <Image
                   src={imagePaths.halal}
@@ -646,18 +691,23 @@ export default function CateringPrivateEventsPage() {
                   className="object-contain"
                 />
               </span>
+
               100% Hand-Slaughtered Zabiha Halal
+
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          EVENTS
-      ========================================================= */}
+      {/* ========================= EVENTS ========================= */}
+
       <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
+
         <div className="mx-auto max-w-[1600px]">
+
           <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_1.2fr] lg:items-end">
+
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
                 Gather around
@@ -673,25 +723,30 @@ export default function CateringPrivateEventsPage() {
               keeps the conversation at the table. Tell us what you are
               celebrating.
             </p>
+
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+
             {eventTypes.map((event) => (
               <article
                 key={event.title}
                 className="group overflow-hidden bg-[#111]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
+
                   <Image
                     src={event.image}
-                    alt={`${event.title} catered by Karachi Flames`}
+                    alt={event.title}
                     fill
                     sizes="(min-width: 1280px) 31vw, (min-width: 640px) 48vw, 100vw"
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
+
                 </div>
 
-                <div className="relative p-6 text-white">
+                <div className="p-6 text-white">
+
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#e88651]">
                     Private events
                   </span>
@@ -700,26 +755,29 @@ export default function CateringPrivateEventsPage() {
                     {event.title}
                   </h3>
 
-                  <p className="mt-3 max-w-sm text-sm leading-6 text-white/65">
+                  <p className="mt-3 text-sm leading-6 text-white/65">
                     {event.description}
                   </p>
 
-                  <span className="mt-6 inline-flex items-center text-xs font-bold uppercase tracking-[0.13em] text-[#f5f1e8]">
+                  <span className="mt-6 inline-flex items-center text-xs font-bold uppercase tracking-[0.13em]">
                     Explore
                     <Arrow className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
+
                 </div>
               </article>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          CATERING OPTIONS
-      ========================================================= */}
+      {/* ========================= OPTIONS ========================= */}
+
       <section className="bg-[#111] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+
         <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[0.76fr_1.24fr]">
+
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
               How we cater
@@ -736,11 +794,13 @@ export default function CateringPrivateEventsPage() {
           </div>
 
           <div className="border-t border-white/15">
+
             {cateringOptions.map((option) => (
               <article
                 key={option.number}
-                className="group grid gap-4 border-b border-white/15 py-7 sm:grid-cols-[70px_1fr_auto] sm:gap-7"
+                className="grid gap-4 border-b border-white/15 py-7 sm:grid-cols-[70px_1fr_auto] sm:gap-7"
               >
+
                 <span className="font-mono text-sm text-[#d76a2c]">
                   {option.number}
                 </span>
@@ -757,33 +817,39 @@ export default function CateringPrivateEventsPage() {
 
                 <a
                   href="#inquiry"
-                  className="inline-flex h-11 w-11 items-center justify-center self-center rounded-full border border-white/25 transition group-hover:border-[#d76a2c] group-hover:bg-[#c75a24] focus:outline-none focus:ring-2 focus:ring-[#d76a2c]"
-                  aria-label={`Request information about ${option.title}`}
+                  aria-label={option.title}
+                  className="inline-flex h-11 w-11 items-center justify-center self-center rounded-full border border-white/25 transition hover:border-[#d76a2c] hover:bg-[#c75a24]"
                 >
                   <Arrow className="h-5 w-5" />
                 </a>
+
               </article>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          FEATURE
-      ========================================================= */}
+      {/* ========================= FEATURE ========================= */}
+
       <section className="grid bg-[#c75a24] lg:grid-cols-2">
+
         <div className="relative min-h-[430px] lg:min-h-[670px]">
+
           <Image
             src={imagePaths.feature}
-            alt="Flame-grilled Karachi Flames barbecue"
+            alt="Karachi Flames barbecue"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-cover"
           />
+
         </div>
 
-        <div className="flex items-center px-5 py-20 sm:px-10 lg:px-16 lg:py-24">
+        <div className="flex items-center px-5 py-20 sm:px-10 lg:px-16">
+
           <div className="max-w-xl">
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-black/65">
               The Karachi Flames experience
             </p>
@@ -800,24 +866,27 @@ export default function CateringPrivateEventsPage() {
 
             <a
               href="#inquiry"
-              className="mt-9 inline-flex min-h-14 items-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-black"
+              className="mt-9 inline-flex min-h-14 items-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
             >
               Start your inquiry
               <Arrow className="ml-3 h-5 w-5" />
             </a>
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          PACKAGES
-      ========================================================= */}
+      {/* ========================= PACKAGES ========================= */}
+
       <section
         id="packages"
         className="scroll-mt-6 bg-[#0b0b0b] px-5 py-20 sm:px-8 sm:py-28 lg:px-12"
       >
+
         <div className="mx-auto max-w-[1600px]">
+
           <div className="max-w-2xl">
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
               Built around your table
             </p>
@@ -830,23 +899,27 @@ export default function CateringPrivateEventsPage() {
               Choose a starting point. Every event is different, and the final
               experience is tailored with our team.
             </p>
+
           </div>
 
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
+
             {packages.map((pkg) => (
               <article
                 key={pkg.name}
-                className={`relative flex min-h-[480px] flex-col rounded-sm border p-7 sm:p-9 ${
+                className={[
+                  "relative flex min-h-[480px] flex-col rounded-sm border p-7 sm:p-9",
                   pkg.featured
                     ? "border-[#d76a2c] bg-[#1b120e]"
-                    : "border-white/15 bg-[#111]"
-                }`}
+                    : "border-white/15 bg-[#111]",
+                ].join(" ")}
               >
-                {pkg.featured ? (
-                  <span className="absolute -top-3 left-7 rounded-sm bg-[#d76a2c] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+
+                {pkg.featured && (
+                  <span className="absolute -top-3 left-7 rounded-sm bg-[#d76a2c] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em]">
                     Most popular
                   </span>
-                ) : null}
+                )}
 
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e88651]">
                   Karachi Flames
@@ -865,12 +938,14 @@ export default function CateringPrivateEventsPage() {
                 </p>
 
                 <ul className="mt-7 space-y-4 text-sm text-white/75">
+
                   {pkg.includes.map((item) => (
                     <li key={item} className="flex gap-3">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d76a2c]" />
                       {item}
                     </li>
                   ))}
+
                 </ul>
 
                 <a
@@ -880,18 +955,22 @@ export default function CateringPrivateEventsPage() {
                   Request a quote
                   <Arrow className="ml-2 h-4 w-4" />
                 </a>
+
               </article>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          GALLERY
-      ========================================================= */}
+      {/* ========================= GALLERY ========================= */}
+
       <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
+
         <div className="mx-auto max-w-[1600px]">
+
           <div className="mb-10 max-w-2xl">
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
               A table worth gathering around
             </p>
@@ -899,13 +978,15 @@ export default function CateringPrivateEventsPage() {
             <h2 className="mt-4 text-5xl font-black uppercase leading-[0.88] tracking-[-0.06em] sm:text-6xl">
               Flavor in every frame.
             </h2>
+
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-12 lg:grid-rows-[220px_220px_220px]">
+
             <div className="relative col-span-2 min-h-[300px] overflow-hidden lg:col-span-5 lg:row-span-2 lg:min-h-0">
               <Image
                 src={imagePaths.galleryOne}
-                alt="Karachi Flames catered food spread"
+                alt="Karachi Flames catered food"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover transition duration-700 hover:scale-105"
@@ -915,7 +996,7 @@ export default function CateringPrivateEventsPage() {
             <div className="relative min-h-[180px] overflow-hidden lg:col-span-3 lg:min-h-0">
               <Image
                 src={imagePaths.galleryTwo}
-                alt="Guests enjoying a Karachi Flames event"
+                alt="Karachi Flames event"
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"
                 className="object-cover transition duration-700 hover:scale-105"
@@ -945,7 +1026,7 @@ export default function CateringPrivateEventsPage() {
             <div className="relative min-h-[180px] overflow-hidden lg:col-span-4 lg:row-span-2 lg:min-h-0">
               <Image
                 src={imagePaths.galleryThree}
-                alt="Karachi Flames platter prepared for an event"
+                alt="Karachi Flames platter"
                 fill
                 sizes="(min-width: 1024px) 34vw, 50vw"
                 className="object-cover transition duration-700 hover:scale-105"
@@ -955,22 +1036,25 @@ export default function CateringPrivateEventsPage() {
             <div className="relative col-span-2 min-h-[250px] overflow-hidden lg:col-span-5 lg:min-h-0">
               <Image
                 src={imagePaths.galleryFour}
-                alt="Flames on the Karachi Flames grill"
+                alt="Karachi Flames grill"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover transition duration-700 hover:scale-105"
               />
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          WHY KARACHI FLAMES
-      ========================================================= */}
+      {/* ========================= WHY ========================= */}
+
       <section className="bg-[#151515] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+
         <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+
           <div>
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
               The Karachi Flames difference
             </p>
@@ -978,14 +1062,17 @@ export default function CateringPrivateEventsPage() {
             <h2 className="mt-4 text-5xl font-black uppercase leading-[0.88] tracking-[-0.06em] sm:text-6xl">
               Why Karachi Flames?
             </h2>
+
           </div>
 
           <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+
             {reasons.map(([title, copy], index) => (
               <article
                 key={title}
                 className="border-t border-white/15 pt-5"
               >
+
                 <span className="font-mono text-xs text-[#d76a2c]">
                   0{index + 1}
                 </span>
@@ -997,21 +1084,25 @@ export default function CateringPrivateEventsPage() {
                 <p className="mt-3 text-sm leading-6 text-white/60">
                   {copy}
                 </p>
+
               </article>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          INQUIRY FORM
-      ========================================================= */}
+      {/* ========================= INQUIRY ========================= */}
+
       <section
         id="inquiry"
         className="scroll-mt-6 bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12"
       >
+
         <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[0.78fr_1.22fr]">
+
           <div>
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
               Start the conversation
             </p>
@@ -1026,6 +1117,7 @@ export default function CateringPrivateEventsPage() {
             </p>
 
             <div className="mt-10 border-l-2 border-[#c75a24] pl-5">
+
               <p className="text-xs font-bold uppercase tracking-[0.15em]">
                 Need to reach us directly?
               </p>
@@ -1035,6 +1127,7 @@ export default function CateringPrivateEventsPage() {
                 <br />
                 [Contact Email]
               </p>
+
             </div>
           </div>
 
@@ -1042,6 +1135,7 @@ export default function CateringPrivateEventsPage() {
             onSubmit={handleSubmit}
             className="grid gap-x-5 gap-y-6 sm:grid-cols-2"
           >
+
             <Field
               label="Name"
               name="name"
@@ -1124,6 +1218,7 @@ export default function CateringPrivateEventsPage() {
             />
 
             <label className="sm:col-span-2">
+
               <span className="mb-2 block text-xs font-bold uppercase tracking-[0.14em]">
                 Additional details
               </span>
@@ -1134,27 +1229,33 @@ export default function CateringPrivateEventsPage() {
                 placeholder="Tell us about your event, menu preferences, timing, or anything else we should know."
                 className="w-full resize-y border border-black/20 bg-transparent px-4 py-4 text-base outline-none transition placeholder:text-black/35 focus:border-[#c75a24] focus:ring-1 focus:ring-[#c75a24]"
               />
+
             </label>
 
             <div className="sm:col-span-2">
+
               <button
                 type="submit"
-                className="inline-flex min-h-14 w-full items-center justify-center rounded-md bg-[#c75a24] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a94216] focus:outline-none focus:ring-2 focus:ring-[#111] focus:ring-offset-2"
+                className="inline-flex min-h-14 w-full items-center justify-center rounded-md bg-[#c75a24] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#a94216] focus:outline-none focus:ring-2 focus:ring-[#111]"
               >
                 Request a quote
                 <Arrow className="ml-3 h-5 w-5" />
               </button>
+
             </div>
+
           </form>
         </div>
       </section>
 
-      {/* =========================================================
-          FAQ
-      ========================================================= */}
+      {/* ========================= FAQ ========================= */}
+
       <section className="bg-[#111] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+
         <div className="mx-auto grid max-w-[1600px] gap-14 lg:grid-cols-2">
+
           <div>
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
               Questions, answered
             </p>
@@ -1164,57 +1265,63 @@ export default function CateringPrivateEventsPage() {
             </h2>
 
             <div className="mt-10 border-t border-white/15">
+
               {faqs.map(([question, answer], index) => {
                 const open = openFaq === index;
 
                 return (
                   <div key={question} className="border-b border-white/15">
+
                     <button
                       type="button"
                       onClick={() => setOpenFaq(open ? null : index)}
                       aria-expanded={open}
                       className="flex w-full items-center justify-between gap-5 py-5 text-left text-base font-bold uppercase tracking-[-0.02em] focus:outline-none focus:text-[#e88651]"
                     >
+
                       <span>{question}</span>
 
                       <span
-                        className={`text-2xl font-normal text-[#d76a2c] transition-transform duration-300 ${
-                          open ? "rotate-180" : ""
-                        }`}
-                        aria-hidden="true"
+                        className={[
+                          "text-2xl font-normal text-[#d76a2c]",
+                          "transition-transform duration-300",
+                          open ? "rotate-180" : "",
+                        ].join(" ")}
                       >
                         {open ? "−" : "+"}
                       </span>
+
                     </button>
 
-                    <div
-                      className={`grid transition-[grid-template-rows] duration-300 ${
-                        open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        <p className="pb-5 pr-9 text-sm leading-6 text-white/60">
+                    {open && (
+                      <div className="pb-5 pr-9">
+                        <p className="text-sm leading-6 text-white/60">
                           {answer}
                         </p>
                       </div>
-                    </div>
+                    )}
+
                   </div>
                 );
               })}
+
             </div>
           </div>
 
           <div className="lg:pt-[78px]">
+
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
               Policies &amp; service details
             </p>
 
             <div className="mt-5 border-t border-white/15">
+
               {policies.map((policy, index) => {
                 const open = openPolicy === index;
 
                 return (
                   <div key={policy} className="border-b border-white/15">
+
                     <button
                       type="button"
                       onClick={() =>
@@ -1223,35 +1330,31 @@ export default function CateringPrivateEventsPage() {
                       aria-expanded={open}
                       className="flex w-full items-center justify-between gap-5 py-5 text-left text-base font-bold uppercase tracking-[-0.02em] focus:outline-none focus:text-[#e88651]"
                     >
+
                       <span>{policy}</span>
 
-                      <span
-                        className={`text-2xl font-normal text-[#d76a2c] transition-transform duration-300 ${
-                          open ? "rotate-180" : ""
-                        }`}
-                        aria-hidden="true"
-                      >
+                      <span className="text-2xl font-normal text-[#d76a2c]">
                         {open ? "−" : "+"}
                       </span>
+
                     </button>
 
-                    <div
-                      className={`grid transition-[grid-template-rows] duration-300 ${
-                        open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        <p className="pb-5 text-sm leading-6 text-white/60">
+                    {open && (
+                      <div className="pb-5">
+                        <p className="text-sm leading-6 text-white/60">
                           Policy details coming soon.
                         </p>
                       </div>
-                    </div>
+                    )}
+
                   </div>
                 );
               })}
+
             </div>
 
             <div className="mt-10 border border-[#d76a2c]/50 bg-[#1b120e] p-6">
+
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#e88651]">
                 Where we cater
               </p>
@@ -1259,18 +1362,20 @@ export default function CateringPrivateEventsPage() {
               <p className="mt-3 text-lg leading-7 text-white/80">
                 Serving [City / Area] and surrounding communities.
               </p>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          CTA
-      ========================================================= */}
+      {/* ========================= CTA ========================= */}
+
       <section className="relative isolate overflow-hidden bg-[#c75a24] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+
         <div className="absolute -right-20 -top-24 h-80 w-80 rounded-full bg-[#f0a075]/25 blur-3xl" />
 
         <div className="relative mx-auto max-w-[1100px] text-center">
+
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-black/65">
             Karachi Flames catering
           </p>
@@ -1285,46 +1390,48 @@ export default function CateringPrivateEventsPage() {
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+
             <a
               href="#inquiry"
-              className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-black"
+              className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
             >
               Request a quote
             </a>
 
             <Link
               href="/menu"
-              className="inline-flex min-h-14 items-center justify-center rounded-md border border-black/50 px-7 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-black"
+              className="inline-flex min-h-14 items-center justify-center rounded-md border border-black/50 px-7 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-black hover:text-white"
             >
               View menu
             </Link>
+
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-          FOOTER
-      ========================================================= */}
+      {/* ========================= FOOTER ========================= */}
+
       <footer className="bg-[#080808] px-5 py-12 sm:px-8 lg:px-12">
+
         <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.2fr_.8fr_.8fr] md:gap-8">
+
+          <div className="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.2fr_.8fr_.8fr]">
+
             <div>
-              {/* BIGGER FOOTER LOGO */}
-   <Link
-  href="/"
-  aria-label="Karachi Flames home"
-  onClick={closeMenu}
-  className="relative z-[120] block h-[78px] w-[270px] shrink-0 sm:h-[88px] sm:w-[305px] lg:h-[100px] lg:w-[340px]"
->
-  <Image
-    src={imagePaths.logo}
-    alt="Karachi Flames"
-    fill
-    priority
-    sizes="(min-width: 1024px) 340px, 305px"
-    className="scale-[1.3] object-contain object-left"
-  />
-</Link>
+
+              <Link
+                href="/"
+                aria-label="Karachi Flames home"
+                className="relative block h-[90px] w-[300px] shrink-0"
+              >
+                <Image
+                  src={imagePaths.logo}
+                  alt="Karachi Flames"
+                  fill
+                  sizes="300px"
+                  className="object-contain object-left"
+                />
+              </Link>
 
               <p className="mt-5 max-w-xs text-sm leading-6 text-white/55">
                 Authentic Karachi flavor, fire-grilled with care and served
@@ -1332,6 +1439,7 @@ export default function CateringPrivateEventsPage() {
               </p>
 
               <div className="mt-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.12em] text-white/65">
+
                 <span className="relative h-8 w-10">
                   <Image
                     src={imagePaths.halal}
@@ -1340,11 +1448,13 @@ export default function CateringPrivateEventsPage() {
                     className="object-contain"
                   />
                 </span>
+
                 Zabiha Halal
+
               </div>
 
-              {/* SOCIALS */}
               <div className="mt-6 flex items-center gap-3">
+
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
@@ -1374,15 +1484,18 @@ export default function CateringPrivateEventsPage() {
                 >
                   <TikTokIcon className="h-5 w-5" />
                 </a>
+
               </div>
             </div>
 
             <div>
+
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
                 Navigate
               </p>
 
               <ul className="mt-4 space-y-2">
+
                 {navigation.slice(0, 5).map((item) => (
                   <li key={item.href}>
                     <Link
@@ -1393,10 +1506,12 @@ export default function CateringPrivateEventsPage() {
                     </Link>
                   </li>
                 ))}
+
               </ul>
             </div>
 
             <div>
+
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
                 Visit &amp; contact
               </p>
@@ -1410,48 +1525,19 @@ export default function CateringPrivateEventsPage() {
                 <br />
                 [Hours]
               </p>
+
             </div>
           </div>
 
           <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/45 sm:flex-row">
+
             <p>© 2026 Karachi Flames. All rights reserved.</p>
 
             <p>Authentic Karachi BBQ &amp; Catering</p>
+
           </div>
         </div>
       </footer>
-
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        @keyframes hero-in {
-          from {
-            opacity: 0.65;
-            transform: scale(1.04);
-          }
-
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          html {
-            scroll-behavior: auto !important;
-          }
-
-          *,
-          *::before,
-          *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-          }
-        }
-      `}</style>
     </main>
   );
 }
