@@ -17,6 +17,26 @@ const SEO_TITLE = "Gallery | Karachi Flames — BBQ, Food & Experiences";
 const SEO_DESCRIPTION =
   "Explore the Karachi Flames gallery featuring authentic BBQ, bold Karachi flavors, restaurant moments, events, and more.";
 
+// Top navbar — copied exactly from the Catering page navbar.
+const navbarLinks = [
+  { label: "Menu", href: "/menu" },
+  { label: "Locations", href: "/location" },
+  { label: "Catering", href: "/catering" },
+  { label: "About Us", href: "/about" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact Us", href: "/contact" },
+];
+
+const socialLinks = {
+  instagram: "https://www.instagram.com/",
+  facebook: "https://www.facebook.com/",
+  tiktok: "https://www.tiktok.com/",
+};
+
+const imagePaths = {
+  logo: "/logo.png",
+};
+
 const galleryCategories = [
   "All",
   "Food",
@@ -359,22 +379,73 @@ function PlayIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
+/* ===== Navbar icon components — copied exactly from the Catering page ===== */
+
+function Arrow({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className={className}>
+      <path
+        d="M5 12h13M13 6l6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="17.3" cy="6.8" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v4h4v-4h3.2l.8-4H13V9c0-.67.33-1 1-1Z" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M16.7 4.5c.6.8 1.5 1.4 2.6 1.5v3.1c-1 0-1.9-.3-2.7-.7v6.4c0 3.4-2.5 5.2-5.2 5.2-2.7 0-4.8-1.8-4.8-4.5 0-2.8 2.2-4.7 5-4.7.4 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.1 0-1.9.7-1.9 1.7 0 1 .8 1.6 1.8 1.6 1.1 0 2-.7 2-2.3V4.5h3.2Z" />
+    </svg>
+  );
+}
+
 function MenuIcon({ open }: { open: boolean }) {
   return (
-    <svg
-      aria-hidden="true"
-      className="h-5 w-5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      {open ? (
-        <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
-      ) : (
-        <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-      )}
-    </svg>
+    <span className="relative block h-7 w-8" aria-hidden="true">
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 rotate-45" : "top-1",
+        ].join(" ")}
+      />
+      <span
+        className={[
+          "absolute left-0 top-3 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-300 ease-out",
+          open ? "scale-0 opacity-0" : "scale-100 opacity-100",
+        ].join(" ")}
+      />
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 -rotate-45" : "top-5",
+        ].join(" ")}
+      />
+    </span>
   );
 }
 
@@ -511,6 +582,10 @@ export default function GalleryPage() {
     [activeImage, isClosing, lightboxItems],
   );
 
+  function closeMenu() {
+    setIsNavOpen(false);
+  }
+
   // The page is intentionally a client component for filters and modals. This keeps the
   // requested title/description in sync at runtime; server metadata can be added in a
   // route layout later if the single-file requirement is relaxed.
@@ -593,6 +668,23 @@ export default function GalleryPage() {
       openerRef.current?.focus();
     };
   }, [modalIsOpen]);
+
+  // Body scroll lock while the mobile navbar drawer is open — from the Catering page navbar.
+  useEffect(() => {
+    if (!isNavOpen) {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isNavOpen]);
 
   // Escape closes either dialog; arrow keys and swipe control the image lightbox.
   useEffect(() => {
@@ -698,88 +790,207 @@ export default function GalleryPage() {
         Skip to gallery
       </a>
 
-      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-10">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between rounded-full border border-white/10 bg-[#0a0a0a]/90 px-3 py-2 shadow-[0_12px_45px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:px-4">
+      {/* ========================= NAVBAR (copied exactly from the Catering page) ========================= */}
+
+      <header className="absolute left-0 right-0 top-0 z-[100]">
+        <nav
+          aria-label="Main navigation"
+          className="mx-auto flex h-[82px] w-full max-w-[1800px] items-center justify-between px-4 sm:h-[92px] sm:px-7 lg:h-[105px] lg:px-10 xl:px-14"
+        >
+          {/* LOGO */}
           <Link
             href="/"
-            className="group flex min-w-0 items-center gap-2.5 rounded-full px-1 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D66A2B]"
             aria-label="Karachi Flames home"
+            onClick={closeMenu}
+            className="relative z-[130] block h-[68px] w-[205px] shrink-0 overflow-visible sm:h-[78px] sm:w-[235px] lg:h-[88px] lg:w-[285px] xl:h-[94px] xl:w-[315px]"
           >
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[#D66A2B]/60 bg-[#C65A24]/15 font-serif text-sm italic text-[#F5F1E8]">
-              KF
-            </span>
-            <span className="min-w-0 leading-none">
-              <span className="block truncate text-[10px] font-bold uppercase tracking-[0.17em] text-[#F5F1E8] sm:text-[11px]">
-                Karachi Flames
-              </span>
-              <span className="mt-1 block text-[8px] uppercase tracking-[0.2em] text-[#F5F1E8]/45">Gallery / 2026</span>
-            </span>
+            <Image
+              src={imagePaths.logo}
+              alt="Karachi Flames"
+              fill
+              priority
+              sizes="(min-width: 1280px) 315px, (min-width: 1024px) 285px, 235px"
+              className="object-contain object-left"
+            />
           </Link>
 
-          <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
-            {[
-              ["Menu", "/menu"],
-              ["Gallery", "/gallery"],
-              ["Catering", "/catering"],
-              ["Locations", "/location"],
-            ].map(([label, href]) => (
-              <Link
-                key={label}
-                href={href}
-                className={`rounded-full px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D66A2B] ${
-                  label === "Gallery" ? "bg-white/8 text-[#F5F1E8]" : "text-[#F5F1E8]/62 hover:text-[#F5F1E8]"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+          {/* DESKTOP NAV */}
+          <div className="hidden flex-1 items-center justify-center lg:flex">
+            <div className="flex items-center justify-center gap-5 xl:gap-7 2xl:gap-9">
+              {navbarLinks.map((item) => {
+                const active = item.href === "/gallery";
 
-          <div className="flex items-center gap-2">
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={[
+                      "group relative whitespace-nowrap px-1 py-3",
+                      "text-[14px] font-extrabold uppercase tracking-[0.02em]",
+                      "transition-all duration-300 xl:text-[15px]",
+                      active ? "text-[#e87636]" : "text-white hover:text-[#e87636]",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                    <span
+                      className={[
+                        "absolute bottom-0 left-0 h-[2px] rounded-full bg-[#d76a2c]",
+                        "transition-all duration-300",
+                        active ? "w-full" : "w-0 group-hover:w-full",
+                      ].join(" ")}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ORDER BUTTON */}
+          <div className="hidden shrink-0 lg:block">
             <Link
-              href="/catering"
-              className="hidden items-center gap-2 rounded-full bg-[#C65A24] px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.13em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#D66A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#D66A2B] sm:flex"
+              href="/menu"
+              className="group inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#df7441] hover:shadow-[0_14px_40px_rgba(199,90,36,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
             >
-              Book an event <ArrowUpRight className="h-3.5 w-3.5" />
+              Order Now
+              <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <button
-              type="button"
-              className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-[#F5F1E8] transition-colors hover:border-[#D66A2B]/60 hover:text-[#D66A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#D66A2B] md:hidden"
-              aria-controls="mobile-navigation"
-              aria-expanded={isNavOpen}
-              aria-label={isNavOpen ? "Close navigation" : "Open navigation"}
-              onClick={() => setIsNavOpen((open) => !open)}
-            >
-              <MenuIcon open={isNavOpen} />
-            </button>
+          </div>
+
+          {/* MOBILE BUTTON */}
+          <button
+            type="button"
+            aria-label={isNavOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isNavOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsNavOpen((value) => !value)}
+            className={[
+              "relative z-[140] flex h-14 w-14 shrink-0 items-center justify-center",
+              "rounded-full border border-white/25",
+              "bg-black/40 text-white backdrop-blur-xl",
+              "shadow-[0_8px_30px_rgba(0,0,0,0.35)]",
+              "transition-all duration-300",
+              "hover:border-[#d76a2c] hover:bg-[#c75a24]",
+              "active:scale-90",
+              "focus:outline-none focus:ring-2 focus:ring-[#d76a2c]",
+              "lg:hidden",
+            ].join(" ")}
+          >
+            <MenuIcon open={isNavOpen} />
+          </button>
+        </nav>
+
+        {/* ================= MOBILE MENU ================= */}
+
+        <div
+          id="mobile-navigation"
+          aria-hidden={!isNavOpen}
+          className={[
+            "fixed inset-0 z-[120] h-[100dvh] w-full lg:hidden",
+            "bg-[#080808]",
+            "transition-all duration-500 ease-out",
+            isNavOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-full opacity-0",
+          ].join(" ")}
+        >
+          {/* BACKGROUND GLOW */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -right-40 top-20 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
+            <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
+          </div>
+
+          {/* MOBILE CONTENT */}
+          <div className="relative flex h-full min-h-0 flex-col px-5 pb-5 pt-[96px] sm:px-8 sm:pt-[105px]">
+            {/* TOP INFO */}
+            <div className="flex shrink-0 items-center justify-between border-b border-white/10 pb-4">
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#d76a2c] sm:text-[10px]">
+                Explore Karachi Flames
+              </p>
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 sm:text-[10px]">
+                Karachi
+              </span>
+            </div>
+
+            {/* NAVIGATION */}
+            <div className="flex min-h-0 flex-1 flex-col justify-center">
+              <ul className="w-full border-t border-white/10">
+                {navbarLinks.map((item, index) => {
+                  const active = item.href === "/gallery";
+
+                  return (
+                    <li key={item.href} className="border-b border-white/10">
+                      <Link
+                        href={item.href}
+                        onClick={closeMenu}
+                        className={[
+                          "group flex w-full items-center justify-between",
+                          "py-[11px] sm:py-[13px]",
+                          "text-[20px] font-black uppercase",
+                          "tracking-[-0.035em]",
+                          "transition-all duration-300",
+                          active ? "text-[#e87636]" : "text-white hover:text-[#e87636]",
+                        ].join(" ")}
+                        style={{
+                          transitionDelay: isNavOpen ? `${index * 35}ms` : "0ms",
+                        }}
+                      >
+                        <span>{item.label}</span>
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:border-[#d76a2c] group-hover:bg-[#c75a24]">
+                          <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            {/* MOBILE BOTTOM */}
+            <div className="shrink-0 pt-4">
+              <Link
+                href="/menu"
+                onClick={closeMenu}
+                className="group flex min-h-12 w-full items-center justify-center rounded-md bg-[#c75a24] px-5 text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(199,90,36,0.25)] transition-all duration-300 hover:bg-[#df7441] active:scale-[0.98]"
+              >
+                Order Now
+                <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <FacebookIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-
-        {isNavOpen && (
-          <nav
-            id="mobile-navigation"
-            aria-label="Mobile navigation"
-            className="mx-auto mt-2 max-w-[1600px] rounded-[24px] border border-white/10 bg-[#0c0c0c]/95 p-2 shadow-2xl backdrop-blur-xl md:hidden"
-          >
-            {[
-              ["Menu", "/menu"],
-              ["Gallery", "/gallery"],
-              ["Catering", "/catering"],
-              ["Locations", "/location"],
-            ].map(([label, href]) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setIsNavOpen(false)}
-                className="flex items-center justify-between rounded-[18px] px-4 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-[#F5F1E8]/80 transition-colors hover:bg-white/5 hover:text-[#F5F1E8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D66A2B]"
-              >
-                {label}
-                <ArrowUpRight className="h-4 w-4 text-[#D66A2B]" />
-              </Link>
-            ))}
-          </nav>
-        )}
       </header>
+
+      {/* ========================= REST OF PAGE — UNCHANGED ========================= */}
 
       <main id="main-content">
         <section className="relative isolate overflow-hidden px-5 pb-16 pt-32 sm:px-8 sm:pt-36 lg:px-12 lg:pb-24 lg:pt-40">

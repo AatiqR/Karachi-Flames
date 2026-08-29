@@ -248,7 +248,7 @@ function MenuIcon({ open }: { open: boolean }) {
 }
 
 const navItems = [
-  { label: "Home", href: "/" },
+  // { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
   { label: "Catering", href: "/catering" },
