@@ -1,30 +1,24 @@
-import type { Metadata } from "next";
+
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "About Us | Karachi Flames — Authentic Karachi BBQ",
-  description:
-    "Discover the story behind Karachi Flames, our connection to Karachi, our passion for bold BBQ flavor, and the people behind the flame.",
-};
-
-type StorySection = {
-  eyebrow: string;
-  title: string;
-  paragraphs: string[];
-  image: string | null;
-  imageLabel: string;
-};
-
-type GalleryImage = {
-  src: string | null;
-  label: string;
-  alt: string;
-  className: string;
+const imagePaths = {
+  hero: "/hero.jpg",
+  story: "/hero.jpg",
+  fire: "/hero.jpg",
+  food: "/hero.jpg",
+  gathering: "/hero.jpg",
+  galleryOne: "/hero.jpg",
+  galleryTwo: "/hero.jpg",
+  galleryThree: "/hero.jpg",
+  halal: "/halal.png",
+  logo: "/logo.png",
 };
 
 const navigation = [
-  { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
   { label: "Catering", href: "/catering" },
@@ -33,301 +27,1078 @@ const navigation = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-// Replace placeholder copy and add local files under /public/images/about when assets are ready.
-const storySections: StorySection[] = [
-  {
-    eyebrow: "Our Story",
-    title: "It started with a love for Karachi.",
-    paragraphs: [
-      "[HOW KARACHI FLAMES STARTED — Add the beginning of the brand story here. This editorial reading area is intentionally built to support a few paragraphs or a full, detailed history.]",
-      "[WHY KARACHI — Share the memories, food culture, family gatherings, or feeling of the city that inspired Karachi Flames. Keep the voice personal, specific, and true to the people behind the restaurant.]",
-      "[WHAT WE WANTED TO SHARE — Explain what guests are invited to discover at Karachi Flames, without needing to reduce the story to a few short lines.]",
-    ],
-    image: null, // "/images/about/about-story.jpg"
-    imageLabel: "About story image",
-  },
-  {
-    eyebrow: "Rooted in Karachi",
-    title: "A city with flavor in its pulse.",
-    paragraphs: [
-      "[OUR CONNECTION TO KARACHI — Add approved copy about the city, its food culture, and the energy that informs Karachi Flames.]",
-      "[THE INSPIRATION — This space can hold additional context about the flavors, hospitality, and food memories that shaped the menu.]",
-    ],
-    image: null, // "/images/about/about-karachi.jpg"
-    imageLabel: "Karachi-inspired food or city image",
-  },
-];
+const socialLinks = {
+  instagram: "https://www.instagram.com/",
+  facebook: "https://www.facebook.com/",
+  tiktok: "https://www.tiktok.com/",
+};
 
-const values = [
-  {
-    number: "01",
-    title: "Authenticity",
-    description: "[Add the principle that keeps Karachi Flames connected to its point of view.]",
-  },
-  {
-    number: "02",
-    title: "Family",
-    description: "[Add approved family or people-first brand copy here.]",
-  },
-  {
-    number: "03",
-    title: "Flavor",
-    description: "[Add the food philosophy that guides every plate.]",
-  },
-  {
-    number: "04",
-    title: "Hospitality",
-    description: "[Describe the welcome and experience guests should feel.]",
-  },
-  {
-    number: "05",
-    title: "Quality",
-    description: "[Add only client-confirmed standards and commitments.]",
-  },
-  {
-    number: "06",
-    title: "Community",
-    description: "[Optional: add confirmed community story or remove this value.]",
-  },
-];
-
-const galleryImages: GalleryImage[] = [
-  {
-    src: null, // "/images/about/about-food.jpg"
-    label: "Signature food",
-    alt: "Karachi Flames food photography",
-    className: "md:col-span-7 md:aspect-[1.28/1]",
-  },
-  {
-    src: null, // "/images/about/about-restaurant.jpg"
-    label: "The restaurant",
-    alt: "Karachi Flames restaurant interior",
-    className: "md:col-span-5 md:aspect-[.84/1]",
-  },
-  {
-    src: null, // "/images/about/about-team.jpg"
-    label: "The people behind the flame",
-    alt: "Karachi Flames team",
-    className: "md:col-span-4 md:aspect-[.85/1]",
-  },
-  {
-    src: null, // "/images/about/about-fire.jpg"
-    label: "The fire",
-    alt: "Karachi Flames grill or fire",
-    className: "md:col-span-8 md:aspect-[1.62/1]",
-  },
-];
-
-// Add only verified names, roles, biographies, and quotes. Leave empty to hide this optional section.
-const teamMembers: Array<{
-  name: string;
-  role: string;
-  bio: string;
-  quote?: string;
-  image: string | null;
-}> = [];
-
-// Add only real milestones. This optional section is intentionally hidden while empty.
-const milestones: Array<{ label: string; title: string; description: string }> = [];
-
-const halalLogo: string | null = null; // "/images/zabiha-halal-logo.svg"
-
-function FlameMark({ className = "" }: { className?: string }) {
+function Arrow({ className = "" }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className={className}
+      viewBox="0 0 24 24"
       fill="none"
-      viewBox="0 0 50 64"
-      xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
-        d="M25 61C12.3 61 3 51.5 3 39.5c0-12.3 8.2-18.1 13-27.2.7 7.7 4.1 11.3 8.8 14.5C24.3 16.6 30.6 8 39.6 3c-.1 10.4 7.4 17.6 7.4 29.9C47 48.3 37.5 61 25 61Z"
+        d="M5 12h13M13 6l6 6-6 6"
         stroke="currentColor"
-        strokeWidth="2.5"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path d="M25.3 52c-5.3 0-9.2-4-9.2-9.1 0-4.8 3.1-7.7 6.7-11.9.1 4.8 2.4 7.1 4.9 8.6.5-4.8 3.1-8.2 6.7-10.6-.2 5.8 3.1 8.5 3.1 14.1 0 5.1-4.1 8.9-9.2 8.9h-3Z" fill="currentColor" />
     </svg>
   );
 }
 
-function Visual({
-  src,
-  alt,
-  label,
-  className = "",
-  priority = false,
-}: {
-  src: string | null;
-  alt: string;
-  label: string;
-  className?: string;
-  priority?: boolean;
-}) {
-  if (src) {
-    return (
-      <div className={`relative overflow-hidden bg-neutral-900 ${className}`}>
-        <Image
-          alt={alt}
-          className="object-cover transition duration-700 ease-out motion-safe:group-hover:scale-105"
-          fill
-          priority={priority}
-          sizes="(max-width: 767px) 100vw, (max-width: 1280px) 70vw, 50vw"
-          src={src}
-        />
-      </div>
-    );
-  }
-
+function InstagramIcon({ className = "" }: { className?: string }) {
   return (
-    <div
-      aria-label={`${label} placeholder`}
-      className={`relative isolate overflow-hidden bg-[#151310] ${className}`}
-      role="img"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(198,90,36,0.35),transparent_26%),radial-gradient(circle_at_22%_88%,rgba(115,63,34,0.35),transparent_37%)]" />
-      <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(125deg,transparent_0%,transparent_47%,#fff_48%,transparent_49%,transparent_100%)] [background-size:13px_13px]" />
-      <div className="absolute inset-x-5 top-5 h-px bg-white/15" />
-      <div className="absolute bottom-6 left-6 flex items-center gap-3 text-[#F5F1E8] sm:bottom-8 sm:left-8">
-        <span className="grid size-10 place-items-center rounded-full border border-[#C65A24]/60 bg-black/20 text-[#D76A2C]">
-          <FlameMark className="h-5 w-4" />
-        </span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">{label}</span>
-      </div>
-      <span className="absolute -right-6 -top-10 font-serif text-[160px] leading-none text-white/[0.045]" aria-hidden="true">K</span>
-    </div>
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <circle cx="17.3" cy="6.8" r="1" fill="currentColor" />
+    </svg>
   );
 }
 
-export default function AboutPage() {
+function FacebookIcon({ className = "" }: { className?: string }) {
   return (
-    <main id="page-top" className="min-h-screen overflow-x-clip bg-[#080808] font-sans text-[#F5F1E8] selection:bg-[#C65A24] selection:text-white">
-      <header className="absolute inset-x-0 top-0 z-30">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-5 sm:px-8 sm:py-7 lg:px-12">
-          <Link aria-label="Karachi Flames home" className="group flex items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C]" href="/">
-            <FlameMark className="h-9 w-7 text-[#D76A2C] transition-transform duration-300 group-hover:-translate-y-0.5" />
-            <span className="font-serif text-xl tracking-[-0.04em] sm:text-2xl">Karachi <em className="font-normal text-[#D76A2C]">Flames</em></span>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v4h4v-4h3.2l.8-4H13V9c0-.67.33-1 1-1Z" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M16.7 4.5c.6.8 1.5 1.4 2.6 1.5v3.1c-1 0-1.9-.3-2.7-.7v6.4c0 3.4-2.5 5.2-5.2 5.2-2.7 0-4.8-1.8-4.8-4.5 0-2.8 2.2-4.7 5-4.7.4 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.1 0-1.9.7-1.9 1.7 0 1 .8 1.6 1.8 1.6 1.1 0 2-.7 2-2.3V4.5h3.2Z" />
+    </svg>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <span className="relative block h-7 w-8" aria-hidden="true">
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 rotate-45" : "top-1",
+        ].join(" ")}
+      />
+
+      <span
+        className={[
+          "absolute left-0 top-3 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-300 ease-out",
+          open ? "scale-0 opacity-0" : "scale-100 opacity-100",
+        ].join(" ")}
+      />
+
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 -rotate-45" : "top-5",
+        ].join(" ")}
+      />
+    </span>
+  );
+}
+
+const values = [
+  {
+    number: "01",
+    title: "Fire Is Our Language",
+    text: "Real flame, patient grilling, and bold technique. We believe great BBQ should have depth you can taste from the first bite.",
+  },
+  {
+    number: "02",
+    title: "Karachi Is Our Soul",
+    text: "Our food carries the energy, warmth, spice, and generosity that make Karachi unlike anywhere else.",
+  },
+  {
+    number: "03",
+    title: "Quality Without Shortcuts",
+    text: "From carefully selected ingredients to the final plate, we keep the focus on freshness, flavor, and consistency.",
+  },
+  {
+    number: "04",
+    title: "People Come First",
+    text: "A great meal is more than food. It is the table, the conversation, the welcome, and the memories made around it.",
+  },
+];
+
+const milestones = [
+  ["01", "The First Spark", "A love for Karachi BBQ becomes the beginning of something bigger."],
+  ["02", "The Flame Grows", "Our kitchen evolves around fire, flavor, hospitality, and consistency."],
+  ["03", "The Table Expands", "More guests, more gatherings, and more reasons to bring people together."],
+  ["04", "The Journey Continues", "Karachi Flames keeps moving forward without losing what started it all."],
+];
+
+export default function AboutUsPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
+  return (
+    <main className="min-h-screen overflow-x-hidden bg-[#0b0b0b] text-[#f5f1e8] selection:bg-[#c75a24] selection:text-white">
+
+      {/* =========================================================
+          NAVBAR — INTENTIONALLY KEPT EXACTLY LIKE CATERING PAGE
+      ========================================================= */}
+
+      <header className="absolute left-0 right-0 top-0 z-[100]">
+        <nav
+          aria-label="Main navigation"
+          className="mx-auto flex h-[82px] w-full max-w-[1800px] items-center justify-between px-4 sm:h-[92px] sm:px-7 lg:h-[105px] lg:px-10 xl:px-14"
+        >
+          <Link
+            href="/"
+            aria-label="Karachi Flames home"
+            onClick={closeMenu}
+            className="relative z-[130] block h-[68px] w-[205px] shrink-0 overflow-visible sm:h-[78px] sm:w-[235px] lg:h-[88px] lg:w-[285px] xl:h-[94px] xl:w-[315px]"
+          >
+            <Image
+              src={imagePaths.logo}
+              alt="Karachi Flames"
+              fill
+              priority
+              sizes="(min-width: 1280px) 315px, (min-width: 1024px) 285px, 235px"
+              className="object-contain object-left"
+            />
           </Link>
-          <a aria-label="Open navigation menu" className="group flex items-center gap-3 rounded-sm py-2 text-xs font-medium uppercase tracking-[0.17em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C]" href="#site-menu">
-            <span className="hidden sm:block">Menu</span>
-            <span className="flex w-7 flex-col gap-1.5" aria-hidden="true"><i className="h-px w-full bg-current transition group-hover:translate-x-1" /><i className="h-px w-4/6 bg-[#D76A2C] transition group-hover:w-full" /></span>
-          </a>
-        </div>
-      </header>
 
-      <nav aria-label="Primary navigation" className="pointer-events-none invisible fixed inset-0 z-50 grid place-items-center bg-[#080808]/98 px-6 opacity-0 transition-opacity duration-300 target:pointer-events-auto target:visible target:opacity-100" id="site-menu">
-        <a aria-label="Close navigation menu" className="absolute right-6 top-6 grid size-12 place-items-center rounded-full border border-white/20 text-2xl text-[#F5F1E8] transition hover:border-[#D76A2C] hover:text-[#D76A2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C] sm:right-10 sm:top-9" href="#page-top">×</a>
-        <div className="w-full max-w-3xl">
-          <p className="mb-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.26em] text-[#D76A2C]"><span className="h-px w-9 bg-[#D76A2C]" />Navigate</p>
-          <ul className="grid gap-2 sm:grid-cols-2 sm:gap-x-16">
-            {navigation.map((item, index) => (
-              <li key={item.href}>
-                <Link aria-current={item.href === "/about" ? "page" : undefined} className={`group flex items-baseline gap-5 rounded-sm py-2 font-serif text-3xl tracking-[-0.045em] transition hover:text-[#D76A2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C] sm:text-5xl ${item.href === "/about" ? "text-[#D76A2C]" : ""}`} href={item.href}>
-                  <span className="font-mono text-[10px] tracking-normal text-white/35">0{index + 1}</span>{item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+          <div className="hidden flex-1 items-center justify-center lg:flex">
+            <div className="flex items-center justify-center gap-5 xl:gap-7 2xl:gap-9">
+              {navigation.map((item) => {
+                const active = item.href === "/about";
 
-      <section aria-labelledby="hero-heading" className="relative isolate min-h-[760px] overflow-hidden border-b border-white/10 sm:min-h-[820px]">
-        <Visual alt="Karachi Flames hero" className="absolute inset-0 h-full w-full" label="Hero: family, fire, or food photography" priority src={null} />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,8,.93)_0%,rgba(8,8,8,.64)_46%,rgba(8,8,8,.15)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(8,8,8,.85)_0%,transparent_42%)]" />
-        <div className="relative mx-auto flex min-h-[760px] max-w-[1600px] flex-col justify-end px-5 pb-16 pt-32 sm:min-h-[820px] sm:px-8 sm:pb-20 lg:px-12 lg:pb-24">
-          <p className="mb-7 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#D76A2C]"><span className="h-px w-10 bg-[#D76A2C]" />The Karachi Flames story</p>
-          <h1 id="hero-heading" className="max-w-5xl font-serif text-[clamp(3.15rem,9.2vw,8.7rem)] leading-[0.83] tracking-[-0.065em] text-[#F5F1E8]">Born from<br /><em className="font-normal text-[#D76A2C]">Karachi.</em> Built<br />around the flame.</h1>
-          <p className="mt-8 max-w-xl text-base leading-7 text-[#F5F1E8]/80 sm:text-lg sm:leading-8">Karachi Flames brings the bold, unmistakable flavors of Karachi to every plate — rooted in tradition, family, fire, and the belief that great food brings people together.</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link className="inline-flex min-h-12 items-center justify-center bg-[#C65A24] px-6 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-[#D76A2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5F1E8]" href="/menu">Explore our menu <span className="ml-3 text-lg leading-none">↗</span></Link>
-            <Link className="inline-flex min-h-12 items-center justify-center border border-white/30 px-6 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:border-[#D76A2C] hover:text-[#D76A2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C]" href="/catering">Cater your event</Link>
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={[
+                      "group relative whitespace-nowrap px-1 py-3",
+                      "text-[14px] font-extrabold uppercase tracking-[0.02em]",
+                      "transition-all duration-300 xl:text-[15px]",
+                      active
+                        ? "text-[#e87636]"
+                        : "text-white hover:text-[#e87636]",
+                    ].join(" ")}
+                  >
+                    {item.label}
+
+                    <span
+                      className={[
+                        "absolute bottom-0 left-0 h-[2px] rounded-full bg-[#d76a2c]",
+                        "transition-all duration-300",
+                        active ? "w-full" : "w-0 group-hover:w-full",
+                      ].join(" ")}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div className="absolute bottom-7 right-5 hidden items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] text-white/55 sm:flex sm:right-8 lg:right-12"><span className="h-8 w-px bg-[#D76A2C]" />Scroll to discover</div>
-      </section>
 
-      <section aria-labelledby="our-story-heading" className="bg-[#F5F1E8] px-5 py-20 text-[#101010] sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,.75fr)_minmax(0,1.7fr)] lg:gap-20">
-            <div><p className="sticky top-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[#A3451D]"><span className="h-px w-9 bg-[#C65A24]" />{storySections[0].eyebrow}</p></div>
-            <div>
-              <h2 id="our-story-heading" className="max-w-3xl font-serif text-5xl leading-[.9] tracking-[-0.055em] sm:text-6xl lg:text-7xl">{storySections[0].title}</h2>
-              <div className="mt-12 max-w-2xl space-y-7 text-[1.05rem] leading-8 text-[#26221d] sm:text-lg sm:leading-9">
-                {storySections[0].paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+          <div className="hidden shrink-0 lg:block">
+            <Link
+              href="/menu"
+              className="group inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#df7441] hover:shadow-[0_14px_40px_rgba(199,90,36,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              Order Now
+              <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            aria-label={
+              menuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((value) => !value)}
+            className={[
+              "relative z-[140] flex h-14 w-14 shrink-0 items-center justify-center",
+              "rounded-full border border-white/25",
+              "bg-black/40 text-white backdrop-blur-xl",
+              "shadow-[0_8px_30px_rgba(0,0,0,0.35)]",
+              "transition-all duration-300",
+              "hover:border-[#d76a2c] hover:bg-[#c75a24]",
+              "active:scale-90",
+              "focus:outline-none focus:ring-2 focus:ring-[#d76a2c]",
+              "lg:hidden",
+            ].join(" ")}
+          >
+            <MenuIcon open={menuOpen} />
+          </button>
+        </nav>
+
+        <div
+          id="mobile-navigation"
+          aria-hidden={!menuOpen}
+          className={[
+            "fixed inset-0 z-[120] h-[100dvh] w-full lg:hidden",
+            "bg-[#080808]",
+            "transition-all duration-500 ease-out",
+            menuOpen
+              ? "visible translate-y-0 opacity-100"
+              : "invisible -translate-y-full opacity-0",
+          ].join(" ")}
+        >
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -right-40 top-20 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
+            <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-[#c75a24]/10 blur-3xl" />
+          </div>
+
+          <div className="relative flex h-full min-h-0 flex-col px-5 pb-5 pt-[96px] sm:px-8 sm:pt-[105px]">
+            <div className="flex shrink-0 items-center justify-between border-b border-white/10 pb-4">
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#d76a2c] sm:text-[10px]">
+                Explore Karachi Flames
+              </p>
+
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 sm:text-[10px]">
+                Karachi
+              </span>
+            </div>
+
+            <div className="flex min-h-0 flex-1 flex-col justify-center">
+              <ul className="w-full border-t border-white/10">
+                {navigation.map((item, index) => {
+                  const active = item.href === "/about";
+
+                  return (
+                    <li
+                      key={item.href}
+                      className="border-b border-white/10"
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={closeMenu}
+                        className={[
+                          "group flex w-full items-center justify-between",
+                          "py-[11px] sm:py-[13px]",
+                          "text-[20px] font-black uppercase",
+                          "tracking-[-0.035em]",
+                          "transition-all duration-300",
+                          active
+                            ? "text-[#e87636]"
+                            : "text-white hover:text-[#e87636]",
+                        ].join(" ")}
+                        style={{
+                          transitionDelay: menuOpen
+                            ? `${index * 35}ms`
+                            : "0ms",
+                        }}
+                      >
+                        <span>{item.label}</span>
+
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:border-[#d76a2c] group-hover:bg-[#c75a24]">
+                          <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="shrink-0 pt-4">
+              <Link
+                href="/menu"
+                onClick={closeMenu}
+                className="group flex min-h-12 w-full items-center justify-center rounded-md bg-[#c75a24] px-5 text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(199,90,36,0.25)] transition-all duration-300 hover:bg-[#df7441] active:scale-[0.98]"
+              >
+                Order Now
+                <Arrow className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <FacebookIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </div>
-          <div className="group mt-16 overflow-hidden sm:mt-24"><Visual alt="Karachi Flames brand story" className="aspect-[1.1/1] sm:aspect-[1.75/1]" label={storySections[0].imageLabel} src={storySections[0].image} /></div>
         </div>
-      </section>
+      </header>
 
-      <section aria-labelledby="karachi-heading" className="bg-[#101010] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="group order-2 lg:order-1"><Visual alt="Karachi image" className="aspect-[.88/1] sm:aspect-[1.15/1]" label={storySections[1].imageLabel} src={storySections[1].image} /></div>
-          <div className="order-1 lg:order-2">
-            <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[#D76A2C]"><span className="h-px w-9 bg-[#D76A2C]" />{storySections[1].eyebrow}</p>
-            <h2 id="karachi-heading" className="mt-7 max-w-xl font-serif text-5xl leading-[.9] tracking-[-0.055em] sm:text-6xl">{storySections[1].title}</h2>
-            <div className="mt-9 max-w-xl space-y-6 text-base leading-8 text-white/70 sm:text-lg sm:leading-9">{storySections[1].paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
-            <p className="mt-10 border-l-2 border-[#C65A24] pl-5 font-serif text-2xl leading-tight text-[#F5F1E8] sm:text-3xl">From Karachi. Served with pride.</p>
+      {/* =========================================================
+          HERO
+      ========================================================= */}
+
+      <section className="relative isolate min-h-[780px] overflow-hidden sm:min-h-[850px]">
+        <Image
+          src={imagePaths.hero}
+          alt="Karachi Flames BBQ"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-30 object-cover object-center"
+        />
+
+        <div className="absolute inset-0 -z-20 bg-gradient-to-r from-black/[0.96] via-black/[0.72] to-black/[0.25]" />
+
+        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_72%_35%,rgba(199,90,36,0.34),transparent_30%)]" />
+
+        <div className="absolute inset-0 -z-10 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:70px_70px]" />
+
+        <div className="mx-auto flex min-h-[780px] max-w-[1700px] items-end px-5 pb-14 pt-40 sm:min-h-[850px] sm:px-8 sm:pb-20 lg:px-12">
+          <div className="w-full">
+            <div className="grid items-end gap-12 lg:grid-cols-[1.3fr_.7fr]">
+              <div>
+                <div className="mb-6 flex items-center gap-3">
+                  <span className="h-px w-12 bg-[#d76a2c]" />
+
+                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#e88651]">
+                    The story behind the flame
+                  </p>
+                </div>
+
+                <h1 className="max-w-5xl text-[clamp(3.7rem,9vw,9.5rem)] font-black uppercase leading-[0.78] tracking-[-0.085em] text-white">
+                  Born from
+                  <br />
+                  <span className="text-[#d76a2c]">Karachi.</span>
+                  <br />
+                  Built by fire.
+                </h1>
+
+                <p className="mt-8 max-w-2xl text-base leading-7 text-white/72 sm:text-lg sm:leading-8">
+                  Karachi Flames is more than BBQ. It is a celebration of
+                  bold Karachi flavor, real fire, generous hospitality, and
+                  the people who make every table worth gathering around.
+                </p>
+
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href="/menu"
+                    className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#c75a24] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#df7441]"
+                  >
+                    Taste the story
+                    <Arrow className="ml-3 h-5 w-5" />
+                  </Link>
+
+                  <a
+                    href="#our-story"
+                    className="inline-flex min-h-14 items-center justify-center rounded-md border border-white/40 bg-black/20 px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:border-white hover:bg-white hover:text-black"
+                  >
+                    Our story
+                  </a>
+                </div>
+              </div>
+
+              <div className="hidden lg:block">
+                <div className="ml-auto max-w-xs border-l border-white/20 pl-7">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#e88651]">
+                    Our philosophy
+                  </p>
+
+                  <p className="mt-4 text-2xl font-black uppercase leading-[0.95] tracking-[-0.04em]">
+                    Keep the fire real.
+                    <br />
+                    Keep the flavor bold.
+                    <br />
+                    Keep people close.
+                  </p>
+
+                  <div className="mt-7 flex items-center gap-3">
+                    <span className="relative h-9 w-11">
+                      <Image
+                        src={imagePaths.halal}
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                    </span>
+
+                    <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/60">
+                      100% Hand-Slaughtered
+                      <br />
+                      Zabiha Halal
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="flame-heading" className="relative isolate overflow-hidden border-y border-white/10 bg-[#080808] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="absolute inset-y-0 right-0 w-2/3 opacity-60"><Visual alt="BBQ fire photography" className="h-full w-full" label="BBQ and fire image" src={null} /><div className="absolute inset-0 bg-[linear-gradient(90deg,#080808_0%,rgba(8,8,8,.82)_30%,rgba(8,8,8,.05)_100%)]" /></div>
-        <div className="relative mx-auto max-w-[1280px]">
-          <FlameMark className="h-12 w-10 text-[#D76A2C]" />
-          <p className="mt-7 font-mono text-[10px] uppercase tracking-[0.22em] text-[#D76A2C]">The flame</p>
-          <h2 id="flame-heading" className="mt-5 max-w-3xl font-serif text-5xl leading-[.88] tracking-[-0.055em] sm:text-6xl lg:text-8xl">Fire is part<br />of the <em className="font-normal text-[#D76A2C]">flavor.</em></h2>
-          <p className="mt-8 max-w-lg text-base leading-8 text-white/75 sm:text-lg sm:leading-9">[OUR BBQ / FIRE PHILOSOPHY — Add client-confirmed copy about preparation, flavor, care, or the role of fire. No unverified cooking claims have been made here.]</p>
-        </div>
-      </section>
+      {/* =========================================================
+          INTRO / STATS
+      ========================================================= */}
 
-      <section aria-labelledby="belief-heading" className="bg-[#F5F1E8] px-5 py-20 text-[#101010] sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="max-w-2xl"><p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[#A3451D]"><span className="h-px w-9 bg-[#C65A24]" />Food philosophy</p><h2 id="belief-heading" className="mt-6 font-serif text-5xl leading-[.9] tracking-[-0.055em] sm:text-6xl">What we believe.</h2></div>
-          <div className="mt-14 divide-y divide-black/15 border-t border-black/15">
-            {values.map((value) => <article className="grid gap-4 py-7 sm:grid-cols-[70px_minmax(0,1fr)_minmax(0,.8fr)] sm:gap-8 sm:py-9" key={value.title}><p className="font-mono text-[10px] tracking-[0.15em] text-[#A3451D]">{value.number}</p><h3 className="font-serif text-3xl tracking-[-0.04em] sm:text-4xl">{value.title}</h3><p className="max-w-md text-sm leading-7 text-black/65 sm:text-base">{value.description}</p></article>)}
+      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
+                What we believe
+              </p>
+
+              <h2 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl lg:text-8xl">
+                Great food should make you feel something.
+              </h2>
+            </div>
+
+            <div>
+              <p className="max-w-xl text-lg leading-8 text-black/65">
+                The crackle of the grill. The aroma of smoke in the air. The
+                first bite that instantly takes you somewhere familiar.
+                Karachi Flames was created around that feeling.
+              </p>
+
+              <div className="mt-9 grid grid-cols-2 gap-px border border-black/10 bg-black/10 sm:grid-cols-4">
+                {[
+                  ["01", "Fire"],
+                  ["02", "Flavor"],
+                  ["03", "Culture"],
+                  ["04", "People"],
+                ].map(([number, label]) => (
+                  <div
+                    key={number}
+                    className="bg-[#f5f1e8] px-4 py-5"
+                  >
+                    <p className="font-mono text-[10px] text-[#c75a24]">
+                      {number}
+                    </p>
+
+                    <p className="mt-3 text-sm font-black uppercase tracking-[-0.02em]">
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="family-heading" className="bg-[#191512] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="grid items-end gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-20">
-            <div><p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[#D76A2C]"><span className="h-px w-9 bg-[#D76A2C]" />The people behind the flame</p><h2 id="family-heading" className="mt-7 max-w-2xl font-serif text-5xl leading-[.9] tracking-[-0.055em] sm:text-6xl">Family at the heart of it.</h2><div className="mt-9 max-w-xl space-y-6 text-base leading-8 text-white/70 sm:text-lg sm:leading-9"><p>[FAMILY STORY — If Karachi Flames is family-owned, add the client-approved story here. This section is written to hold more than a short paragraph.]</p><p>[THE PEOPLE — Add the values, care, and human side that guests should know about. If family ownership is not confirmed, update this heading and copy to reflect the team.]</p></div></div>
-            <div className="group"><Visual alt="Karachi Flames family or team" className="aspect-[.9/1]" label="Family or team image" src={null} /></div>
+      {/* =========================================================
+          STORY
+      ========================================================= */}
+
+      <section
+        id="our-story"
+        className="scroll-mt-8 bg-[#111] px-5 py-20 sm:px-8 sm:py-28 lg:px-12"
+      >
+        <div className="mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-[.85fr_1.15fr]">
+          <div className="relative min-h-[550px] overflow-hidden sm:min-h-[650px]">
+            <Image
+              src={imagePaths.story}
+              alt="Karachi Flames food and fire"
+              fill
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              className="object-cover transition duration-1000 hover:scale-105"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+                Karachi Flames
+              </span>
+
+              <span className="text-5xl font-black text-white/20">
+                01
+              </span>
+            </div>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-12 md:items-end">
-            {galleryImages.map((image) => <div className={`group ${image.className}`} key={image.label}><Visual alt={image.alt} className="aspect-[1.2/1] md:h-full md:aspect-auto" label={image.label} src={image.src} /></div>)}
+
+          <div className="flex items-center">
+            <div className="max-w-3xl lg:pl-8">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
+                Our story
+              </p>
+
+              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.85] tracking-[-0.065em] sm:text-7xl">
+                A love letter
+                <br />
+                to Karachi.
+              </h2>
+
+              <div className="mt-8 space-y-6 text-base leading-8 text-white/65 sm:text-lg">
+                <p>
+                  Karachi has a way of bringing people together. Different
+                  neighborhoods, different backgrounds, different stories —
+                  but somehow, there is always room around the table.
+                </p>
+
+                <p>
+                  That spirit is at the heart of Karachi Flames. We take
+                  inspiration from the city's unmistakable BBQ culture and
+                  turn it into an experience built around smoke, spice,
+                  char, freshness, and generosity.
+                </p>
+
+                <p>
+                  We are not interested in making food complicated. We are
+                  interested in making it memorable.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-6 border-t border-white/15 pt-7 sm:grid-cols-2">
+                <div>
+                  <p className="text-3xl font-black uppercase tracking-[-0.04em]">
+                    Real fire
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-white/45">
+                    Because flame brings something no shortcut can recreate.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-3xl font-black uppercase tracking-[-0.04em]">
+                    Real people
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-white/45">
+                    Because hospitality is just as important as what is on
+                    the plate.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section aria-label="Karachi Flames brand statement" className="relative isolate overflow-hidden bg-[#C65A24] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
-        <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_30%_40%,#fff_0%,transparent_1.5%),radial-gradient(circle_at_70%_70%,#000_0%,transparent_1%)] [background-size:23px_23px]" />
-        <blockquote className="relative mx-auto max-w-5xl text-center"><p className="font-serif text-5xl leading-[.92] tracking-[-0.06em] text-white sm:text-6xl lg:text-8xl">“Great food doesn&apos;t just fill a table. It brings people together.”</p><footer className="mt-8 font-mono text-[10px] uppercase tracking-[0.24em] text-white/75">Karachi Flames brand belief</footer></blockquote>
-      </section>
+      {/* =========================================================
+          FIRE FEATURE
+      ========================================================= */}
 
-      <section aria-labelledby="halal-heading" className="border-b border-white/10 bg-[#101010] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
-        <div className="mx-auto flex max-w-[1080px] flex-col items-center gap-8 text-center sm:flex-row sm:text-left">
-          <div className="grid size-24 shrink-0 place-items-center rounded-full border border-[#D76A2C]/50 bg-[#17130f]">
-            {halalLogo ? <Image alt="Hand-slaughtered Zabiha Halal" height={70} src={halalLogo} width={70} /> : <><FlameMark className="h-8 w-6 text-[#D76A2C]" /><span className="mt-1 font-mono text-[7px] uppercase tracking-[0.15em] text-white/65">Halal logo</span></>}
+      <section className="relative overflow-hidden bg-[#c75a24]">
+        <div className="grid lg:grid-cols-2">
+          <div className="relative min-h-[480px] lg:min-h-[700px]">
+            <Image
+              src={imagePaths.fire}
+              alt="BBQ grilling over open flame"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+
+            <div className="absolute inset-0 bg-black/10" />
           </div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#D76A2C]">Hand-slaughtered Zabiha Halal</p><h2 id="halal-heading" className="mt-3 font-serif text-3xl tracking-[-0.045em] sm:text-4xl">Food you can feel good about.</h2><p className="mt-3 max-w-2xl text-sm leading-7 text-white/65 sm:text-base">Karachi Flames is committed to serving food aligned with our values and standards. [Replace with confirmed client-approved halal statement when provided.]</p></div>
+
+          <div className="flex items-center px-5 py-20 sm:px-10 lg:px-16">
+            <div className="max-w-xl">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-black/60">
+                Why fire matters
+              </p>
+
+              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.82] tracking-[-0.07em] text-[#15100d] sm:text-7xl">
+                You can taste
+                <br />
+                the difference.
+              </h2>
+
+              <p className="mt-7 text-lg leading-8 text-black/70">
+                Fire is not decoration at Karachi Flames. It is part of the
+                flavor. It creates char, smoke, caramelization, aroma, and
+                that unmistakable BBQ character we chase every day.
+              </p>
+
+              <div className="mt-9 border-t border-black/20 pt-6">
+                <p className="text-2xl font-black uppercase tracking-[-0.04em]">
+                  Flame first.
+                </p>
+
+                <p className="mt-2 max-w-md text-sm leading-6 text-black/60">
+                  Carefully prepared ingredients meet high heat, patience,
+                  and technique.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {teamMembers.length > 0 && <section aria-labelledby="team-heading" className="bg-[#F5F1E8] px-5 py-20 text-[#101010] sm:px-8 sm:py-28 lg:px-12"><div className="mx-auto max-w-[1280px]"><p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A3451D]">The people</p><h2 id="team-heading" className="mt-6 font-serif text-5xl tracking-[-0.055em] sm:text-6xl">Meet the people behind Karachi Flames.</h2><div className="mt-12 grid gap-10 md:grid-cols-2">{teamMembers.map((member) => <article key={member.name}><Visual alt={member.name} className="aspect-[1/1]" label={`${member.name} portrait`} src={member.image} /><h3 className="mt-5 font-serif text-3xl">{member.name}</h3><p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#A3451D]">{member.role}</p><p className="mt-4 max-w-xl leading-8 text-black/70">{member.bio}</p>{member.quote && <blockquote className="mt-5 border-l-2 border-[#C65A24] pl-4 font-serif text-xl">“{member.quote}”</blockquote>}</article>)}</div></div></section>}
+      {/* =========================================================
+          VALUES
+      ========================================================= */}
 
-      {milestones.length > 0 && <section aria-labelledby="timeline-heading" className="bg-[#101010] px-5 py-20 sm:px-8 sm:py-28 lg:px-12"><div className="mx-auto max-w-[1100px]"><p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#D76A2C]">Our journey</p><h2 id="timeline-heading" className="mt-6 font-serif text-5xl tracking-[-0.055em] sm:text-6xl">The story so far.</h2><ol className="mt-12 border-l border-white/20 pl-7 sm:pl-10">{milestones.map((milestone) => <li className="relative pb-12 last:pb-0" key={milestone.title}><span className="absolute -left-[33px] top-1 size-3 rounded-full border-2 border-[#101010] bg-[#D76A2C] sm:-left-[45px]" /><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#D76A2C]">{milestone.label}</p><h3 className="mt-2 font-serif text-3xl">{milestone.title}</h3><p className="mt-3 max-w-2xl leading-8 text-white/65">{milestone.description}</p></li>)}</ol></div></section>}
+      <section className="bg-[#0b0b0b] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
+                What drives us
+              </p>
 
-      <section aria-labelledby="taste-heading" className="relative isolate overflow-hidden bg-[#080808] px-5 py-24 sm:px-8 sm:py-32 lg:px-12 lg:py-44">
-        <div className="absolute inset-0 opacity-30"><Visual alt="Karachi Flames food image" className="h-full w-full" label="Closing food image" src={null} /><div className="absolute inset-0 bg-[#080808]/65" /></div>
+              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
+                The rules
+                <br />
+                we cook by.
+              </h2>
+
+              <p className="mt-6 max-w-md text-base leading-7 text-white/55">
+                Everything we do comes back to a few simple principles.
+              </p>
+            </div>
+
+            <div className="border-t border-white/15">
+              {values.map((value) => (
+                <article
+                  key={value.number}
+                  className="group grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[70px_1fr]"
+                >
+                  <span className="font-mono text-sm text-[#d76a2c]">
+                    {value.number}
+                  </span>
+
+                  <div>
+                    <div className="flex items-center justify-between gap-5">
+                      <h3 className="text-2xl font-black uppercase tracking-[-0.045em] sm:text-3xl">
+                        {value.title}
+                      </h3>
+
+                      <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition duration-300 group-hover:border-[#d76a2c] group-hover:bg-[#c75a24] sm:flex">
+                        <Arrow className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/50 sm:text-base">
+                      {value.text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
-      <footer className="bg-[#080808] px-5 py-8 sm:px-8 lg:px-12"><div className="mx-auto flex max-w-[1600px] flex-col items-center justify-between gap-5 border-t border-white/15 pt-8 text-center sm:flex-row sm:text-left"><Link aria-label="Karachi Flames home" className="flex items-center gap-2 rounded-sm font-serif text-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C]" href="/"><FlameMark className="h-6 w-5 text-[#D76A2C]" />Karachi Flames</Link><p className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/40">Authentic Karachi BBQ · [City, State]</p><Link className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/60 transition hover:text-[#D76A2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D76A2C]" href="/contact">Get in touch ↗</Link></div></footer>
+      {/* =========================================================
+          TIMELINE
+      ========================================================= */}
+
+      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
+                The journey
+              </p>
+
+              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
+                From one
+                <br />
+                spark.
+              </h2>
+
+              <p className="mt-6 max-w-sm text-base leading-7 text-black/55">
+                Every great fire starts somewhere. Ours continues to grow
+                with every plate, every guest, and every story.
+              </p>
+            </div>
+
+            <div className="border-t border-black/15">
+              {milestones.map(([number, title, text]) => (
+                <article
+                  key={number}
+                  className="grid gap-5 border-b border-black/15 py-8 sm:grid-cols-[80px_1fr]"
+                >
+                  <span className="font-mono text-xs text-[#c75a24]">
+                    {number}
+                  </span>
+
+                  <div>
+                    <h3 className="text-3xl font-black uppercase tracking-[-0.05em]">
+                      {title}
+                    </h3>
+
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-black/55">
+                      {text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          FOOD / GALLERY
+      ========================================================= */}
+
+      <section className="bg-[#151515] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
+                More than a meal
+              </p>
+
+              <h2 className="mt-4 max-w-3xl text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
+                Made to be
+                <br />
+                remembered.
+              </h2>
+            </div>
+
+            <Link
+              href="/gallery"
+              className="group inline-flex items-center text-xs font-bold uppercase tracking-[0.15em] text-[#e88651]"
+            >
+              Explore gallery
+              <Arrow className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-12 lg:grid-rows-[250px_250px]">
+            <div className="relative col-span-12 overflow-hidden lg:col-span-7 lg:row-span-2">
+              <Image
+                src={imagePaths.food}
+                alt="Karachi Flames BBQ"
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-cover transition duration-700 hover:scale-105"
+              />
+            </div>
+
+            <div className="relative col-span-6 min-h-[240px] overflow-hidden lg:col-span-5 lg:min-h-0">
+              <Image
+                src={imagePaths.galleryOne}
+                alt="Karachi Flames food"
+                fill
+                sizes="(min-width: 1024px) 42vw, 50vw"
+                className="object-cover transition duration-700 hover:scale-105"
+              />
+            </div>
+
+            <div className="relative col-span-6 min-h-[240px] overflow-hidden lg:col-span-5 lg:min-h-0">
+              <Image
+                src={imagePaths.galleryTwo}
+                alt="Karachi Flames gathering"
+                fill
+                sizes="(min-width: 1024px) 42vw, 50vw"
+                className="object-cover transition duration-700 hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          COMMUNITY
+      ========================================================= */}
+
+      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
+              The heart of it all
+            </p>
+
+            <h2 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-[0.83] tracking-[-0.07em] sm:text-7xl">
+              The best part
+              <br />
+              is who sits
+              <br />
+              at the table.
+            </h2>
+          </div>
+
+          <div>
+            <p className="text-lg leading-8 text-black/65">
+              Restaurants are built around food. Communities are built around
+              people. We want Karachi Flames to be a place where both meet —
+              where families celebrate, friends catch up, teams gather, and
+              strangers leave feeling like regulars.
+            </p>
+
+            <div className="mt-8 border-l-2 border-[#c75a24] pl-5">
+              <p className="text-xl font-black uppercase tracking-[-0.03em]">
+                Come hungry.
+                <br />
+                Leave connected.
+              </p>
+            </div>
+
+            <Link
+              href="/location"
+              className="mt-9 inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#c75a24]"
+            >
+              Find a location
+              <Arrow className="ml-3 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          HALAL / QUALITY
+      ========================================================= */}
+
+      <section className="bg-[#111] px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <div className="mx-auto max-w-[1100px] text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-[#d76a2c]/40 bg-[#1b120e]">
+            <span className="relative h-11 w-14">
+              <Image
+                src={imagePaths.halal}
+                alt="Zabiha Halal"
+                fill
+                className="object-contain"
+              />
+            </span>
+          </div>
+
+          <p className="mt-7 text-xs font-bold uppercase tracking-[0.24em] text-[#d76a2c]">
+            Our commitment
+          </p>
+
+          <h2 className="mt-4 text-4xl font-black uppercase leading-[0.88] tracking-[-0.06em] sm:text-6xl">
+            100% Hand-Slaughtered
+            <br />
+            Zabiha Halal
+          </h2>
+
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/55">
+            We believe quality starts with knowing what goes onto the plate.
+            Karachi Flames uses hand-slaughtered Zabiha Halal ingredients,
+            prepared with care and served with pride.
+          </p>
+        </div>
+      </section>
+
+      {/* =========================================================
+          CTA
+      ========================================================= */}
+
+      <section className="relative isolate overflow-hidden bg-[#c75a24] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <div className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-[#f2ad84]/25 blur-3xl" />
+
+        <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-black/10 blur-3xl" />
+
+        <div className="relative mx-auto max-w-[1200px] text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-black/60">
+            Now it is your turn
+          </p>
+
+          <h2 className="mx-auto mt-5 max-w-5xl text-5xl font-black uppercase leading-[0.82] tracking-[-0.08em] text-[#14100d] sm:text-7xl lg:text-8xl">
+            Pull up a chair.
+          </h2>
+
+          <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/65">
+            Experience the flavor, fire, and hospitality that make Karachi
+            Flames what it is.
+          </p>
+
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              href="/menu"
+              className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-8 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
+            >
+              Explore the menu
+              <Arrow className="ml-3 h-5 w-5" />
+            </Link>
+
+            <Link
+              href="/catering"
+              className="inline-flex min-h-14 items-center justify-center rounded-md border border-black/40 px-8 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-black hover:text-white"
+            >
+              Plan an event
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          FOOTER
+      ========================================================= */}
+
+      <footer className="bg-[#080808] px-5 py-12 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.2fr_.8fr_.8fr]">
+            <div>
+              <Link
+                href="/"
+                aria-label="Karachi Flames home"
+                className="relative block h-[90px] w-[300px] shrink-0"
+              >
+                <Image
+                  src={imagePaths.logo}
+                  alt="Karachi Flames"
+                  fill
+                  sizes="300px"
+                  className="object-contain object-left"
+                />
+              </Link>
+
+              <p className="mt-5 max-w-xs text-sm leading-6 text-white/55">
+                Authentic Karachi flavor, fire-grilled with care and served
+                with hospitality.
+              </p>
+
+              <div className="mt-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.12em] text-white/65">
+                <span className="relative h-8 w-10">
+                  <Image
+                    src={imagePaths.halal}
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
+                </span>
+
+                Zabiha Halal
+              </div>
+
+              <div className="mt-6 flex items-center gap-3">
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <InstagramIcon className="h-5 w-5" />
+                </a>
+
+                <a
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <FacebookIcon className="h-5 w-5" />
+                </a>
+
+                <a
+                  href={socialLinks.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <TikTokIcon className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
+                Navigate
+              </p>
+
+              <ul className="mt-4 space-y-2">
+                {navigation.slice(0, 5).map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-white/65 transition hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
+                Visit &amp; contact
+              </p>
+
+              <p className="mt-4 text-sm leading-7 text-white/65">
+                [Restaurant Address]
+                <br />
+                [Contact Number]
+                <br />
+                [Contact Email]
+                <br />
+                [Hours]
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/45 sm:flex-row">
+            <p>© 2026 Karachi Flames. All rights reserved.</p>
+
+            <p>Authentic Karachi BBQ &amp; Catering</p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

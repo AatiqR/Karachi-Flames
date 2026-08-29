@@ -17,7 +17,7 @@ const imagePaths = {
   galleryTwo: "/hero.jpg",
   galleryThree: "/hero.jpg",
   galleryFour: "/hero.jpg",
-  halal: "/images/hand-slaughtered-zabiha-halal.svg",
+  halal: "/halal.png",
   logo: "/logo.png",
 };
 
