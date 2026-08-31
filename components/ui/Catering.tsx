@@ -23,18 +23,18 @@ const imagePaths = {
 
 const navigation = [
 
-  { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
   { label: "Catering", href: "/catering" },
-  { label: "About Us", href: "/about" },
+  { label: "Menu", href: "/menu" },
   { label: "Gallery", href: "/gallery" },
+  { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
 
 const socialLinks = {
-  instagram: "https://www.instagram.com/",
-  facebook: "https://www.facebook.com/",
-  tiktok: "https://www.tiktok.com/",
+   instagram: "https://www.instagram.com/karachiflamesdmv",
+  facebook: "https://www.facebook.com/karachiflamesdmv",
+  tiktok: "https://www.tiktok.com/@karachiflamesdmv",
 };
 
 const eventTypes = [

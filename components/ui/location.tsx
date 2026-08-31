@@ -249,13 +249,16 @@ function MenuIcon({ open }: { open: boolean }) {
 
 const navItems = [
   // { label: "Home", href: "/" },
-  { label: "Menu", href: "/menu" },
   { label: "Locations", href: "/location" },
   { label: "Catering", href: "/catering" },
-  { label: "About Us", href: "/about" },
+  { label: "Menu", href: "/menu" },
   { label: "Gallery", href: "/gallery" },
+  { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
+
+ 
+
 
 export default function LocationsPage() {
   const [activeFilter, setActiveFilter] =
@@ -553,7 +556,7 @@ export default function LocationsPage() {
               {/* MOBILE SOCIAL ICONS */}
               <div className="mt-3 flex items-center justify-center gap-2">
                 <a
-                  href="https://www.instagram.com/"
+                  href="https://www.instagram.com/karachiflamesdmv"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -563,7 +566,7 @@ export default function LocationsPage() {
                 </a>
 
                 <a
-                  href="https://www.facebook.com/"
+                  href="https://www.facebook.com/karachiflamesdmv"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
@@ -573,7 +576,7 @@ export default function LocationsPage() {
                 </a>
 
                 <a
-                  href="https://www.tiktok.com/"
+                  href="https://www.tiktok.com/@karachiflamesdmv"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok"

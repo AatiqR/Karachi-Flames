@@ -70,7 +70,7 @@ const DEFAULT_SOCIALS: SocialLink[] = [
   },
   {
     platform: "tiktok",
-    href: "https://tiktok.com/karachiflamesdmv",
+    href: "https://tiktok.com/@karachiflamesdmv",
   },
 ];
 
