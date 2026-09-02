@@ -19,7 +19,6 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
-import { HiBars3, HiXMark } from "react-icons/hi2";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -182,6 +181,59 @@ function isInPageAnchor(href: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
+// Small icon components (matches the catering page navbar exactly)
+// ---------------------------------------------------------------------------
+
+function Arrow({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <path
+        d="M5 12h13M13 6l6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <span className="relative block h-7 w-8" aria-hidden="true">
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 rotate-45" : "top-1",
+        ].join(" ")}
+      />
+
+      <span
+        className={[
+          "absolute left-0 top-3 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-300 ease-out",
+          open ? "scale-0 opacity-0" : "scale-100 opacity-100",
+        ].join(" ")}
+      />
+
+      <span
+        className={[
+          "absolute left-0 block h-[2px] w-8 rounded-full bg-current",
+          "transition-all duration-500 ease-out",
+          open ? "top-3 -rotate-45" : "top-5",
+        ].join(" ")}
+      />
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
 
@@ -206,12 +258,14 @@ export default function KarachiFlamesHero({
   // -------------------------------------------------------------------------
 
   useEffect(() => {
-    if (!menuOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    const previousTouchAction = document.body.style.touchAction;
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      return;
+    }
 
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     document.body.style.touchAction = "none";
 
     const timer = window.setTimeout(() => {
@@ -223,8 +277,9 @@ export default function KarachiFlamesHero({
     return () => {
       window.clearTimeout(timer);
 
-      document.body.style.overflow = previousOverflow;
-      document.body.style.touchAction = previousTouchAction;
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.touchAction = "";
     };
   }, [menuOpen]);
 
@@ -258,8 +313,8 @@ export default function KarachiFlamesHero({
     }, 0);
   }, []);
 
-  const openMenu = useCallback(() => {
-    setMenuOpen(true);
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((value) => !value);
   }, []);
 
   const handlePanelKeyDown = useCallback(
@@ -273,9 +328,7 @@ export default function KarachiFlamesHero({
       if (e.key !== "Tab" || !panelRef.current) return;
 
       const focusable = Array.from(
-        panelRef.current.querySelectorAll<HTMLElement>(
-          FOCUSABLE_SELECTOR,
-        ),
+        panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
       ).filter((element) => !element.hasAttribute("disabled"));
 
       if (focusable.length === 0) return;
@@ -302,44 +355,19 @@ export default function KarachiFlamesHero({
   const renderSocialIcon = (platform: SocialLink["platform"]) => {
     switch (platform) {
       case "instagram":
-        return (
-          <FaInstagram
-            aria-hidden="true"
-            className="h-4 w-4"
-          />
-        );
+        return <FaInstagram aria-hidden="true" className="h-4 w-4" />;
 
       case "facebook":
-        return (
-          <FaFacebookF
-            aria-hidden="true"
-            className="h-4 w-4"
-          />
-        );
+        return <FaFacebookF aria-hidden="true" className="h-4 w-4" />;
 
       case "youtube":
-        return (
-          <FaYoutube
-            aria-hidden="true"
-            className="h-4 w-4"
-          />
-        );
+        return <FaYoutube aria-hidden="true" className="h-4 w-4" />;
 
       case "twitter":
-        return (
-          <FaXTwitter
-            aria-hidden="true"
-            className="h-4 w-4"
-          />
-        );
+        return <FaXTwitter aria-hidden="true" className="h-4 w-4" />;
 
       case "tiktok":
-        return (
-          <FaTiktok
-            aria-hidden="true"
-            className="h-4 w-4"
-          />
-        );
+        return <FaTiktok aria-hidden="true" className="h-4 w-4" />;
 
       default:
         return null;
@@ -571,10 +599,7 @@ export default function KarachiFlamesHero({
           OVERLAYS
       ===================================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-black/55" />
 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_85%,rgba(224,138,43,0.16),transparent_70%)]" />
@@ -592,10 +617,7 @@ export default function KarachiFlamesHero({
           EMBERS / SMOKE / HEAT
       ===================================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-      >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         {EMBER_PARTICLES.map((particle, index) => (
           <span
             key={index}
@@ -632,19 +654,17 @@ export default function KarachiFlamesHero({
 
       {/* ====================================================================
           NAVBAR
-          DESKTOP = CENTERED
-          MOBILE = HAMBURGER
+          DESKTOP = CENTERED, font sized to match the catering page navbar
+          MOBILE  = catering-style animated hamburger / full-screen menu
       ===================================================================== */}
 
-      <header className="absolute inset-x-0 top-0 z-40 pt-[env(safe-area-inset-top)]">
-        <div className="mx-auto flex max-w-7xl items-center justify-center px-5 py-3 sm:px-8 sm:py-4 lg:py-5">
-          {/* Desktop navigation */}
+      <header className="absolute inset-x-0 top-0 z-[100] pt-[env(safe-area-inset-top)]">
+        <div className="relative mx-auto flex h-[82px] w-full max-w-[1800px] items-center justify-center px-4 sm:h-[92px] sm:px-7 lg:h-[105px] lg:px-10 xl:px-14">
+          {/* Desktop navigation — same font treatment as the catering navbar:
+              text-[14px] font-extrabold uppercase tracking-[0.02em], xl:text-[15px] */}
 
-          <nav
-            aria-label="Primary navigation"
-            className="hidden lg:block"
-          >
-            <ul className="flex items-center justify-center gap-8 xl:gap-10">
+          <nav aria-label="Primary navigation" className="hidden lg:block">
+            <ul className="flex items-center justify-center gap-5 xl:gap-7 2xl:gap-9">
               {navLinks.map((link) => {
                 const content = (
                   <>
@@ -655,22 +675,16 @@ export default function KarachiFlamesHero({
                 );
 
                 const className =
-                  "group relative font-sans text-[12.5px] font-bold uppercase tracking-[0.17em] text-white/95 transition-colors duration-300 hover:text-[#F0A040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E08A2B]";
+                  "group relative whitespace-nowrap px-1 py-3 text-[14px] font-extrabold uppercase tracking-[0.02em] text-white/95 transition-all duration-300 hover:text-[#F0A040] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E08A2B] xl:text-[15px]";
 
                 return (
                   <li key={link.href}>
                     {isInPageAnchor(link.href) ? (
-                      <a
-                        href={link.href}
-                        className={className}
-                      >
+                      <a href={link.href} className={className}>
                         {content}
                       </a>
                     ) : (
-                      <Link
-                        href={link.href}
-                        className={className}
-                      >
+                      <Link href={link.href} className={className}>
                         {content}
                       </Link>
                     )}
@@ -680,21 +694,31 @@ export default function KarachiFlamesHero({
             </ul>
           </nav>
 
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger — animates into an X, pinned top-right exactly
+              like the catering navbar (same right offsets + same row height,
+              so the gap from the top edge matches). */}
 
           <button
             ref={menuButtonRef}
             type="button"
-            aria-label="Open menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
             aria-controls={menuId}
-            onClick={openMenu}
-            className="absolute right-5 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl border border-white/15 bg-black/40 text-white shadow-[0_4px_18px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all duration-300 hover:border-[#E08A2B]/60 hover:bg-black/50 hover:text-[#E08A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B] sm:right-8 sm:h-13 sm:w-13 lg:hidden"
+            onClick={toggleMenu}
+            className={[
+              "absolute right-4 top-1/2 -translate-y-1/2 sm:right-7 lg:right-10 xl:right-14",
+              "z-[140] flex h-14 w-14 shrink-0 items-center justify-center",
+              "rounded-full border border-white/25",
+              "bg-black/40 text-white backdrop-blur-xl",
+              "shadow-[0_8px_30px_rgba(0,0,0,0.35)]",
+              "transition-all duration-300",
+              "hover:border-[#d76a2c] hover:bg-[#c75a24]",
+              "active:scale-90",
+              "focus:outline-none focus:ring-2 focus:ring-[#d76a2c]",
+              "lg:hidden",
+            ].join(" ")}
           >
-            <HiBars3
-              aria-hidden="true"
-              className="h-7 w-7"
-            />
+            <MenuIcon open={menuOpen} />
           </button>
         </div>
       </header>
@@ -775,10 +799,7 @@ export default function KarachiFlamesHero({
             <div className="kf-badge-reveal mt-2 sm:mt-3.5">
               <span className="inline-flex items-center gap-3 rounded-full border border-emerald-400/30 bg-black/40 px-4 py-1.5 backdrop-blur-md sm:px-5 sm:py-2">
                 <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-emerald-500/20 text-emerald-300 sm:h-[18px] sm:w-[18px]">
-                  <FaCheck
-                    aria-hidden="true"
-                    className="h-2 w-2 sm:h-2.5 sm:w-2.5"
-                  />
+                  <FaCheck aria-hidden="true" className="h-2 w-2 sm:h-2.5 sm:w-2.5" />
                 </span>
 
                 <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.17em] text-emerald-100/90 sm:text-[9.5px]">
@@ -803,10 +824,7 @@ export default function KarachiFlamesHero({
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={
-                    social.label ??
-                    `Karachi Flames on ${social.platform}`
-                  }
+                  aria-label={social.label ?? `Karachi Flames on ${social.platform}`}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.05] text-[#F5F1E8]/75 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E08A2B]/60 hover:bg-[#E08A2B]/10 hover:text-[#E08A2B] hover:shadow-[0_0_18px_-2px_rgba(224,138,43,0.7)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B]"
                 >
                   {renderSocialIcon(social.platform)}
@@ -823,7 +841,7 @@ export default function KarachiFlamesHero({
       </div>
 
       {/* ====================================================================
-          MOBILE SOCIAL ICONS
+          MOBILE SOCIAL ICONS (in the hero, not the menu)
       ===================================================================== */}
 
       <div className="absolute inset-x-0 bottom-0 z-30 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden">
@@ -834,10 +852,7 @@ export default function KarachiFlamesHero({
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={
-                  social.label ??
-                  `Karachi Flames on ${social.platform}`
-                }
+                aria-label={social.label ?? `Karachi Flames on ${social.platform}`}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.14] bg-black/20 text-[#F5F1E8]/70 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#E08A2B]/60 hover:bg-[#E08A2B]/10 hover:text-[#E08A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B]"
               >
                 {renderSocialIcon(social.platform)}
@@ -849,8 +864,9 @@ export default function KarachiFlamesHero({
 
       {/* ====================================================================
           MOBILE MENU
-          Full-screen fixed overlay
-          Designed to avoid real-device black-screen / stacking issues
+          Full-screen fixed overlay — layout/behavior matches the catering
+          page's mobile menu (link list with arrow chips, Order Now button,
+          socials), just using the hero's own color tokens.
       ===================================================================== */}
 
       {menuOpen && (
@@ -882,59 +898,45 @@ export default function KarachiFlamesHero({
 
           <div
             ref={panelRef}
-            className="relative flex h-full min-h-0 w-full flex-col px-6 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]"
+            className="relative flex h-full min-h-0 w-full flex-col px-5 pb-5 pt-[96px] sm:px-8 sm:pt-[105px]"
           >
-            {/* Close button */}
+            {/* Top info — mirrors the catering menu's top row */}
 
-            <div className="flex shrink-0 justify-end">
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={closeMenu}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-[#F5F1E8] shadow-[0_4px_18px_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-[#E08A2B]/60 hover:bg-[#E08A2B]/10 hover:text-[#E08A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B]"
-              >
-                <HiXMark
-                  aria-hidden="true"
-                  className="h-7 w-7"
-                />
-              </button>
+            <div className="flex shrink-0 items-center justify-between border-b border-white/10 pb-4">
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#E08A2B] sm:text-[10px]">
+                Explore Karachi Flames
+              </p>
             </div>
 
             {/* Navigation */}
 
             <nav
               aria-label="Mobile navigation"
-              className="mt-7 min-h-0 flex-1 overflow-y-auto overscroll-contain"
+              className="flex min-h-0 flex-1 flex-col justify-center overflow-y-auto overscroll-contain"
             >
-              <ul className="mx-auto flex w-full max-w-md flex-col">
+              <ul className="w-full border-t border-white/10">
                 {navLinks.map((link, index) => {
                   const content = (
                     <>
                       <span>{link.label}</span>
 
-                      <span
-                        aria-hidden="true"
-                        className="mt-1 block h-px w-0 bg-gradient-to-r from-[#E08A2B] to-transparent transition-all duration-500 group-hover:w-full"
-                      />
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:border-[#E08A2B] group-hover:bg-[#C1440E]">
+                        <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
                     </>
                   );
 
                   const className =
-                    "group block border-b border-white/[0.07] py-4 font-sans text-[clamp(1.45rem,7vw,2.1rem)] font-bold uppercase tracking-[0.07em] text-[#F5F1E8] transition-colors duration-300 hover:text-[#E08A2B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B]";
+                    "kf-menu-item group flex w-full items-center justify-between py-[11px] text-[20px] font-black uppercase tracking-[-0.035em] text-white transition-all duration-300 hover:text-[#F0A040] sm:py-[13px]";
 
                   return (
-                    <li
-                      key={link.href}
-                      className="kf-menu-item"
-                      style={{
-                        animationDelay: `${index * 55}ms`,
-                      }}
-                    >
+                    <li key={link.href} className="border-b border-white/10">
                       {isInPageAnchor(link.href) ? (
                         <a
                           href={link.href}
                           onClick={closeMenu}
                           className={className}
+                          style={{ animationDelay: `${index * 55}ms` }}
                         >
                           {content}
                         </a>
@@ -943,6 +945,7 @@ export default function KarachiFlamesHero({
                           href={link.href}
                           onClick={closeMenu}
                           className={className}
+                          style={{ animationDelay: `${index * 55}ms` }}
                         >
                           {content}
                         </Link>
@@ -953,37 +956,14 @@ export default function KarachiFlamesHero({
               </ul>
             </nav>
 
-            {/* Mobile social icons */}
+            {/* Bottom — Order Now button + social icons */}
 
-            <div className="mt-4 shrink-0">
-              <ul className="flex items-center justify-center gap-3">
-                {socialLinks.map((social) => (
-                  <li key={social.platform}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={
-                        social.label ??
-                        `Karachi Flames on ${social.platform}`
-                      }
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.10] bg-white/[0.03] text-[#F5F1E8]/65 transition-all duration-300 hover:scale-110 hover:border-[#E08A2B]/60 hover:bg-[#E08A2B]/10 hover:text-[#E08A2B] hover:shadow-[0_0_20px_-2px_rgba(224,138,43,0.7)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E08A2B]"
-                    >
-                      {renderSocialIcon(social.platform)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Mobile Order Now button */}
-
-            <div className="mt-4 shrink-0">
+            <div className="shrink-0 pt-4">
               {isInPageAnchor(primaryCtaHref) ? (
                 <a
                   href={primaryCtaHref}
                   onClick={closeMenu}
-                  className="kf-btn-glow group relative flex min-h-[58px] w-full items-center justify-center gap-3 overflow-hidden rounded-full font-sans text-[12.5px] font-bold uppercase tracking-[0.24em] text-[#F5F1E8] transition-all duration-300 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E08A2B]"
+                  className="kf-btn-glow group relative flex min-h-[54px] w-full items-center justify-center gap-3 overflow-hidden rounded-full font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#F5F1E8] transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
                   style={{
                     background:
                       "linear-gradient(180deg, #F09030 0%, #D4600E 45%, #B83D08 100%)",
@@ -996,7 +976,7 @@ export default function KarachiFlamesHero({
                 <Link
                   href={primaryCtaHref}
                   onClick={closeMenu}
-                  className="kf-btn-glow group relative flex min-h-[58px] w-full items-center justify-center gap-3 overflow-hidden rounded-full font-sans text-[12.5px] font-bold uppercase tracking-[0.24em] text-[#F5F1E8] transition-all duration-300 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E08A2B]"
+                  className="kf-btn-glow group relative flex min-h-[54px] w-full items-center justify-center gap-3 overflow-hidden rounded-full font-sans text-[12px] font-bold uppercase tracking-[0.22em] text-[#F5F1E8] transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
                   style={{
                     background:
                       "linear-gradient(180deg, #F09030 0%, #D4600E 45%, #B83D08 100%)",
@@ -1006,6 +986,21 @@ export default function KarachiFlamesHero({
                   {orderButton}
                 </Link>
               )}
+
+              <div className="mt-3 flex items-center justify-center gap-2">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label ?? `Karachi Flames on ${social.platform}`}
+                    className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                  >
+                    {renderSocialIcon(social.platform)}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
