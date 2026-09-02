@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,13 +6,11 @@ import Link from "next/link";
 
 const imagePaths = {
   hero: "/hero.jpg",
-  story: "/hero.jpg",
-  fire: "/hero.jpg",
-  food: "/hero.jpg",
-  gathering: "/hero.jpg",
-  galleryOne: "/hero.jpg",
-  galleryTwo: "/hero.jpg",
-  galleryThree: "/hero.jpg",
+  story: "/about.jpg",
+  // Add real photos for the "photo space" grid below once available.
+  storyGalleryOne: "/menu.jpg",
+  storyGalleryTwo: "/menu1.jpg",
+  storyGalleryThree: "/menu2.jpg",
   halal: "/halal.png",
   logo: "/logo.png",
 };
@@ -28,7 +25,7 @@ const navigation = [
 ];
 
 const socialLinks = {
-   instagram: "https://www.instagram.com/karachiflamesdmv",
+  instagram: "https://www.instagram.com/karachiflamesdmv",
   facebook: "https://www.facebook.com/karachiflamesdmv",
   tiktok: "https://www.tiktok.com/@karachiflamesdmv",
 };
@@ -136,36 +133,6 @@ function MenuIcon({ open }: { open: boolean }) {
     </span>
   );
 }
-
-const values = [
-  {
-    number: "01",
-    title: "Fire Is Our Language",
-    text: "Real flame, patient grilling, and bold technique. We believe great BBQ should have depth you can taste from the first bite.",
-  },
-  {
-    number: "02",
-    title: "Karachi Is Our Soul",
-    text: "Our food carries the energy, warmth, spice, and generosity that make Karachi unlike anywhere else.",
-  },
-  {
-    number: "03",
-    title: "Quality Without Shortcuts",
-    text: "From carefully selected ingredients to the final plate, we keep the focus on freshness, flavor, and consistency.",
-  },
-  {
-    number: "04",
-    title: "People Come First",
-    text: "A great meal is more than food. It is the table, the conversation, the welcome, and the memories made around it.",
-  },
-];
-
-const milestones = [
-  ["01", "The First Spark", "A love for Karachi BBQ becomes the beginning of something bigger."],
-  ["02", "The Flame Grows", "Our kitchen evolves around fire, flavor, hospitality, and consistency."],
-  ["03", "The Table Expands", "More guests, more gatherings, and more reasons to bring people together."],
-  ["04", "The Journey Continues", "Karachi Flames keeps moving forward without losing what started it all."],
-];
 
 export default function AboutUsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -504,56 +471,6 @@ export default function AboutUsPage() {
       </section>
 
       {/* =========================================================
-          INTRO / STATS
-      ========================================================= */}
-
-      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
-                What we believe
-              </p>
-
-              <h2 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl lg:text-8xl">
-                Great food should make you feel something.
-              </h2>
-            </div>
-
-            <div>
-              <p className="max-w-xl text-lg leading-8 text-black/65">
-                The crackle of the grill. The aroma of smoke in the air. The
-                first bite that instantly takes you somewhere familiar.
-                Karachi Flames was created around that feeling.
-              </p>
-
-              <div className="mt-9 grid grid-cols-2 gap-px border border-black/10 bg-black/10 sm:grid-cols-4">
-                {[
-                  ["01", "Fire"],
-                  ["02", "Flavor"],
-                  ["03", "Culture"],
-                  ["04", "People"],
-                ].map(([number, label]) => (
-                  <div
-                    key={number}
-                    className="bg-[#f5f1e8] px-4 py-5"
-                  >
-                    <p className="font-mono text-[10px] text-[#c75a24]">
-                      {number}
-                    </p>
-
-                    <p className="mt-3 text-sm font-black uppercase tracking-[-0.02em]">
-                      {label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
           STORY
       ========================================================= */}
 
@@ -598,387 +515,65 @@ export default function AboutUsPage() {
 
               <div className="mt-8 space-y-6 text-base leading-8 text-white/65 sm:text-lg">
                 <p>
-                  Karachi has a way of bringing people together. Different
-                  neighborhoods, different backgrounds, different stories —
-                  but somehow, there is always room around the table.
+                  It started with a love for Karachi — its bold flavors,
+                  smoky charcoal grills, and the warmth of gathering around
+                  a shared table. That love became the spark behind Karachi
+                  Flames.
                 </p>
 
                 <p>
-                  That spirit is at the heart of Karachi Flames. We take
-                  inspiration from the city's unmistakable BBQ culture and
-                  turn it into an experience built around smoke, spice,
-                  char, freshness, and generosity.
+                  We wanted to bring the same fire, spice, and generosity
+                  that make Karachi's BBQ culture so unforgettable, and
+                  build an experience around it: real charcoal, real
+                  flavor, and real hospitality.
                 </p>
 
                 <p>
-                  We are not interested in making food complicated. We are
-                  interested in making it memorable.
-                </p>
-              </div>
-
-              <div className="mt-10 grid gap-6 border-t border-white/15 pt-7 sm:grid-cols-2">
-                <div>
-                  <p className="text-3xl font-black uppercase tracking-[-0.04em]">
-                    Real fire
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-white/45">
-                    Because flame brings something no shortcut can recreate.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-3xl font-black uppercase tracking-[-0.04em]">
-                    Real people
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-white/45">
-                    Because hospitality is just as important as what is on
-                    the plate.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          FIRE FEATURE
-      ========================================================= */}
-
-      <section className="relative overflow-hidden bg-[#c75a24]">
-        <div className="grid lg:grid-cols-2">
-          <div className="relative min-h-[480px] lg:min-h-[700px]">
-            <Image
-              src={imagePaths.fire}
-              alt="BBQ grilling over open flame"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-black/10" />
-          </div>
-
-          <div className="flex items-center px-5 py-20 sm:px-10 lg:px-16">
-            <div className="max-w-xl">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-black/60">
-                Why fire matters
-              </p>
-
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.82] tracking-[-0.07em] text-[#15100d] sm:text-7xl">
-                You can taste
-                <br />
-                the difference.
-              </h2>
-
-              <p className="mt-7 text-lg leading-8 text-black/70">
-                Fire is not decoration at Karachi Flames. It is part of the
-                flavor. It creates char, smoke, caramelization, aroma, and
-                that unmistakable BBQ character we chase every day.
-              </p>
-
-              <div className="mt-9 border-t border-black/20 pt-6">
-                <p className="text-2xl font-black uppercase tracking-[-0.04em]">
-                  Flame first.
-                </p>
-
-                <p className="mt-2 max-w-md text-sm leading-6 text-black/60">
-                  Carefully prepared ingredients meet high heat, patience,
-                  and technique.
+                  Today, Karachi Flames is a celebration of that first
+                  spark — food that is simple, memorable, and made to bring
+                  people together.
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* =========================================================
-          VALUES
-      ========================================================= */}
-
-      <section className="bg-[#0b0b0b] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
-                What drives us
-              </p>
-
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
-                The rules
-                <br />
-                we cook by.
-              </h2>
-
-              <p className="mt-6 max-w-md text-base leading-7 text-white/55">
-                Everything we do comes back to a few simple principles.
-              </p>
-            </div>
-
-            <div className="border-t border-white/15">
-              {values.map((value) => (
-                <article
-                  key={value.number}
-                  className="group grid gap-5 border-b border-white/15 py-8 sm:grid-cols-[70px_1fr]"
-                >
-                  <span className="font-mono text-sm text-[#d76a2c]">
-                    {value.number}
-                  </span>
-
-                  <div>
-                    <div className="flex items-center justify-between gap-5">
-                      <h3 className="text-2xl font-black uppercase tracking-[-0.045em] sm:text-3xl">
-                        {value.title}
-                      </h3>
-
-                      <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition duration-300 group-hover:border-[#d76a2c] group-hover:bg-[#c75a24] sm:flex">
-                        <Arrow className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/50 sm:text-base">
-                      {value.text}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          TIMELINE
-      ========================================================= */}
-
-      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
-                The journey
-              </p>
-
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
-                From one
-                <br />
-                spark.
-              </h2>
-
-              <p className="mt-6 max-w-sm text-base leading-7 text-black/55">
-                Every great fire starts somewhere. Ours continues to grow
-                with every plate, every guest, and every story.
-              </p>
-            </div>
-
-            <div className="border-t border-black/15">
-              {milestones.map(([number, title, text]) => (
-                <article
-                  key={number}
-                  className="grid gap-5 border-b border-black/15 py-8 sm:grid-cols-[80px_1fr]"
-                >
-                  <span className="font-mono text-xs text-[#c75a24]">
-                    {number}
-                  </span>
-
-                  <div>
-                    <h3 className="text-3xl font-black uppercase tracking-[-0.05em]">
-                      {title}
-                    </h3>
-
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-black/55">
-                      {text}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          FOOD / GALLERY
-      ========================================================= */}
-
-      <section className="bg-[#151515] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d76a2c]">
-                More than a meal
-              </p>
-
-              <h2 className="mt-4 max-w-3xl text-5xl font-black uppercase leading-[0.84] tracking-[-0.07em] sm:text-7xl">
-                Made to be
-                <br />
-                remembered.
-              </h2>
-            </div>
-
-            <Link
-              href="/gallery"
-              className="group inline-flex items-center text-xs font-bold uppercase tracking-[0.15em] text-[#e88651]"
-            >
-              Explore gallery
-              <Arrow className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-12 lg:grid-rows-[250px_250px]">
-            <div className="relative col-span-12 overflow-hidden lg:col-span-7 lg:row-span-2">
+        {/* -------------------------------------------------------
+            PHOTO SPACE — drop real Karachi Flames photos in here.
+            Swap the src values in imagePaths (storyGalleryOne/Two/
+            Three) once real images are available.
+        ------------------------------------------------------- */}
+        <div className="mx-auto mt-14 max-w-[1600px]">
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
               <Image
-                src={imagePaths.food}
-                alt="Karachi Flames BBQ"
+                src={imagePaths.storyGalleryOne}
+                alt="Karachi Flames photo"
                 fill
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                className="object-cover transition duration-700 hover:scale-105"
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover"
               />
             </div>
 
-            <div className="relative col-span-6 min-h-[240px] overflow-hidden lg:col-span-5 lg:min-h-0">
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
               <Image
-                src={imagePaths.galleryOne}
-                alt="Karachi Flames food"
+                src={imagePaths.storyGalleryTwo}
+                alt="Karachi Flames photo"
                 fill
-                sizes="(min-width: 1024px) 42vw, 50vw"
-                className="object-cover transition duration-700 hover:scale-105"
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover"
               />
             </div>
 
-            <div className="relative col-span-6 min-h-[240px] overflow-hidden lg:col-span-5 lg:min-h-0">
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
               <Image
-                src={imagePaths.galleryTwo}
-                alt="Karachi Flames gathering"
+                src={imagePaths.storyGalleryThree}
+                alt="Karachi Flames photo"
                 fill
-                sizes="(min-width: 1024px) 42vw, 50vw"
-                className="object-cover transition duration-700 hover:scale-105"
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover"
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          COMMUNITY
-      ========================================================= */}
-
-      <section className="bg-[#f5f1e8] px-5 py-20 text-[#111] sm:px-8 sm:py-28 lg:px-12">
-        <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#c75a24]">
-              The heart of it all
-            </p>
-
-            <h2 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-[0.83] tracking-[-0.07em] sm:text-7xl">
-              The best part
-              <br />
-              is who sits
-              <br />
-              at the table.
-            </h2>
-          </div>
-
-          <div>
-            <p className="text-lg leading-8 text-black/65">
-              Restaurants are built around food. Communities are built around
-              people. We want Karachi Flames to be a place where both meet —
-              where families celebrate, friends catch up, teams gather, and
-              strangers leave feeling like regulars.
-            </p>
-
-            <div className="mt-8 border-l-2 border-[#c75a24] pl-5">
-              <p className="text-xl font-black uppercase tracking-[-0.03em]">
-                Come hungry.
-                <br />
-                Leave connected.
-              </p>
-            </div>
-
-            <Link
-              href="/location"
-              className="mt-9 inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#c75a24]"
-            >
-              Find a location
-              <Arrow className="ml-3 h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================
-          HALAL / QUALITY
-      ========================================================= */}
-
-      <section className="bg-[#111] px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto max-w-[1100px] text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-[#d76a2c]/40 bg-[#1b120e]">
-            <span className="relative h-11 w-14">
-              <Image
-                src={imagePaths.halal}
-                alt="Zabiha Halal"
-                fill
-                className="object-contain"
-              />
-            </span>
-          </div>
-
-          <p className="mt-7 text-xs font-bold uppercase tracking-[0.24em] text-[#d76a2c]">
-            Our commitment
-          </p>
-
-          <h2 className="mt-4 text-4xl font-black uppercase leading-[0.88] tracking-[-0.06em] sm:text-6xl">
-            100% Hand-Slaughtered
-            <br />
-            Zabiha Halal
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/55">
-            We believe quality starts with knowing what goes onto the plate.
-            Karachi Flames uses hand-slaughtered Zabiha Halal ingredients,
-            prepared with care and served with pride.
-          </p>
-        </div>
-      </section>
-
-      {/* =========================================================
-          CTA
-      ========================================================= */}
-
-      <section className="relative isolate overflow-hidden bg-[#c75a24] px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-        <div className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-[#f2ad84]/25 blur-3xl" />
-
-        <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-black/10 blur-3xl" />
-
-        <div className="relative mx-auto max-w-[1200px] text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-black/60">
-            Now it is your turn
-          </p>
-
-          <h2 className="mx-auto mt-5 max-w-5xl text-5xl font-black uppercase leading-[0.82] tracking-[-0.08em] text-[#14100d] sm:text-7xl lg:text-8xl">
-            Pull up a chair.
-          </h2>
-
-          <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/65">
-            Experience the flavor, fire, and hospitality that make Karachi
-            Flames what it is.
-          </p>
-
-          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link
-              href="/menu"
-              className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#111] px-8 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white hover:text-black"
-            >
-              Explore the menu
-              <Arrow className="ml-3 h-5 w-5" />
-            </Link>
-
-            <Link
-              href="/catering"
-              className="inline-flex min-h-14 items-center justify-center rounded-md border border-black/40 px-8 text-sm font-bold uppercase tracking-[0.12em] text-black transition hover:bg-black hover:text-white"
-            >
-              Plan an event
-            </Link>
           </div>
         </div>
       </section>

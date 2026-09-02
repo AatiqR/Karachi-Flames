@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -42,9 +41,8 @@ const navigation = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-
 const socialLinks = {
-   instagram: "https://www.instagram.com/karachiflamesdmv",
+  instagram: "https://www.instagram.com/karachiflamesdmv",
   facebook: "https://www.facebook.com/karachiflamesdmv",
   tiktok: "https://www.tiktok.com/@karachiflamesdmv",
 };
@@ -250,129 +248,6 @@ const mainMenu: MenuItem[] = [
   },
 ];
 
-const specialMenu: MenuItem[] = [
-  {
-    name: "Beef Bihari Roll",
-    description:
-      "Flaky paratha, beef bihari kabab, red onions, and your choice of chutney or mayo-garlic sauce.",
-    price: "$14",
-    category: "Rolls",
-    imagePath: "/menu.jpg",
-    imageAlt: "Beef Bihari Roll",
-  },
-  {
-    name: "Chicken Malai Boti Roll",
-    description:
-      "Flaky paratha, chicken malai boti, red onions, and your choice of chutney or mayo-garlic sauce.",
-    price: "$14",
-    category: "Rolls",
-    imagePath: "/menu.jpg",
-    imageAlt: "Chicken Malai Boti Roll",
-  },
-  {
-    name: "KF Flame House Smash Burger",
-    description:
-      "Brioche bun, smashed beef patty, chopped jalapeños, white cheddar, pineapple, pickles, and KF Flame House sauce.",
-    price: "$13",
-    category: "Burgers",
-    imagePath: "/menu.jpg",
-    imageAlt: "KF Flame House Smash Burger",
-    addon: "Add onion ring +$1",
-  },
-  {
-    name: "Classic Smash Burger",
-    description:
-      "Brioche bun, smashed beef patty, white cheddar, KF mild white sauce, pickles, jalapeños, and lettuce.",
-    price: "$13",
-    category: "Burgers",
-    imagePath: "/menu.jpg",
-    imageAlt: "Classic Smash Burger",
-    addon: "Add onion ring +$1",
-  },
-  {
-    name: "Karachi Beef Biryani",
-    description:
-      "Spiced sela rice, tender boneless beef boti, and authentic Karachi-style flavor.",
-    price: "Ask in store",
-    category: "Rice & Biryani",
-    imagePath: "/menu.jpg",
-    imageAlt: "Karachi Beef Biryani",
-  },
-  {
-    name: "Chicken Yakhni Pulao",
-    description:
-      "Aromatic basmati rice with tender chicken pieces infused with authentic yakhni flavors.",
-    price: "$15",
-    category: "Rice & Biryani",
-    imagePath: "/menu.jpg",
-    imageAlt: "Chicken Yakhni Pulao",
-  },
-  {
-    name: "Chilled Soda",
-    description: "Your choice of cold, refreshing soda.",
-    price: "$2",
-    category: "Drinks",
-    imagePath: "/menu.jpg",
-    imageAlt: "Chilled soda",
-  },
-];
-
-const fridayMenu: MenuItem[] = [
-  {
-    name: "Beef Bihari Kabab Roll",
-    description:
-      "Flaky paratha, beef bihari kabab, red onions, and your choice of chutney or mayo-garlic sauce.",
-    price: "$14",
-    category: "Rolls",
-    imagePath: "/menu.jpg",
-    imageAlt: "Beef Bihari Kabab Roll",
-  },
-  {
-    name: "Chicken Tikka Boti Roll",
-    description:
-      "Flaky paratha, chicken tikka boti, red onions, and your choice of chutney or mayo-garlic sauce.",
-    price: "$14",
-    category: "Rolls",
-    imagePath: "/menu.jpg",
-    imageAlt: "Chicken Tikka Boti Roll",
-  },
-  {
-    name: "BBQ Pulled Chicken Sliders",
-    description:
-      "Garlic-parmesan crusted slider buns, smoky BBQ pulled chicken, and crunchy lettuce.",
-    price: "$10",
-    category: "Burgers",
-    imagePath: "/menu.jpg",
-    imageAlt: "BBQ Pulled Chicken Sliders",
-  },
-  {
-    name: "Karachi Beef Biryani",
-    description:
-      "Spiced sela rice, tender boneless beef boti, and authentic Karachi-style flavor.",
-    price: "$17",
-    category: "Rice & Biryani",
-    imagePath: "/menu.jpg",
-    imageAlt: "Karachi Beef Biryani",
-  },
-  {
-    name: "KF Mango Fizz",
-    description:
-      "Mango pulp, lemonade, Sprite, and a splash of mint.",
-    price: "$4",
-    category: "Drinks",
-    imagePath: "/menu.jpg",
-    imageAlt: "KF Mango Fizz",
-  },
-  {
-    name: "Drinks",
-    description: "Chilled soda or water.",
-    price: "$2",
-    category: "Drinks",
-    imagePath: "/menu.jpg",
-    imageAlt: "Chilled drinks",
-  },
-];
-
 /* =========================================================
    FOOD PLACEHOLDER
    ========================================================= */
@@ -410,32 +285,24 @@ function FoodPlaceholder({ label }: { label: string }) {
    FOOD CARD
    ========================================================= */
 
-function FoodCard({
-  item,
-  showImage = true,
-}: {
-  item: MenuItem;
-  showImage?: boolean;
-}) {
+function FoodCard({ item }: { item: MenuItem }) {
   const hasImage = false;
 
   return (
     <article className="group overflow-hidden rounded-[1.15rem] border border-white/[0.09] bg-[#171513] transition duration-300 motion-reduce:transition-none md:hover:-translate-y-1 md:hover:border-[#c65a24]/55 md:hover:shadow-[0_20px_46px_rgba(0,0,0,.32)]">
-      {showImage && (
-        <div className="relative overflow-hidden">
-          {hasImage ? (
-            <Image
-              src={item.imagePath}
-              alt={item.imageAlt}
-              width={800}
-              height={600}
-              className="h-56 w-full object-cover transition duration-500 motion-reduce:transition-none md:group-hover:scale-[1.04]"
-            />
-          ) : (
-            <FoodPlaceholder label={item.name} />
-          )}
-        </div>
-      )}
+      <div className="relative overflow-hidden">
+        {hasImage ? (
+          <Image
+            src={item.imagePath}
+            alt={item.imageAlt}
+            width={800}
+            height={600}
+            className="h-56 w-full object-cover transition duration-500 motion-reduce:transition-none md:group-hover:scale-[1.04]"
+          />
+        ) : (
+          <FoodPlaceholder label={item.name} />
+        )}
+      </div>
 
       <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
@@ -754,7 +621,7 @@ export default function MenuPage() {
 
       {/* =====================================================
           MENU CONTENT
-          EVERYTHING BELOW THE NAVBAR REMAINS MENU CONTENT
+          HERO → CATEGORY BAR → MAIN MENU → FOOTER ONLY
           ===================================================== */}
 
       <section className="relative mx-auto max-w-[1440px] px-5 pb-14 pt-32 sm:px-8 sm:pb-20 sm:pt-36 lg:px-12 lg:pt-44">
@@ -848,159 +715,12 @@ export default function MenuPage() {
           {filteredMenu.map((item) => (
             <FoodCard key={item.name} item={item} />
           ))}
-        </div>
-      </section>
 
-      {/* SPECIAL MENU */}
-
-      <section
-        className="border-y border-[#c65a24]/25 bg-[#15100d] py-16 sm:py-20"
-        aria-labelledby="special-menu-heading"
-      >
-        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-
-          <div className="mb-9 max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
-              A little extra heat
+          {filteredMenu.length === 0 && (
+            <p className="col-span-full py-16 text-center text-sm text-[#d8d3ca]/55">
+              No items in this category yet — check back soon.
             </p>
-
-            <h2
-              id="special-menu-heading"
-              className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl"
-            >
-              Special Menu
-            </h2>
-
-            <p className="mt-4 text-[#d8d3ca]/75">
-              Limited-time Karachi Flames favorites, made when the moment calls for something memorable.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {specialMenu.map((item) => (
-              <FoodCard
-                key={item.name}
-                item={item}
-                showImage={false}
-              />
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* FRIDAY SPECIAL */}
-
-      <section
-        className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20 lg:px-12"
-        aria-labelledby="friday-menu-heading"
-      >
-        <div className="rounded-[1.5rem] border border-white/[0.1] bg-[#121110] p-6 sm:p-10">
-
-          <div className="mb-9 flex flex-col justify-between gap-4 border-b border-white/[0.1] pb-7 lg:flex-row lg:items-end">
-
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
-                AlTaqwa Foodie Fridays
-              </p>
-
-              <h2
-                id="friday-menu-heading"
-                className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl"
-              >
-                Friday Special
-              </h2>
-            </div>
-
-            <p className="max-w-sm text-sm leading-6 text-[#d8d3ca]/65">
-              A rotating, Friday-only lineup. Availability is limited; please check with your local Karachi Flames location.
-            </p>
-
-          </div>
-
-          <div className="grid gap-x-10 gap-y-7 md:grid-cols-2 xl:grid-cols-3">
-            {fridayMenu.map((item) => (
-              <div
-                key={item.name}
-                className="border-b border-white/[0.08] pb-6"
-              >
-                <div className="flex gap-4">
-                  <h3 className="font-serif text-xl leading-tight">
-                    {item.name}
-                  </h3>
-
-                  <p className="ml-auto shrink-0 font-serif text-lg text-[#e67838]">
-                    {item.price}
-                  </p>
-                </div>
-
-                <p className="mt-2 text-sm leading-6 text-[#d8d3ca]/70">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* NOTE */}
-
-      <section className="mx-auto max-w-[1440px] px-5 pb-16 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-4 rounded-xl border border-white/[0.1] bg-white/[0.025] p-5 sm:flex-row sm:items-center sm:p-6">
-          <span className="text-[#e67838]" aria-hidden="true">
-            ✦
-          </span>
-
-          <p className="text-sm leading-6 text-[#d8d3ca]/75">
-            <strong className="font-semibold text-[#f5f2ec]">
-              Please note:
-            </strong>{" "}
-            All menu items contain dairy. Please let our team know about any dietary needs or allergies before ordering.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA */}
-
-      <section className="relative overflow-hidden border-t border-white/[0.09] bg-[#17110d] px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-12">
-
-        <div
-          className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c65a24]/20 blur-[100px]"
-          aria-hidden="true"
-        />
-
-        <div className="relative mx-auto max-w-2xl">
-
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
-            Karachi Flames
-          </p>
-
-          <h2 className="mt-4 font-serif text-4xl tracking-[-0.03em] sm:text-5xl">
-            Come taste the flame.
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-xl leading-7 text-[#d8d3ca]/78">
-            Authentic Karachi flavor, made fresh and served with pride.
-          </p>
-
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-
-            <Link
-              href="/location"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#c65a24] px-6 text-sm font-bold text-white transition hover:bg-[#dc6c2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2ec]"
-            >
-              Order Now
-            </Link>
-
-            <Link
-              href="/location"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-bold text-[#f5f2ec] transition hover:border-[#e67838] hover:text-[#e67838] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2ec]"
-            >
-              Find a Location
-            </Link>
-
-          </div>
+          )}
         </div>
       </section>
 
