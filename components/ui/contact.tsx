@@ -27,10 +27,10 @@ const content = {
 };
 
 const contactInfo = {
-  phone: "[PHONE NUMBER]",
-  email: "[EMAIL ADDRESS]",
-  address: "[ADDRESS]",
-  hours: "[OPERATING HOURS]",
+  phone: "443-430-5800",
+  email: "Karachiflamesdmv@gmail.com",
+  address: "8411 Baltimore National Pike, Ellicott City, MD, 21043",
+  hours: "12 PM – 12 AM, Daily",
 };
 
 const assets = {
@@ -115,6 +115,41 @@ function Arrow({ className = "" }: { className?: string }) {
         strokeWidth="1.7"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/* ===== 3D-style flame icon — used in place of the arrow on the contact detail rows ===== */
+
+function FlameIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <defs>
+        <linearGradient id="kfFlameOuter" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#B83D08" />
+          <stop offset="45%" stopColor="#D4600E" />
+          <stop offset="100%" stopColor="#F0A040" />
+        </linearGradient>
+        <linearGradient id="kfFlameInner" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stopColor="#E08A2B" />
+          <stop offset="100%" stopColor="#FFD98A" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M12.5 2c.3 2.1-.6 3.4-1.9 4.7-1.6 1.6-3.4 3.4-3.4 6.2a4.8 4.8 0 0 0 4.8 4.8 4.4 4.4 0 0 0 4.4-4.4c0-1-.3-1.8-.7-2.6.9.4 1.6 1.1 2.1 2 .6 1 .9 2.2.7 3.5-.4 3-3 5.3-6.5 5.3A7.4 7.4 0 0 1 4.6 14a8 8 0 0 1 2-5.3c1-1.2 2.3-2.1 3.1-3.4.6-1 .9-2.1.8-3.3Z"
+        fill="url(#kfFlameOuter)"
+        stroke="#8A2C05"
+        strokeWidth="0.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12.1 9.6c.2 1-.3 1.7-1 2.4-.7.8-1.4 1.6-1.4 2.7a2.4 2.4 0 0 0 2.4 2.4 2.2 2.2 0 0 0 2.1-2.9c.5.4.8.9.8 1.6 0 1.3-1.1 2.4-2.6 2.4a3.3 3.3 0 0 1-3.3-3.3c0-1.6.9-2.7 1.8-3.6.5-.5 1-1 1.2-1.7Z"
+        fill="url(#kfFlameInner)"
       />
     </svg>
   );
@@ -468,7 +503,7 @@ export default function ContactPage() {
                   <p>{item.label}</p>
                   {item.href ? (
                     <a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined}>
-                      <span>{item.value}</span><b aria-hidden="true">↗</b>
+                      <span>{item.value}</span><FlameIcon aria-hidden="true" className="kf-detail__flame" />
                     </a>
                   ) : <span className="kf-detail__plain">{item.value}</span>}
                 </div>
@@ -603,9 +638,10 @@ export default function ContactPage() {
         .kf-details-list { margin-top: 58px; border-top: 1px solid var(--kf-line); }
         .kf-detail { padding: 18px 0 19px; border-bottom: 1px solid var(--kf-line); }
         .kf-detail p { margin: 0 0 8px; color: rgba(245,241,232,.48); font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-        .kf-detail a { display: inline-flex; justify-content: space-between; width: 100%; gap: 16px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px, 1.55vw, 21px); line-height: 1.25; transition: color .2s; }
-        .kf-detail a b { color: var(--kf-orange-bright); font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; transition: transform .2s; }
-        .kf-detail a:hover { color: var(--kf-orange-bright); }.kf-detail a:hover b { transform: translate(4px, -4px); }
+        .kf-detail a { display: inline-flex; justify-content: space-between; align-items: center; width: 100%; gap: 16px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px, 1.55vw, 21px); line-height: 1.25; transition: color .2s; }
+        .kf-detail__flame { width: 20px; height: 20px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(216,90,20,0.45)); transition: transform .25s ease, filter .25s ease; }
+        .kf-detail a:hover { color: var(--kf-orange-bright); }
+        .kf-detail a:hover .kf-detail__flame { transform: translateY(-3px) scale(1.12) rotate(-4deg); filter: drop-shadow(0 6px 10px rgba(216,90,20,0.65)); }
         .kf-detail__plain { display: block; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px, 1.55vw, 21px); line-height: 1.25; }
         .kf-halal { display: block; width: auto; height: auto; margin-top: 44px; opacity: .85; }
         .kf-form-panel { position: relative; padding: clamp(30px, 4.5vw, 66px); background: var(--kf-panel); }
