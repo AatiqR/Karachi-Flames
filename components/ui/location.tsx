@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   useEffect,
-  useMemo,
   useState,
   type ComponentType,
 } from "react";
@@ -12,19 +11,17 @@ import {
 /*
  * KARACHI FLAMES — LOCATIONS
  *
+ * Only the permanent restaurant location is shown here.
+ * The food truck and pop-up entries have been removed.
  * Replace the placeholder location information below
- * with the confirmed client information.
+ * with the confirmed client information if it changes.
  */
-
-type LocationCategory = "permanent" | "pop-up";
 
 type SimpleLocation = {
   id: string;
-  category: LocationCategory;
-  typeLabel: "Restaurant" | "Food Truck" | "Pop-Up";
+  typeLabel: "Restaurant";
   name: string;
   address: string[];
-  date?: string;
   directionsUrl: string | null;
 };
 
@@ -32,33 +29,13 @@ type SimpleLocation = {
    LOCATION DATA
    ========================================================= */
 
-const locations: SimpleLocation[] = [
-  {
-    id: "restaurant-1",
-    category: "permanent",
-    typeLabel: "Restaurant",
-    name: "[LOCATION NAME]",
-    address: ["[STREET ADDRESS]", "[CITY, STATE ZIP]"],
-    directionsUrl: null,
-  },
-  {
-    id: "food-truck-1",
-    category: "permanent",
-    typeLabel: "Food Truck",
-    name: "[FOOD TRUCK NAME]",
-    address: ["[CURRENT ADDRESS]", "[CITY, STATE ZIP]"],
-    directionsUrl: null,
-  },
-  {
-    id: "pop-up-1",
-    category: "pop-up",
-    typeLabel: "Pop-Up",
-    name: "[POP-UP EVENT NAME]",
-    address: ["[EVENT ADDRESS]", "[CITY, STATE ZIP]"],
-    date: "[DATE / TIME]",
-    directionsUrl: null,
-  },
-];
+const location: SimpleLocation = {
+  id: "restaurant-1",
+  typeLabel: "Restaurant",
+  name: "Karachi Flames",
+  address: ["8411 Baltimore National Pike", "Ellicott City, MD 21043"],
+  directionsUrl: null,
+};
 
 /*
  * Add your real halal logo path here when ready.
@@ -91,24 +68,6 @@ function getEmbedSrc(location: SimpleLocation): string {
 
   return `https://www.google.com/maps?q=${query}&output=embed`;
 }
-
-/* =========================================================
-   CATEGORY TABS
-   ========================================================= */
-
-const categoryTabs: {
-  id: LocationCategory;
-  label: string;
-}[] = [
-  {
-    id: "permanent",
-    label: "Permanent Location / Food Truck",
-  },
-  {
-    id: "pop-up",
-    label: "Pop-Ups",
-  },
-];
 
 /* =========================================================
    ICONS
@@ -162,80 +121,6 @@ function PinIcon({
         r="2.4"
         stroke="currentColor"
         strokeWidth="1.6"
-      />
-    </svg>
-  );
-}
-
-function TruckIcon({
-  className = "",
-}: {
-  className?: string;
-}) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-    >
-      <path
-        d="M3 7h10v9H3z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M13 10h4l4 3v3h-8z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-
-      <circle
-        cx="7.5"
-        cy="18"
-        r="1.6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-
-      <circle
-        cx="17.5"
-        cy="18"
-        r="1.6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-    </svg>
-  );
-}
-
-function SparkIcon({
-  className = "",
-}: {
-  className?: string;
-}) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-    >
-      <path
-        d="M12 3c.6 3.4 2.1 4.9 5.5 5.5C14.1 9.1 12.6 10.6 12 14c-.6-3.4-2.1-4.9-5.5-5.5C9.9 7.9 11.4 6.4 12 3Z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M18.5 14.5c.35 1.9 1.15 2.7 3 3.05-1.85.35-2.65 1.15-3 3.05-.35-1.9-1.15-2.7-3-3.05 1.85-.35 2.65-1.15 3-3.05Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
       />
     </svg>
   );
@@ -376,8 +261,6 @@ const typeIcon: Record<
   IconComponent
 > = {
   Restaurant: PinIcon,
-  "Food Truck": TruckIcon,
-  "Pop-Up": SparkIcon,
 };
 
 /* =========================================================
@@ -416,9 +299,6 @@ const navItems = [
    ========================================================= */
 
 export default function LocationsPage() {
-  const [activeCategory, setActiveCategory] =
-    useState<LocationCategory>("permanent");
-
   const [menuOpen, setMenuOpen] =
     useState(false);
 
@@ -444,7 +324,7 @@ export default function LocationsPage() {
     }
 
     description.content =
-      "Find Karachi Flames — our permanent location, food truck, and upcoming pop-ups, with directions on Google Maps.";
+      "Find Karachi Flames — our restaurant location, with directions on Google Maps.";
   }, []);
 
   /* ---------------------------------------------------------
@@ -498,16 +378,7 @@ export default function LocationsPage() {
     setMenuOpen(false);
   }
 
-  /* ---------------------------------------------------------
-     FILTER LOCATIONS
-     --------------------------------------------------------- */
-
-  const filteredLocations = useMemo(() => {
-    return locations.filter(
-      (location) =>
-        location.category === activeCategory,
-    );
-  }, [activeCategory]);
+  const TypeIcon = typeIcon[location.typeLabel];
 
   /* =========================================================
      RENDER
@@ -807,169 +678,73 @@ export default function LocationsPage() {
             </h1>
 
             <p className="mt-6 max-w-lg text-base leading-7 text-[#c9c4b9] sm:text-lg">
-              Our permanent spot, the food truck,
-              and every upcoming pop-up — pick a
-              tab below and get directions in one tap.
+              Our restaurant location — get
+              directions in one tap.
             </p>
           </div>
         </section>
 
         {/* ===================================================
-            LOCATIONS
+            LOCATION
         ==================================================== */}
 
         <section className="px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-[1180px]">
-            {/* Category tabs */}
+            <div className="mt-0 grid gap-6 sm:grid-cols-2">
+              <article className="group overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.035] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#c65a24]/55 hover:shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
+                {/* Google Map */}
 
-            <div
-              role="tablist"
-              aria-label="Filter locations"
-              className="inline-flex w-full flex-col gap-2 rounded-2xl border border-white/10 bg-white/[0.035] p-1.5 sm:w-auto sm:flex-row"
-            >
-              {categoryTabs.map(
-                (tab) => {
-                  const active =
-                    activeCategory === tab.id;
+                <div className="relative h-52 w-full overflow-hidden border-b border-white/10 sm:h-56">
+                  <iframe
+                    title={`Map to ${location.name}`}
+                    src={getEmbedSrc(location)}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="h-full w-full grayscale-[0.15] contrast-[1.05] transition duration-500 group-hover:grayscale-0"
+                  />
 
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      role="tab"
-                      id={`location-tab-${tab.id}`}
-                      aria-selected={active}
-                      aria-controls="location-results"
-                      onClick={() =>
-                        setActiveCategory(tab.id)
-                      }
-                      className={[
-                        "flex min-h-12 items-center justify-center gap-2 rounded-xl px-5",
-                        "text-xs font-bold uppercase tracking-[0.14em]",
-                        "transition-all duration-300",
-                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c65a24]",
-                        active
-                          ? "bg-[#c65a24] text-white shadow-[0_10px_30px_rgba(198,90,36,0.28)]"
-                          : "text-[#a49d92] hover:text-[#f5f1e8]",
-                      ].join(" ")}
-                    >
-                      {tab.id === "permanent" ? (
-                        <PinIcon className="h-4 w-4" />
-                      ) : (
-                        <SparkIcon className="h-4 w-4" />
-                      )}
+                  <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/55 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#e88b58]" />
 
-                      {tab.label}
-                    </button>
-                  );
-                },
-              )}
-            </div>
+                    Google Maps
+                  </span>
+                </div>
 
-            {/* =================================================
-                RESULTS
-            ================================================== */}
+                {/* Card content */}
 
-            <div
-              id="location-results"
-              role="tabpanel"
-              aria-labelledby={`location-tab-${activeCategory}`}
-              className="mt-9 grid gap-6 sm:grid-cols-2"
-            >
-              {filteredLocations.length > 0 ? (
-                filteredLocations.map(
-                  (location) => {
-                    const TypeIcon =
-                      typeIcon[
-                        location.typeLabel
-                      ];
+                <div className="p-5 sm:p-6">
+                  <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e88b58]">
+                    <TypeIcon className="h-3.5 w-3.5" />
 
-                    return (
-                      <article
-                        key={location.id}
-                        className="group overflow-hidden rounded-[1.4rem] border border-white/10 bg-white/[0.035] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#c65a24]/55 hover:shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
-                      >
-                        {/* Google Map */}
+                    {location.typeLabel}
+                  </p>
 
-                        <div className="relative h-52 w-full overflow-hidden border-b border-white/10 sm:h-56">
-                          <iframe
-                            title={`Map to ${location.name}`}
-                            src={getEmbedSrc(
-                              location,
-                            )}
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            className="h-full w-full grayscale-[0.15] contrast-[1.05] transition duration-500 group-hover:grayscale-0"
-                          />
+                  <h2 className="mt-2.5 font-serif text-[1.75rem] leading-tight tracking-[-0.03em] text-[#f5f1e8]">
+                    {location.name}
+                  </h2>
 
-                          <span className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/55 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#e88b58]" />
+                  <p className="mt-3 text-sm leading-6 text-[#c9c4b9]">
+                    {location.address.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
 
-                            Google Maps
-                          </span>
-                        </div>
+                  {/* Directions */}
 
-                        {/* Card content */}
+                  <a
+                    href={getDirectionsUrl(location)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#c65a24] px-4 text-xs font-bold uppercase tracking-[0.14em] text-white transition duration-300 hover:bg-[#d76a2c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f5f1e8]"
+                  >
+                    Get directions
 
-                        <div className="p-5 sm:p-6">
-                          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e88b58]">
-                            <TypeIcon className="h-3.5 w-3.5" />
-
-                            {location.typeLabel}
-                          </p>
-
-                          <h2 className="mt-2.5 font-serif text-[1.75rem] leading-tight tracking-[-0.03em] text-[#f5f1e8]">
-                            {location.name}
-                          </h2>
-
-                          <p className="mt-3 text-sm leading-6 text-[#c9c4b9]">
-                            {location.address.map(
-                              (line) => (
-                                <span
-                                  key={line}
-                                  className="block"
-                                >
-                                  {line}
-                                </span>
-                              ),
-                            )}
-                          </p>
-
-                          {location.date && (
-                            <p className="mt-2 text-sm font-semibold text-[#e88b58]">
-                              {location.date}
-                            </p>
-                          )}
-
-                          {/* Directions */}
-
-                          <a
-                            href={getDirectionsUrl(
-                              location,
-                            )}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/btn mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#c65a24] px-4 text-xs font-bold uppercase tracking-[0.14em] text-white transition duration-300 hover:bg-[#d76a2c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f5f1e8]"
-                          >
-                            Get directions
-
-                            <Arrow className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                          </a>
-                        </div>
-                      </article>
-                    );
-                  },
-                )
-              ) : (
-                <p className="col-span-full py-10 text-sm text-[#a29b90]">
-                  No{" "}
-                  {activeCategory ===
-                  "pop-up"
-                    ? "pop-ups"
-                    : "locations"}{" "}
-                  to show yet — check back soon.
-                </p>
-              )}
+                    <Arrow className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                  </a>
+                </div>
+              </article>
             </div>
           </div>
         </section>
