@@ -12,10 +12,10 @@ import { type FormEvent, useEffect, useState } from "react";
  * update the empty strings below when the final brand assets are available.
  */
 
-// const reviewsLinks = {
-//   googleReviewsUrl: "", // e.g. "https://search.google.com/local/reviews?placeid=YOUR_PLACE_ID"
-//   leaveReviewUrl: "",   // e.g. "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
-// };
+// Web3Forms — form submissions go straight to your inbox, no backend needed.
+// Get/replace this key at https://web3forms.com if you ever need a new one.
+const WEB3FORMS_ACCESS_KEY = "e87a4e60-2501-4887-b07b-6efc58f51748";
+
 const content = {
   contactTitle: "HAVE A QUESTION?",
   contactDescription: "We're here to help, and we'd be delighted to hear from you.",
@@ -88,6 +88,7 @@ const imagePaths = {
 type FieldName = "name" | "phone" | "email" | "message";
 type FormValues = Record<FieldName, string>;
 type FormErrors = Partial<Record<FieldName, string>>;
+type SubmitStatus = "idle" | "sending" | "success" | "error";
 
 const initialValues: FormValues = { name: "", phone: "", email: "", message: "" };
 
@@ -221,7 +222,7 @@ export default function ContactPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
 
   useEffect(() => {
     document.title = "Contact Us | Karachi Flames";
@@ -263,6 +264,7 @@ export default function ContactPage() {
     if (errors[field]) setErrors((previous) => ({ ...previous, [field]: undefined }));
   };
 
+  // ===== Web3Forms submission =====
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const nextErrors = validate(values);
@@ -270,9 +272,38 @@ export default function ContactPage() {
     if (Object.keys(nextErrors).length) return;
 
     setStatus("sending");
-    // TODO: Connect to backend/email service
-    await new Promise((resolve) => window.setTimeout(resolve, 900));
-    setStatus("success");
+
+    try {
+      const formData = new FormData();
+      formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+      formData.append("name", values.name);
+      formData.append("phone", values.phone);
+      formData.append("email", values.email);
+      formData.append("message", values.message);
+      // Nice-to-haves so the email you receive is easy to scan and reply to.
+      formData.append("subject", `New website message from ${values.name}`);
+      formData.append("from_name", "Karachi Flames Website");
+      formData.append("replyto", values.email);
+      // Honeypot field — leave this out of the visible UI; if a bot fills it,
+      // Web3Forms silently discards the submission.
+      formData.append("botcheck", "");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("success");
+        setValues(initialValues);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
   };
 
   const contactItems = [
@@ -552,6 +583,14 @@ export default function ContactPage() {
                     <textarea id="message" name="message" rows={5} placeholder="Tell us how we can help..." value={values.message} onChange={(e) => updateField("message", e.target.value)} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} />
                     {errors.message && <p id="message-error" className="kf-error" role="alert">{errors.message}</p>}
                   </div>
+
+                  {status === "error" && (
+                    <p className="kf-error kf-error--form" role="alert">
+                      Something went wrong sending your message. Please try again, or call us at{" "}
+                      <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a>.
+                    </p>
+                  )}
+
                   <button className="kf-button kf-button--full" type="submit" disabled={status === "sending"}>
                     <span>{status === "sending" ? "SENDING..." : "SEND MESSAGE"}</span><b aria-hidden="true">{status === "sending" ? "···" : "→"}</b>
                   </button>
@@ -839,7 +878,9 @@ export default function ContactPage() {
         .kf-field input:hover, .kf-field textarea:hover { border-color: rgba(245,241,232,.62); }
         .kf-field input:focus, .kf-field textarea:focus { border-color: var(--kf-orange-bright); box-shadow: 0 8px 15px -13px var(--kf-orange-bright); }
         .kf-field.is-invalid input, .kf-field.is-invalid textarea { border-color: #e78064; }
-        .kf-error { display: flex; gap: 7px; align-items: center; margin: 8px 0 0; color: #f4a791; font-size: 11px; line-height: 1.35; }.kf-error::before { content: '!'; display: grid; place-items: center; width: 13px; height: 13px; border: 1px solid currentColor; border-radius: 50%; font-size: 9px; font-weight: 700; }
+        .kf-error { display: flex; gap: 7px; align-items: center; margin: 8px 0 0; color: #f4a791; font-size: 11px; line-height: 1.35; }.kf-error::before { content: '!'; display: grid; place-items: center; width: 13px; height: 13px; border: 1px solid currentColor; border-radius: 50%; font-size: 9px; font-weight: 700; flex-shrink: 0; }
+        .kf-error--form { margin-bottom: 20px; }
+        .kf-error--form a { color: inherit; text-decoration: underline; }
         .kf-button { display: inline-flex; gap: 25px; align-items: center; justify-content: space-between; min-height: 53px; border: 1px solid var(--kf-orange-bright); background: var(--kf-orange-bright); padding: 0 20px; color: var(--kf-black); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; transition: background .25s, color .25s, transform .25s; }
         .kf-button b { font-size: 19px; font-weight: 400; transition: transform .25s; }.kf-button:hover { background: transparent; color: var(--kf-warm); }.kf-button:hover b { transform: translateX(5px); }.kf-button:disabled { cursor: wait; opacity: .72; }.kf-button:disabled:hover { background: var(--kf-orange-bright); color: var(--kf-black); }.kf-button:disabled b { transform: none; }
         .kf-button--full { width: 100%; margin-top: 3px; }

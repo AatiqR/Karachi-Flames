@@ -86,7 +86,7 @@ type GalleryItem = {
 const galleryItems: readonly GalleryItem[] = [
   {
     id: "popup-01",
-    src: "/gallery/popup-01.jpg",
+    src: "/hero.jpg",
     alt: "Karachi Flames pop-up grill set up at an outdoor event",
     title: "Wherever The Fire Goes",
     eyebrow: "Pop-Ups / On location",
@@ -99,7 +99,7 @@ const galleryItems: readonly GalleryItem[] = [
   },
   {
     id: "popup-02",
-    src: "/gallery/popup-02.jpg",
+    src: "/about.jpg",
     alt: "A crowd gathered at a Karachi Flames pop-up",
     title: "Drawing The Crowd",
     eyebrow: "Pop-Ups / Street-side heat",
@@ -112,7 +112,7 @@ const galleryItems: readonly GalleryItem[] = [
   },
   {
     id: "private-01",
-    src: "/gallery/private-01.jpg",
+    src: "/menu2.jpg",
     alt: "A private Karachi Flames dinner event setting",
     title: "An Evening, Reserved",
     eyebrow: "Private Events / Just for your guests",
@@ -138,7 +138,7 @@ const galleryItems: readonly GalleryItem[] = [
   },
   {
     id: "catering-01",
-    src: "/gallery/catering-01.jpg",
+    src: "/menu1.jpg",
     alt: "A full Karachi Flames catering spread",
     title: "Fed, Properly",
     eyebrow: "Catering / Built for the whole crowd",
@@ -164,7 +164,7 @@ const galleryItems: readonly GalleryItem[] = [
   },
   {
     id: "truck-01",
-    src: "/gallery/truck-01.jpg",
+    src: "/menu.jpg",
     alt: "The Karachi Flames food truck parked and serving",
     title: "Find The Truck",
     eyebrow: "Food Truck Location / Follow the smoke",
