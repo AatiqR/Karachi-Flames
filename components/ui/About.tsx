@@ -582,118 +582,206 @@ export default function AboutUsPage() {
           FOOTER
       ========================================================= */}
 
-      <footer className="bg-[#080808] px-5 py-12 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.2fr_.8fr_.8fr]">
-            <div>
-              <Link
-                href="/"
-                aria-label="Karachi Flames home"
-                className="relative block h-[90px] w-[300px] shrink-0"
-              >
-                <Image
-                  src={imagePaths.logo}
-                  alt="Karachi Flames"
-                  fill
-                  sizes="300px"
-                  className="object-contain object-left"
-                />
-              </Link>
+     {/* ========================= FOOTER (fully self-contained — paste as-is into any page) ========================= */}
 
-              <p className="mt-5 max-w-xs text-sm leading-6 text-white/55">
-                Authentic Karachi flavor, fire-grilled with care and served
-                with hospitality.
-              </p>
+<footer className="relative overflow-hidden bg-[#080808] pb-8 pt-16 sm:pb-10 sm:pt-20">
 
-              <div className="mt-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.12em] text-white/65">
-                <span className="relative h-8 w-10">
-                  <Image
-                    src={imagePaths.halal}
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </span>
+  {/* ambient glow behind the logo */}
+  <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="absolute left-1/2 top-0 h-72 w-[560px] -translate-x-1/2 rounded-full bg-[#c75a24]/10 blur-3xl" />
+  </div>
 
-                Zabiha Halal
-              </div>
+  <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-12">
 
-              <div className="mt-6 flex items-center gap-3">
-                <a
-                  href={socialLinks.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-                >
-                  <InstagramIcon className="h-5 w-5" />
-                </a>
+    {/* BIG CENTERED LOGO */}
+    <div className="flex justify-center">
+      <a
+        href="/"
+        aria-label="Karachi Flames home"
+        className="relative block h-[100px] w-[280px] sm:h-[125px] sm:w-[350px] lg:h-[145px] lg:w-[410px]"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo.png"
+          alt="Karachi Flames"
+          className="h-full w-full object-contain"
+        />
+      </a>
+    </div>
 
-                <a
-                  href={socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-                >
-                  <FacebookIcon className="h-5 w-5" />
-                </a>
+    <div className="mt-10 border-t border-white/10" />
 
-                <a
-                  href={socialLinks.tiktok}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="TikTok"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-                >
-                  <TikTokIcon className="h-5 w-5" />
-                </a>
-              </div>
-            </div>
+    {/* COLUMNS — centered on mobile, left-aligned from sm up */}
+    <div className="grid gap-10 pt-10 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-[0.9fr_0.9fr_1fr_0.9fr]">
 
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
-                Navigate
-              </p>
+      {/* HOURS */}
+      <div>
+        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+          Hours
+        </h3>
+        <p className="mt-4 text-sm leading-6 text-white/70">
+          <span className="block font-bold text-white">Daily</span>
+          12 PM – 12 AM
+        </p>
+      </div>
 
-              <ul className="mt-4 space-y-2">
-                {navigation.slice(0, 5).map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-white/65 transition hover:text-white"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* LOCATION */}
+      <div>
+        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+          Location
+        </h3>
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=8411%20Baltimore%20National%20Pike%2C%20Ellicott%20City%2C%20MD%2C%2021043"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mt-4 inline-block text-sm leading-7 text-white/70 transition-colors duration-300 hover:text-white"
+        >
+          8411 Baltimore National Pike
+          <br />
+          Ellicott City, MD 21043
+          <span className="mt-1.5 flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-[#d76a2c] transition-colors duration-300 group-hover:text-[#e87636] sm:justify-start">
+            Get directions
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+            >
+              <path
+                d="M5 12h13M13 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </a>
+      </div>
 
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d76a2c]">
-                Visit &amp; contact
-              </p>
+      {/* CONTACT */}
+      <div>
+        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+          Contact
+        </h3>
+        <ul className="mt-4 space-y-1.5 text-sm text-white/70">
+          <li>
+            <a
+              href="tel:+14434305800"
+              className="transition-colors duration-300 hover:text-white"
+            >
+              (443) 430-5800
+            </a>
+          </li>
+          <li>
+            <a
+              href="mailto:Karachiflamesdmv@gmail.com"
+              className="break-all transition-colors duration-300 hover:text-white"
+            >
+              Karachiflamesdmv@gmail.com
+            </a>
+          </li>
+        </ul>
 
-              <p className="mt-4 text-sm leading-7 text-white/65">
-                [Restaurant Address]
-                <br />
-                [Contact Number]
-                <br />
-                [Contact Email]
-                <br />
-                [Hours]
-              </p>
-            </div>
-          </div>
+        <div className="mt-5 flex items-center justify-center gap-2 sm:justify-start">
+          <a
+            href="https://www.instagram.com/karachiflamesdmv"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.7" />
+              <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.7" />
+              <circle cx="17.3" cy="6.8" r="1" fill="currentColor" />
+            </svg>
+          </a>
 
-          <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/45 sm:flex-row">
-            <p>© 2026 Karachi Flames. All rights reserved.</p>
+          <a
+            href="https://www.facebook.com/karachiflamesdmv"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+              <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v4h4v-4h3.2l.8-4H13V9c0-.67.33-1 1-1Z" />
+            </svg>
+          </a>
 
-            <p>Authentic Karachi BBQ &amp; Catering</p>
-          </div>
+          <a
+            href="https://www.tiktok.com/@karachiflamesdmv"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+              <path d="M16.7 4.5c.6.8 1.5 1.4 2.6 1.5v3.1c-1 0-1.9-.3-2.7-.7v6.4c0 3.4-2.5 5.2-5.2 5.2-2.7 0-4.8-1.8-4.8-4.5 0-2.8 2.2-4.7 5-4.7.4 0 .7 0 1 .1v3.1c-.3-.1-.6-.2-1-.2-1.1 0-1.9.7-1.9 1.7 0 1 .8 1.6 1.8 1.6 1.1 0 2-.7 2-2.3V4.5h3.2Z" />
+            </svg>
+          </a>
         </div>
-      </footer>
+      </div>
+
+      {/* NAVIGATE */}
+      <div>
+        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+          Navigate
+        </h3>
+        <ul className="mt-4 space-y-2 text-sm text-white/70">
+          <li>
+            <a href="/location" className="transition-colors duration-300 hover:text-white">
+              Locations
+            </a>
+          </li>
+          <li>
+            <a href="/catering" className="transition-colors duration-300 hover:text-white">
+              Catering
+            </a>
+          </li>
+          <li>
+            <a href="/menu" className="transition-colors duration-300 hover:text-white">
+              Menu
+            </a>
+          </li>
+          <li>
+            <a href="/gallery" className="transition-colors duration-300 hover:text-white">
+              Gallery
+            </a>
+          </li>
+          <li>
+            <a href="/about" className="transition-colors duration-300 hover:text-white">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="/contact" className="transition-colors duration-300 hover:text-white">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    {/* HALAL BADGE — dashed rule */}
+    <div className="mt-10 flex items-center justify-center gap-3 border-t border-dashed border-white/15 pt-8 text-center text-[10px] font-bold uppercase tracking-[0.15em] text-white/70 sm:justify-start sm:text-left">
+      <span className="relative h-8 w-10 shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/halal.png" alt="" className="h-full w-full object-contain" />
+      </span>
+      100% Hand-Slaughtered Zabiha Halal
+    </div>
+
+    {/* BOTTOM BAR */}
+    <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/45 sm:flex-row sm:text-left">
+      <p>© 2026 Karachi Flames. All rights reserved.</p>
+      <p>Charcoal-Fired Halal BBQ &amp; Catering</p>
+    </div>
+
+  </div>
+</footer>
     </main>
   );
 }
