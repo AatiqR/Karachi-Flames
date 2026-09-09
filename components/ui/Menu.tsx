@@ -647,15 +647,7 @@ export default function MenuPage() {
               Bold Karachi flavors, fire-grilled favorites, and comfort food made with passion.
             </p>
 
-            <div className="flex items-center border-l border-[#c65a24] pl-4">
-              <Image
-                src={imagePaths.halal}
-                alt="Hand-slaughtered Zabiha Halal"
-                width={138}
-                height={54}
-                className="h-12 w-auto object-contain"
-              />
-            </div>
+        
           </div>
         </div>
       </section>
@@ -921,7 +913,7 @@ export default function MenuPage() {
     {/* BOTTOM BAR */}
     <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/45 sm:flex-row sm:text-left">
       <p>© 2026 Karachi Flames. All rights reserved.</p>
-      <p>Charcoal-Fired Halal BBQ &amp; Catering</p>
+      
     </div>
 
   </div>

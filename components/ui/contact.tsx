@@ -832,7 +832,7 @@ export default function ContactPage() {
     {/* BOTTOM BAR */}
     <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/45 sm:flex-row sm:text-left">
       <p>© 2026 Karachi Flames. All rights reserved.</p>
-      <p>Charcoal-Fired Halal BBQ &amp; Catering</p>
+      
     </div>
 
   </div>
