@@ -30,9 +30,16 @@ const contactInfo = {
   phone: "443-430-5800",
   email: "Karachiflamesdmv@gmail.com",
   address: "8411 Baltimore National Pike, Ellicott City, MD, 21043",
-  hours: "12 PM – 12 AM, Daily",
+  hours: (
+    <>
+      Monday – Thursday: Closed
+      <br />
+      Friday – Saturday: 4 PM – 12 AM
+      <br />
+      Sunday: 4 PM – 11 PM
+    </>
+  ),
 };
-
 const assets = {
   // Use the supplied Hand-Slaughtered Zabiha Halal mark; it is intentionally not recreated here.
   halalLogo: "",

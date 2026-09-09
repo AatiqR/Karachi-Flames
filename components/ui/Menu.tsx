@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -11,6 +10,7 @@ type Category =
   | "Burgers"
   | "Biryani"
   | "BBQ"
+  | "Platter"
   | "Desserts"
   | "Drinks";
 
@@ -170,6 +170,7 @@ const categories: Category[] = [
   "Burgers",
   "Biryani",
   "BBQ",
+  "Platter",
   "Desserts",
   "Drinks",
 ];
@@ -203,7 +204,8 @@ const mainMenu: MenuItem[] = [
     imagePath: "/menu.jpg",
     imageAlt: "Chicken Tikka Boti Roll",
   },
-    {
+
+  {
     name: "Chicken Malai Boti Roll",
     description:
       "Flaky paratha, chicken malai boti, red onions, and your choice of chutney or mayo-garlic sauce.",
@@ -212,7 +214,6 @@ const mainMenu: MenuItem[] = [
     imagePath: "/menu.jpg",
     imageAlt: "Chicken Malai Boti Roll",
   },
-  
 
   /* =========================
      BURGERS
@@ -398,6 +399,66 @@ function FoodCard({ item }: { item: MenuItem }) {
 }
 
 /* =========================================================
+   PLATTER COMING SOON
+   ========================================================= */
+
+function PlatterComingSoon() {
+  return (
+    <div className="col-span-full relative overflow-hidden rounded-[1.5rem] border border-[#c65a24]/25 bg-[#15110f] px-6 py-20 text-center sm:px-10 sm:py-28">
+      {/* Background glow */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c75a24]/15 blur-[100px]"
+        aria-hidden="true"
+      />
+
+      {/* Decorative rings */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#c75a24]/10 sm:h-80 sm:w-80"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-2xl">
+        {/* Small badge */}
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#c75a24]/40 bg-[#c75a24]/10">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="h-6 w-6 text-[#e67838]"
+          >
+            <path
+              d="M12 3v18M5 7h14M5 17h14"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+
+        <p className="mt-7 text-xs font-bold uppercase tracking-[0.3em] text-[#e67838]">
+          Platter Collection
+        </p>
+
+        <h3 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.03em] text-[#f5f2ec] sm:text-5xl">
+          Coming Soon
+        </h3>
+
+        <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-[#d8d3ca]/70 sm:text-base">
+          Something special is being prepared. Our Karachi Flames platters
+          are coming soon with bold flavors made for sharing.
+        </p>
+
+        <div className="mx-auto mt-8 h-px w-16 bg-[#c75a24]" />
+
+        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white/35">
+          Stay tuned for the full platter menu
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
    MENU PAGE
    ========================================================= */
 
@@ -436,6 +497,8 @@ export default function MenuPage() {
           ),
     [activeCategory]
   );
+
+  const isPlatter = activeCategory === "Platter";
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#0b0b0b] text-[#f5f1e8] selection:bg-[#c75a24] selection:text-white">
@@ -760,40 +823,48 @@ export default function MenuPage() {
 
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
-              The main menu
+              {isPlatter ? "Coming soon" : "The main menu"}
             </p>
 
             <h2
               id="main-menu-heading"
               className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl"
             >
-              Made for the table.
+              {isPlatter ? "Platter Collection." : "Made for the table."}
             </h2>
           </div>
 
-          <p className="text-sm text-[#d8d3ca]/60">
-            {filteredMenu.length}{" "}
-            {filteredMenu.length === 1 ? "item" : "items"}
-          </p>
-
-        </div>
-
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-
-          {filteredMenu.map((item) => (
-            <FoodCard
-              key={`${item.category}-${item.name}`}
-              item={item}
-            />
-          ))}
-
-          {filteredMenu.length === 0 && (
-            <p className="col-span-full py-16 text-center text-sm text-[#d8d3ca]/55">
-              No items in this category yet — check back soon.
+          {!isPlatter && (
+            <p className="text-sm text-[#d8d3ca]/60">
+              {filteredMenu.length}{" "}
+              {filteredMenu.length === 1 ? "item" : "items"}
             </p>
           )}
 
         </div>
+
+        {isPlatter ? (
+          <div className="grid grid-cols-1">
+            <PlatterComingSoon />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+
+            {filteredMenu.map((item) => (
+              <FoodCard
+                key={`${item.category}-${item.name}`}
+                item={item}
+              />
+            ))}
+
+            {filteredMenu.length === 0 && (
+              <p className="col-span-full py-16 text-center text-sm text-[#d8d3ca]/55">
+                No items in this category yet — check back soon.
+              </p>
+            )}
+
+          </div>
+        )}
       </section>
 
       {/* =====================================================
