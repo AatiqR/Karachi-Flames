@@ -167,18 +167,19 @@ export default function CateringPrivateEventsPage() {
         >
 
           {/* LOGO */}
-          <Link
+    
+                    <Link
             href="/"
             aria-label="Karachi Flames home"
             onClick={closeMenu}
-            className="relative z-[130] block h-[68px] w-[205px] shrink-0 overflow-visible sm:h-[78px] sm:w-[235px] lg:h-[88px] lg:w-[285px] xl:h-[94px] xl:w-[315px]"
+            className="relative z-[130] block h-[92px] w-[275px] shrink-0 overflow-visible sm:h-[104px] sm:w-[310px] lg:h-[116px] lg:w-[360px] xl:h-[124px] xl:w-[390px]"
           >
             <Image
               src={imagePaths.logo}
               alt="Karachi Flames"
               fill
               priority
-              sizes="(min-width: 1280px) 315px, (min-width: 1024px) 285px, 235px"
+              sizes="(min-width: 1280px) 390px, (min-width: 1024px) 360px, 310px"
               className="object-contain object-left"
             />
           </Link>
@@ -432,16 +433,16 @@ export default function CateringPrivateEventsPage() {
                 <Arrow className="ml-3 h-5 w-5" />
               </Link>
 
-              <Link
+              {/* <Link
                 href="/menu"
                 className="inline-flex min-h-14 items-center justify-center rounded-md border border-white/50 bg-black/20 px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:border-white hover:bg-white hover:text-black"
               >
                 View catering menu
-              </Link>
+              </Link>  */}
 
             </div>
 
-            <div className="mt-10 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
+            {/* <div className="mt-10 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
 
               <span className="relative h-8 w-10">
                 <Image
@@ -454,7 +455,7 @@ export default function CateringPrivateEventsPage() {
 
               100% Hand-Slaughtered Zabiha Halal
 
-            </div>
+            </div> */}
 
           </div>
         </div>

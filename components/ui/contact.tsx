@@ -328,18 +328,18 @@ export default function ContactPage() {
           className="mx-auto flex h-[82px] w-full max-w-[1800px] items-center justify-between px-4 sm:h-[92px] sm:px-7 lg:h-[105px] lg:px-10 xl:px-14"
         >
           {/* LOGO */}
-          <Link
+                <Link
             href="/"
             aria-label="Karachi Flames home"
             onClick={closeMenu}
-            className="relative z-[130] block h-[68px] w-[205px] shrink-0 overflow-visible sm:h-[78px] sm:w-[235px] lg:h-[88px] lg:w-[285px] xl:h-[94px] xl:w-[315px]"
+            className="relative z-[130] block h-[92px] w-[275px] shrink-0 overflow-visible sm:h-[104px] sm:w-[310px] lg:h-[116px] lg:w-[360px] xl:h-[124px] xl:w-[390px]"
           >
             <Image
               src={imagePaths.logo}
               alt="Karachi Flames"
               fill
               priority
-              sizes="(min-width: 1280px) 315px, (min-width: 1024px) 285px, 235px"
+              sizes="(min-width: 1280px) 390px, (min-width: 1024px) 360px, 310px"
               className="object-contain object-left"
             />
           </Link>
