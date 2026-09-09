@@ -929,8 +929,8 @@ export default function GalleryPage() {
           {/* ORDER BUTTON */}
 
           <div className="hidden shrink-0 lg:block">
-            <Link
-              href="/menu"
+           <Link
+              href="/order"
               className="group inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#df7441] hover:shadow-[0_14px_40px_rgba(199,90,36,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
             >
               Order Now
@@ -1042,8 +1042,8 @@ export default function GalleryPage() {
             </div>
 
             <div className="shrink-0 pt-4">
-              <Link
-                href="/menu"
+            <Link
+                href="/order"
                 onClick={closeMenu}
                 className="group flex min-h-12 w-full items-center justify-center rounded-md bg-[#c75a24] px-5 text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(199,90,36,0.25)] transition-all duration-300 hover:bg-[#df7441] active:scale-[0.98]"
               >

@@ -253,7 +253,7 @@ function MobileMenuIcon({ open }: { open: boolean }) {
 export default function KarachiFlamesHero({
   navLinks = DEFAULT_NAV,
   primaryCtaLabel = "Order Now",
-  primaryCtaHref = "#order",
+  primaryCtaHref = "/order",
   halalText = "100% Zabiha Halal",
   socialLinks = DEFAULT_SOCIALS,
   logoSrc = "/logo.png",

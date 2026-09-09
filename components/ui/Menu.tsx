@@ -571,8 +571,8 @@ export default function MenuPage() {
           {/* ORDER BUTTON */}
 
           <div className="hidden shrink-0 lg:block">
-            <Link
-              href="/menu"
+           <Link
+              href="/order"
               className="group inline-flex min-h-12 items-center justify-center rounded-md bg-[#c75a24] px-6 text-sm font-extrabold uppercase tracking-[0.08em] text-white shadow-[0_8px_30px_rgba(199,90,36,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#df7441] hover:shadow-[0_14px_40px_rgba(199,90,36,0.3)] focus:outline-none focus:ring-2 focus:ring-white"
             >
               Order Now
@@ -698,8 +698,8 @@ export default function MenuPage() {
 
             <div className="shrink-0 pt-4">
 
-              <Link
-                href="/menu"
+            <Link
+                href="/order"
                 onClick={closeMenu}
                 className="group flex min-h-12 w-full items-center justify-center rounded-md bg-[#c75a24] px-5 text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(199,90,36,0.25)] transition-all duration-300 hover:bg-[#df7441] active:scale-[0.98]"
               >
@@ -814,57 +814,102 @@ export default function MenuPage() {
           MAIN MENU
           ===================================================== */}
 
+            {/* =====================================================
+          MAIN MENU
+          ===================================================== */}
+
       <section
         className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20 lg:px-12"
         aria-labelledby="main-menu-heading"
       >
 
-        <div className="mb-9 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+        {/* ===================================================
+            SHOW THIS HEADER ONLY FOR "ALL"
+            =================================================== */}
 
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
-              {isPlatter ? "Coming soon" : "The main menu"}
-            </p>
+        {activeCategory === "All" && (
+          <div className="mb-9 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
 
-            <h2
-              id="main-menu-heading"
-              className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl"
-            >
-              {isPlatter ? "Platter Collection." : "Made for the table."}
-            </h2>
-          </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
+                The main menu
+              </p>
 
-          {!isPlatter && (
+              <h2
+                id="main-menu-heading"
+                className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl"
+              >
+                Made for the table.
+              </h2>
+            </div>
+
             <p className="text-sm text-[#d8d3ca]/60">
               {filteredMenu.length}{" "}
               {filteredMenu.length === 1 ? "item" : "items"}
             </p>
-          )}
 
-        </div>
+          </div>
+        )}
+
+        {/* ===================================================
+            PLATTER
+            =================================================== */}
 
         {isPlatter ? (
           <div className="grid grid-cols-1">
             <PlatterComingSoon />
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <>
+            {/* =================================================
+                CATEGORY TITLE
+                Only shown for categories other than "All"
+                ================================================= */}
 
-            {filteredMenu.map((item) => (
-              <FoodCard
-                key={`${item.category}-${item.name}`}
-                item={item}
-              />
-            ))}
+            {activeCategory !== "All" && (
+              <div className="mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
 
-            {filteredMenu.length === 0 && (
-              <p className="col-span-full py-16 text-center text-sm text-[#d8d3ca]/55">
-                No items in this category yet — check back soon.
-              </p>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#e67838]">
+                    {activeCategory}
+                  </p>
+
+                  <h2 className="mt-3 font-serif text-4xl tracking-[-0.025em] sm:text-5xl">
+                    {activeCategory}
+                  </h2>
+                </div>
+
+                <p className="text-sm text-[#d8d3ca]/60">
+                  {filteredMenu.length}{" "}
+                  {filteredMenu.length === 1 ? "item" : "items"}
+                </p>
+
+              </div>
             )}
 
-          </div>
+            {/* =================================================
+                FOOD GRID
+                ================================================= */}
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+
+              {filteredMenu.map((item) => (
+                <FoodCard
+                  key={`${item.category}-${item.name}`}
+                  item={item}
+                />
+              ))}
+
+              {filteredMenu.length === 0 && (
+                <p className="col-span-full py-16 text-center text-sm text-[#d8d3ca]/55">
+                  No items in this category yet — check back soon.
+                </p>
+              )}
+
+            </div>
+          </>
         )}
+
       </section>
 
       {/* =====================================================
