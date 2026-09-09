@@ -158,7 +158,9 @@ export default function CateringPrivateEventsPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#0b0b0b] text-[#f5f1e8] selection:bg-[#c75a24] selection:text-white">
 
-      {/* ========================= NAVBAR ========================= */}
+      {/* =========================================================
+          NAVBAR
+      ========================================================= */}
 
       <header className="absolute left-0 right-0 top-0 z-[100]">
         <nav
@@ -167,8 +169,7 @@ export default function CateringPrivateEventsPage() {
         >
 
           {/* LOGO */}
-    
-                    <Link
+          <Link
             href="/"
             aria-label="Karachi Flames home"
             onClick={closeMenu}
@@ -220,7 +221,7 @@ export default function CateringPrivateEventsPage() {
             </div>
           </div>
 
-          {/* ORDER BUTTON */}
+          {/* DESKTOP ORDER BUTTON */}
           <div className="hidden shrink-0 lg:block">
             <Link
               href="/menu"
@@ -232,7 +233,7 @@ export default function CateringPrivateEventsPage() {
             </Link>
           </div>
 
-          {/* MOBILE BUTTON */}
+          {/* MOBILE MENU BUTTON */}
           <button
             type="button"
             aria-label={
@@ -259,7 +260,9 @@ export default function CateringPrivateEventsPage() {
           </button>
         </nav>
 
-        {/* ================= MOBILE MENU ================= */}
+        {/* =========================================================
+            MOBILE MENU
+        ========================================================= */}
 
         <div
           id="mobile-navigation"
@@ -352,6 +355,7 @@ export default function CateringPrivateEventsPage() {
               </Link>
 
               <div className="mt-3 flex items-center justify-center gap-2">
+
                 <a
                   href={socialLinks.instagram}
                   target="_blank"
@@ -381,17 +385,25 @@ export default function CateringPrivateEventsPage() {
                 >
                   <TikTokIcon className="h-4 w-4" />
                 </a>
-              </div>
 
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* ========================= HERO ========================= */}
+      {/* =========================================================
+          HERO
+      ========================================================= */}
 
-      <section className="relative isolate min-h-[760px] overflow-hidden sm:min-h-[820px]">
+      <section
+        className="
+          relative isolate min-h-[760px] overflow-hidden
+          sm:min-h-[820px]
+        "
+      >
 
+        {/* HERO IMAGE */}
         <Image
           src={imagePaths.hero}
           alt="Karachi Flames barbecue"
@@ -401,243 +413,334 @@ export default function CateringPrivateEventsPage() {
           className="-z-20 object-cover object-center"
         />
 
+        {/* DARK GRADIENT */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/[0.94] via-black/[0.65] to-black/[0.2]" />
 
+        {/* ORANGE GLOW */}
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_75%_25%,rgba(199,90,36,0.3),transparent_30%)]" />
 
-        <div className="mx-auto flex min-h-[760px] max-w-[1600px] items-end px-5 pb-12 pt-36 sm:min-h-[820px] sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+        {/* =====================================================
+            HERO CONTENT
+
+            MOBILE:
+            - starts directly below navbar
+            - no large empty gap
+            - content flows naturally from top to bottom
+
+            DESKTOP:
+            - original bottom-aligned layout preserved
+        ===================================================== */}
+
+        <div
+          className="
+            mx-auto flex max-w-[1600px]
+
+            /* MOBILE */
+            min-h-[680px]
+            items-start
+            px-5
+            pb-10
+            pt-[180px]
+
+            /* SMALL TABLETS */
+            sm:min-h-[820px]
+            sm:items-end
+            sm:px-8
+            sm:pb-16
+            sm:pt-36
+
+            /* DESKTOP */
+            lg:min-h-[820px]
+            lg:px-12
+            lg:pb-20
+          "
+        >
 
           <div className="max-w-3xl">
 
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-[#e88651]">
+            {/* EYEBROW */}
+            <p
+              className="
+                mb-4
+                text-[11px]
+                font-bold
+                uppercase
+                tracking-[0.22em]
+                text-[#e88651]
+
+                sm:mb-5
+                sm:text-xs
+                sm:tracking-[0.25em]
+              "
+            >
               Catering &amp; Private Events
             </p>
 
-            <h1 className="max-w-2xl text-[clamp(3.2rem,8vw,8.5rem)] font-black uppercase leading-[0.84] tracking-[-0.075em] text-white">
+            {/* HEADING */}
+            <h1
+              className="
+                max-w-2xl
+                text-[clamp(3rem,13vw,5.5rem)]
+                font-black
+                uppercase
+                leading-[0.86]
+                tracking-[-0.075em]
+                text-white
+
+                sm:text-[clamp(3.2rem,8vw,8.5rem)]
+                sm:leading-[0.84]
+              "
+            >
               Bring the flame to your event.
             </h1>
 
-            <p className="mt-7 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
+            {/* DESCRIPTION */}
+            <p
+              className="
+                mt-5
+                max-w-xl
+                text-[15px]
+                leading-6
+                text-white/80
+
+                sm:mt-7
+                sm:text-lg
+                sm:leading-7
+              "
+            >
               From intimate gatherings to unforgettable celebrations, Karachi
               Flames brings authentic Karachi flavor, fire-grilled favorites,
               and genuine hospitality to your table.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            {/* ONLY ONE HERO BUTTON */}
+            <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row">
 
               <Link
                 href="/contact"
-                className="inline-flex min-h-14 items-center justify-center rounded-md bg-[#c75a24] px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#df7441] focus:outline-none focus:ring-2 focus:ring-white"
+                className="
+                  inline-flex
+                  min-h-14
+                  w-full
+                  items-center
+                  justify-center
+                  rounded-md
+                  bg-[#c75a24]
+                  px-7
+                  text-sm
+                  font-bold
+                  uppercase
+                  tracking-[0.12em]
+                  text-white
+                  transition
+                  hover:bg-[#df7441]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-white
+
+                  sm:w-auto
+                "
               >
                 Request a quote
+
                 <Arrow className="ml-3 h-5 w-5" />
               </Link>
 
-              {/* <Link
-                href="/menu"
-                className="inline-flex min-h-14 items-center justify-center rounded-md border border-white/50 bg-black/20 px-7 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:border-white hover:bg-white hover:text-black"
-              >
-                View catering menu
-              </Link>  */}
-
             </div>
-
-            {/* <div className="mt-10 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
-
-              <span className="relative h-8 w-10">
-                <Image
-                  src={imagePaths.halal}
-                  alt=""
-                  fill
-                  className="object-contain"
-                />
-              </span>
-
-              100% Hand-Slaughtered Zabiha Halal
-
-            </div> */}
 
           </div>
         </div>
       </section>
 
-      {/* ========================= FOOTER ========================= */}
+      {/* =========================================================
+          FOOTER
+      ========================================================= */}
 
-      {/*
-  Drop-in replacement for the existing <footer>...</footer> block in your
-  catering page. It reuses the constants and icon components already
-  defined at the top of your file (imagePaths, navigation, socialLinks,
-  InstagramIcon, FacebookIcon, TikTokIcon) — no new imports needed.
+      <footer className="relative overflow-hidden bg-[#080808] pb-8 pt-16 sm:pb-10 sm:pt-20">
 
-  Fill in the bracketed placeholders ([Opening], [Street Address],
-  [Contact Number], [Contact Email]) with your real details.
-*/}
-
-{/* ========================= FOOTER ========================= */}
-{/* ========================= FOOTER ========================= */}
-
-<footer className="relative overflow-hidden bg-[#080808] pb-8 pt-16 sm:pb-10 sm:pt-20">
-
-  {/* ambient glow behind the logo */}
-  <div className="pointer-events-none absolute inset-0 overflow-hidden">
-    <div className="absolute left-1/2 top-0 h-72 w-[560px] -translate-x-1/2 rounded-full bg-[#c75a24]/10 blur-3xl" />
-  </div>
-
-  <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-12">
-
-    {/* BIG CENTERED LOGO */}
-    <div className="flex justify-center">
-      <Link
-        href="/"
-        aria-label="Karachi Flames home"
-        className="relative block h-[100px] w-[280px] sm:h-[125px] sm:w-[350px] lg:h-[145px] lg:w-[410px]"
-      >
-        <Image
-          src={imagePaths.logo}
-          alt="Karachi Flames"
-          fill
-          sizes="(min-width: 1024px) 410px, (min-width: 640px) 350px, 280px"
-          className="object-contain"
-        />
-      </Link>
-    </div>
-
-    <div className="mt-10 border-t border-white/10" />
-
-    {/* COLUMNS — centered on mobile, left-aligned from sm up */}
-    <div className="grid gap-10 pt-10 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-[0.9fr_0.9fr_1fr_0.9fr]">
-
-      {/* HOURS */}
-      <div>
-        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
-          Hours
-        </h3>
-        <p className="mt-4 text-sm leading-6 text-white/70">
-          <span className="block font-bold text-white">Daily</span>
-          12 PM – 12 AM
-        </p>
-      </div>
-
-      {/* LOCATION */}
-      <div>
-        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
-          Location
-        </h3>
-        <a
-          href="https://www.google.com/maps/search/?api=1&query=8411%20Baltimore%20National%20Pike%2C%20Ellicott%20City%2C%20MD%2C%2021043"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-4 inline-block text-sm leading-7 text-white/70 transition-colors duration-300 hover:text-white"
-        >
-          8411 Baltimore National Pike
-          <br />
-          Ellicott City, MD 21043
-          <span className="mt-1.5 flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-[#d76a2c] transition-colors duration-300 group-hover:text-[#e87636] sm:justify-start">
-            Get directions
-            <Arrow className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-          </span>
-        </a>
-      </div>
-
-      {/* CONTACT */}
-      <div>
-        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
-          Contact
-        </h3>
-        <ul className="mt-4 space-y-1.5 text-sm text-white/70">
-          <li>
-            <a
-              href="tel:+14434305800"
-              className="transition-colors duration-300 hover:text-white"
-            >
-              (443) 430-5800
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:Karachiflamesdmv@gmail.com"
-              className="break-all transition-colors duration-300 hover:text-white"
-            >
-              Karachiflamesdmv@gmail.com
-            </a>
-          </li>
-        </ul>
-
-        <div className="mt-5 flex items-center justify-center gap-2 sm:justify-start">
-          <a
-            href={socialLinks.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-          >
-            <InstagramIcon className="h-4 w-4" />
-          </a>
-
-          <a
-            href={socialLinks.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-          >
-            <FacebookIcon className="h-4 w-4" />
-          </a>
-
-          <a
-            href={socialLinks.tiktok}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="TikTok"
-            className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
-          >
-            <TikTokIcon className="h-4 w-4" />
-          </a>
+        {/* AMBIENT GLOW */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-1/2 top-0 h-72 w-[560px] -translate-x-1/2 rounded-full bg-[#c75a24]/10 blur-3xl" />
         </div>
-      </div>
 
-      {/* NAVIGATE */}
-      <div>
-        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
-          Navigate
-        </h3>
-        <ul className="mt-4 space-y-2 text-sm text-white/70">
-          {navigation.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="transition-colors duration-300 hover:text-white"
+        <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-12">
+
+          {/* BIG CENTERED LOGO */}
+          <div className="flex justify-center">
+            <Link
+              href="/"
+              aria-label="Karachi Flames home"
+              className="relative block h-[100px] w-[280px] sm:h-[125px] sm:w-[350px] lg:h-[145px] lg:w-[410px]"
+            >
+              <Image
+                src={imagePaths.logo}
+                alt="Karachi Flames"
+                fill
+                sizes="(min-width: 1024px) 410px, (min-width: 640px) 350px, 280px"
+                className="object-contain"
+              />
+            </Link>
+          </div>
+
+          <div className="mt-10 border-t border-white/10" />
+
+          {/* FOOTER COLUMNS */}
+          <div className="grid gap-10 pt-10 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-[0.9fr_0.9fr_1fr_0.9fr]">
+
+            {/* HOURS */}
+            <div>
+              <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+                Hours
+              </h3>
+
+              <p className="mt-4 text-sm leading-6 text-white/70">
+                <span className="block font-bold text-white">
+                  Daily
+                </span>
+                12 PM – 12 AM
+              </p>
+            </div>
+
+            {/* LOCATION */}
+            <div>
+              <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+                Location
+              </h3>
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=8411%20Baltimore%20National%20Pike%2C%20Ellicott%20City%2C%20MD%2C%2021043"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-4 inline-block text-sm leading-7 text-white/70 transition-colors duration-300 hover:text-white"
               >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+                8411 Baltimore National Pike
+                <br />
+                Ellicott City, MD 21043
 
-    </div>
+                <span className="mt-1.5 flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-[#d76a2c] transition-colors duration-300 group-hover:text-[#e87636] sm:justify-start">
+                  Get directions
 
-    {/* HALAL BADGE — dashed rule like the reference */}
-    <div className="mt-10 flex items-center justify-center gap-3 border-t border-dashed border-white/15 pt-8 text-center text-[10px] font-bold uppercase tracking-[0.15em] text-white/70 sm:justify-start sm:text-left">
-      <span className="relative h-8 w-10 shrink-0">
-        <Image
-          src={imagePaths.halal}
-          alt=""
-          fill
-          className="object-contain"
-        />
-      </span>
-      100% Hand-Slaughtered Zabiha Halal
-    </div>
+                  <Arrow className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </a>
+            </div>
 
-    {/* BOTTOM BAR */}
-    <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/45 sm:flex-row sm:text-left">
-      <p>© 2026 Karachi Flames. All rights reserved.</p>
-      
-    </div>
+            {/* CONTACT */}
+            <div>
+              <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+                Contact
+              </h3>
 
-  </div>
-</footer>
+              <ul className="mt-4 space-y-1.5 text-sm text-white/70">
+
+                <li>
+                  <a
+                    href="tel:+14434305800"
+                    className="transition-colors duration-300 hover:text-white"
+                  >
+                    (443) 430-5800
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="mailto:Karachiflamesdmv@gmail.com"
+                    className="break-all transition-colors duration-300 hover:text-white"
+                  >
+                    Karachiflamesdmv@gmail.com
+                  </a>
+                </li>
+
+              </ul>
+
+              {/* SOCIAL ICONS */}
+              <div className="mt-5 flex items-center justify-center gap-2 sm:justify-start">
+
+                <a
+                  href={socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <FacebookIcon className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={socialLinks.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-300 hover:border-[#d76a2c] hover:bg-[#c75a24] hover:text-white"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                </a>
+
+              </div>
+            </div>
+
+            {/* NAVIGATE */}
+            <div>
+              <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+                Navigate
+              </h3>
+
+              <ul className="mt-4 space-y-2 text-sm text-white/70">
+
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="transition-colors duration-300 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+
+              </ul>
+            </div>
+
+          </div>
+
+          {/* HALAL BADGE */}
+          <div className="mt-10 flex items-center justify-center gap-3 border-t border-dashed border-white/15 pt-8 text-center text-[10px] font-bold uppercase tracking-[0.15em] text-white/70 sm:justify-start sm:text-left">
+
+            <span className="relative h-8 w-10 shrink-0">
+              <Image
+                src={imagePaths.halal}
+                alt=""
+                fill
+                className="object-contain"
+              />
+            </span>
+
+            100% Hand-Slaughtered Zabiha Halal
+
+          </div>
+
+          {/* BOTTOM BAR */}
+          <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/45 sm:flex-row sm:text-left">
+
+            <p>
+              © 2026 Karachi Flames. All rights reserved.
+            </p>
+
+          </div>
+
+        </div>
+      </footer>
+
     </main>
   );
 }
