@@ -615,15 +615,28 @@ export default function AboutUsPage() {
     <div className="grid gap-10 pt-10 text-center sm:grid-cols-2 sm:text-left lg:grid-cols-[0.9fr_0.9fr_1fr_0.9fr]">
 
       {/* HOURS */}
-      <div>
-        <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
-          Hours
-        </h3>
-        <p className="mt-4 text-sm leading-6 text-white/70">
-          <span className="block font-bold text-white">Daily</span>
-          12 PM – 12 AM
-        </p>
-      </div>
+     <div>
+  <h3 className="text-2xl font-black tracking-[-0.02em] text-[#e87636] sm:text-[26px]">
+    Hours
+  </h3>
+
+  <p className="mt-4 text-sm leading-6 text-white/70">
+    <span className="block font-bold text-white">
+      Monday – Thursday
+    </span>
+    Closed
+
+    <span className="mt-2 block font-bold text-white">
+      Friday – Saturday
+    </span>
+    4 PM – 12 AM
+
+    <span className="mt-2 block font-bold text-white">
+      Sunday
+    </span>
+    4 PM – 11 PM
+  </p>
+</div>
 
       {/* LOCATION */}
       <div>
